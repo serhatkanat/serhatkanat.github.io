@@ -99,7 +99,7 @@ function hesaplama() {
         const finalPuani = (parseInt(finalNotu.value) * (100 - parseInt(vizeOrani.value))) / 100;
         const sonuc = vizePuani + finalPuani;
         // console.log("merhaba 1");
-        alert(sonuc + " merhaba")
+        alert(sonuc)
     } else if (vize2.checked == true && uygulamaVar.checked == false) {
         const vizePuani1 = (parseInt(vizeNotu1.value) * parseInt(vizeOrani.value)) / 100;
         const vizePuani2 = (parseInt(vizeNotu2.value) * parseInt(vizeOrani.value)) / 100;
