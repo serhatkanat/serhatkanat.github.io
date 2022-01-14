@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vize-Final Notu Hesaplama</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- BS 5 -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Vize-Final Notu Hesaplama</h1>
+            <div class="vize-sayisi">
+                <form action="" id="vize-sayisi-form">
+                    <h5>Kaç Tane Vizeniz Var?</h5>
+                    <div>
+                        <input type="radio" name="vize" id="vize-1" class="vize" checked>
+                        <label for="vize-1">1 Tane Vize</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" name="vize" id="vize-2" class="vize">
+                        <label for="vize-2">2 Tane Vize</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" name="vize" id="vize-3" class="vize">
+                        <label for="vize-3">3 Tane Vize</label>
+                    </div>
+                    <h5>Uygulama Notunuz Var mı?</h5>
+                    <div>
+                        <input type="radio" name="uygulama" id="uygulama-var" class="uygulama">
+                        <label for="uygulama-var">Evet, var.</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="uygulama" id="uygulama-yok" class="uygulama">
+                        <label for="uygulama-yok">Hayır, yok.</label>
+                    </div>
+                    <hr>
+                    <div>
+                        <label id="vize-yuzde-label" for="vize-orani">Vizeniz Yüzde Kaç Etkiliyor?</label>
+                        <input min="0" max="100" type="number" name="vize-orani" id="vize-orani" required>
+                    </div>
+                    <br>
+                    <div class="hidden uygulama-div">
+                        <label for="uygulama-orani">Uygulamanız Yüzde Kaç Etkiliyor?</label>
+                        <input min="0" max="100" type="number" name="uygulama-orani" id="uygulama-orani">
+                    </div>
+                </form>
+            </div>
+            <br>
+            <div class="notlari-al">
+                <h5>Notlarınız</h5>
+                <form action="">
+                    <div class="vize-divleri">
+                        <label for="vize-notu-1">1. Vize Notunuz:</label>
+                        <input min="0" max="100" type="number" name="vize-notu" id="vize-notu-1" required>
+                    </div>
+                    
+                    <div class="hidden vize-divler" id="vize-notu-2-div">
+                        <label for="vize-notu-2">2. Vize Notunuz:</label>
+                        <input min="0" max="100" type="number" name="vize-notu" id="vize-notu-2">
+                    </div>
+                     
+                    <div class="hidden vize-divler" id="vize-notu-3-div">
+                        <label for="vize-notu-3">3. Vize Notunuz:</label>
+                        <input min="0" max="100" type="number" name="vize-notu" id="vize-notu-3">
+                    </div>
+
+                    <div class="hidden vize-divler" id="uygulama-notu-div">
+                        <label for="uygulama-notu">Uygulama Notunuz:</label>
+                        <input min="0" max="100" type="number" name="uygulama-notu" id="uygulama-notu">
+                    </div>
+
+                    <div id="final-notu-div">
+                        <label for="final-notu">Final Notunuz:</label>
+                        <input min="0" max="100" type="number" name="final-notunuz" id="final-notu">
+                    </div>
+                    <input type="submit" value="Gönder" id="gonder">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+        <script src="script.js"></script>
+</body>
+
+</html>
