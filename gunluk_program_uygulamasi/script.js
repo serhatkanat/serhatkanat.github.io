@@ -20,6 +20,20 @@ const yapilacakMetin8 = document.querySelector('#yapilacak-metin8');
 const yapilacakMetin9 = document.querySelector('#yapilacak-metin9');
 const yapilacakMetin10 = document.querySelector('#yapilacak-metin10');
 
+const yapilacak1 = document.querySelector('#yapilacak1');
+const yapilacak2 = document.querySelector('#yapilacak2');
+const yapilacak3 = document.querySelector('#yapilacak3');
+const yapilacak4 = document.querySelector('#yapilacak4');
+const yapilacak5 = document.querySelector('#yapilacak5');
+const yapilacak6 = document.querySelector('#yapilacak6');
+const yapilacak7 = document.querySelector('#yapilacak7');
+const yapilacak8 = document.querySelector('#yapilacak8');
+const yapilacak9 = document.querySelector('#yapilacak9');
+const yapilacak10 = document.querySelector('#yapilacak10');
+
+
+
+
 let yapilacaklar = [];
 
 
@@ -152,26 +166,169 @@ gorevDiv.forEach(function (button) {
 
     button.children[0].addEventListener('click', (e) => {
 
+
+
         if (button.id == "gorev-1") {
-            
+            yapilacaklar.push({
+                tarih: tarihSec.value,
+                madde1: "Yapıldı",
+                madde2: yapilacak2.textContent,
+                madde3: yapilacak3.textContent,
+                madde4: yapilacak4.textContent,
+                madde5: yapilacak5.textContent,
+                madde6: yapilacak6.textContent,
+                madde7: yapilacak7.textContent,
+                madde8: yapilacak8.textContent,
+                madde9: yapilacak9.textContent,
+                madde10: yapilacak10.textContent,
+            })
+            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+
+            button.children[0].style.backgroundColor = "#DC143C";
         } else if (button.id == "gorev-2") {
-            console.log(JSON.parse(localStorage.getItem(tarihSec.value)).madde2);
+            yapilacaklar.push({
+                tarih: tarihSec.value,
+                madde1: yapilacak1.textContent,
+                madde2: "Yapıldı",
+                madde3: yapilacak3.textContent,
+                madde4: yapilacak4.textContent,
+                madde5: yapilacak5.textContent,
+                madde6: yapilacak6.textContent,
+                madde7: yapilacak7.textContent,
+                madde8: yapilacak8.textContent,
+                madde9: yapilacak9.textContent,
+                madde10: yapilacak10.textContent,
+            })
+            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+            button.children[0].style.backgroundColor = "#DC143C";
         } else if (button.id == "gorev-3") {
-            console.log(button.children[2].textContent);
+            yapilacaklar.push({
+                tarih: tarihSec.value,
+                madde1: yapilacak1.textContent,
+                madde2: yapilacak2.textContent,
+                madde3: "Yapıldı",
+                madde4: yapilacak4.textContent,
+                madde5: yapilacak5.textContent,
+                madde6: yapilacak6.textContent,
+                madde7: yapilacak7.textContent,
+                madde8: yapilacak8.textContent,
+                madde9: yapilacak9.textContent,
+                madde10: yapilacak10.textContent,
+            })
+            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+            button.children[0].style.backgroundColor = "#DC143C";
         } else if (button.id == "gorev-4") {
-            console.log(button.children[2].textContent);
+            yapilacaklar.push({
+                tarih: tarihSec.value,
+                madde1: yapilacak1.textContent,
+                madde2: yapilacak2.textContent,
+                madde3: yapilacak3.textContent,
+                madde4: "Yapıldı",
+                madde5: yapilacak5.textContent,
+                madde6: yapilacak6.textContent,
+                madde7: yapilacak7.textContent,
+                madde8: yapilacak8.textContent,
+                madde9: yapilacak9.textContent,
+                madde10: yapilacak10.textContent,
+            })
+            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+            button.children[0].style.backgroundColor = "#DC143C";
         } else if (button.id == "gorev-5") {
-            console.log(button.children[2].textContent);
+            yapilacaklar.push({
+                tarih: tarihSec.value,
+                madde1: yapilacak1.textContent,
+                madde2: yapilacak2.textContent,
+                madde3: yapilacak3.textContent,
+                madde4: yapilacak4.textContent,
+                madde5: "Yapıldı",
+                madde6: yapilacak6.textContent,
+                madde7: yapilacak7.textContent,
+                madde8: yapilacak8.textContent,
+                madde9: yapilacak9.textContent,
+                madde10: yapilacak10.textContent,
+            })
+            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+            button.children[0].style.backgroundColor = "#DC143C";
         } else if (button.id == "gorev-6") {
-            console.log(button.children[2].textContent);
+            yapilacaklar.push({
+                tarih: tarihSec.value,
+                madde1: yapilacak1.textContent,
+                madde2: yapilacak2.textContent,
+                madde3: yapilacak3.textContent,
+                madde4: yapilacak4.textContent,
+                madde5: yapilacak5.textContent,
+                madde6: "Yapıldı",
+                madde7: yapilacak7.textContent,
+                madde8: yapilacak8.textContent,
+                madde9: yapilacak9.textContent,
+                madde10: yapilacak10.textContent,
+            })
+            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+            button.children[0].style.backgroundColor = "#DC143C";
         } else if (button.id == "gorev-7") {
-            console.log(button.children[2].textContent);
+            yapilacaklar.push({
+                tarih: tarihSec.value,
+                madde1: yapilacak1.textContent,
+                madde2: yapilacak2.textContent,
+                madde3: yapilacak3.textContent,
+                madde4: yapilacak4.textContent,
+                madde5: yapilacak5.textContent,
+                madde6: yapilacak6.textContent,
+                madde7: "Yapıldı",
+                madde8: yapilacak8.textContent,
+                madde9: yapilacak9.textContent,
+                madde10: yapilacak10.textContent,
+            })
+            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+            button.children[0].style.backgroundColor = "#DC143C";
         } else if (button.id == "gorev-8") {
-            console.log(button.children[2].textContent);
+            yapilacaklar.push({
+                tarih: tarihSec.value,
+                madde1: yapilacak1.textContent,
+                madde2: yapilacak2.textContent,
+                madde3: yapilacak3.textContent,
+                madde4: yapilacak4.textContent,
+                madde5: yapilacak5.textContent,
+                madde6: yapilacak6.textContent,
+                madde7: yapilacak7.textContent,
+                madde8: "Yapıldı",
+                madde9: yapilacak9.textContent,
+                madde10: yapilacak10.textContent,
+            })
+            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+            button.children[0].style.backgroundColor = "#DC143C";
         } else if (button.id == "gorev-9") {
-            console.log(button.children[2].textContent);
+            yapilacaklar.push({
+                tarih: tarihSec.value,
+                madde1: yapilacak1.textContent,
+                madde2: yapilacak2.textContent,
+                madde3: yapilacak3.textContent,
+                madde4: yapilacak4.textContent,
+                madde5: yapilacak5.textContent,
+                madde6: yapilacak6.textContent,
+                madde7: yapilacak7.textContent,
+                madde8: yapilacak8.textContent,
+                madde9: "Yapıldı",
+                madde10: yapilacak10.textContent,
+            })
+            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+            button.children[0].style.backgroundColor = "#DC143C";
         } else if (button.id == "gorev-10") {
-            console.log(button.children[2].textContent);
+            yapilacaklar.push({
+                tarih: tarihSec.value,
+                madde1: yapilacak1.textContent,
+                madde2: yapilacak2.textContent,
+                madde3: yapilacak3.textContent,
+                madde4: yapilacak4.textContent,
+                madde5: yapilacak5.textContent,
+                madde6: yapilacak6.textContent,
+                madde7: yapilacak7.textContent,
+                madde8: yapilacak8.textContent,
+                madde9: yapilacak9.textContent,
+                madde10: "Yapıldı",
+            })
+            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+            button.children[0].style.backgroundColor = "#DC143C";
         }
 
         e.preventDefault()
