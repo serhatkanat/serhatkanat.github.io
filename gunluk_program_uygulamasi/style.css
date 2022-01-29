@@ -6,6 +6,10 @@
     padding-bottom: 50px;
 }
 
+.tarih-sec-div{
+    margin-bottom: 5px;
+}
+
 
 .gorevler-div {
     margin-top: 30px;
@@ -31,9 +35,14 @@
 	font-family:Arial;
 	font-size:15px;
 	font-weight:bold;
-	padding:6px 24px;
+	padding:6px 8px;
 	text-decoration:none;
 	text-shadow:0px -1px 0px #5b6178;
+    margin: 3px;
+}
+.btn-tamam:hover {
+	background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
+	background-color:#019ad2;
 }
 
 .btn-tamam {
@@ -42,4 +51,8 @@
 
 .p-yapilacak {
     display: inline;
+}
+
+.yapilacak-div input{
+    width: 300px;
 }

@@ -40,17 +40,26 @@ let yapilacaklar = [];
 tarihSecBtn.addEventListener('click', (e) => {
 
     // console.log(JSON.parse(localStorage.getItem(tarihSec.value)).tarih);
+    
+        if (tarihSec.value == '') {
+            alert("Lütfen Bir Tarih Seçin")
+        }else{
+        if (tarihSec.value == JSON.parse(localStorage.getItem(tarihSec.value)).tarih) {
 
-    if (tarihSec.value == JSON.parse(localStorage.getItem(tarihSec.value)).tarih) {
+
+            gorevDiv.forEach(function (gorev) {
 
 
-        gorevDiv.forEach(function (gorev) {
 
-            console.log(JSON.parse(localStorage.getItem(tarihSec.value)).tarih);
+                console.log(JSON.parse(localStorage.getItem(tarihSec.value)).tarih);
 
-            yapilacakMadde(gorev, JSON.parse(localStorage.getItem(tarihSec.value)))
+                yapilacakMadde(gorev, JSON.parse(localStorage.getItem(tarihSec.value)))
 
-        })
+            })
+        
+
+        }
+
     }
 
 
@@ -166,190 +175,201 @@ gorevDiv.forEach(function (button) {
 
     button.children[0].addEventListener('click', (e) => {
 
-
-
         if (button.id == "gorev-1") {
             if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
-            yapilacaklar.push({
-                tarih: tarihSec.value,
-                madde1: "Yapıldı",
-                madde2: yapilacak2.textContent,
-                madde3: yapilacak3.textContent,
-                madde4: yapilacak4.textContent,
-                madde5: yapilacak5.textContent,
-                madde6: yapilacak6.textContent,
-                madde7: yapilacak7.textContent,
-                madde8: yapilacak8.textContent,
-                madde9: yapilacak9.textContent,
-                madde10: yapilacak10.textContent,
-            })
-            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-
-            button.children[0].style.backgroundColor = "#DC143C";}
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: "Yapıldı",
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                button.children[0].style.backgroundColor = "#DC143C";
+            };
+            tarihSecBtn.click();
         } else if (button.id == "gorev-2") {
             if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
-            yapilacaklar.push({
-                tarih: tarihSec.value,
-                madde1: yapilacak1.textContent,
-                madde2: "Yapıldı",
-                madde3: yapilacak3.textContent,
-                madde4: yapilacak4.textContent,
-                madde5: yapilacak5.textContent,
-                madde6: yapilacak6.textContent,
-                madde7: yapilacak7.textContent,
-                madde8: yapilacak8.textContent,
-                madde9: yapilacak9.textContent,
-                madde10: yapilacak10.textContent,
-            })
-            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";}
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: "Yapıldı",
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                button.children[0].style.backgroundColor = "#DC143C";
+            };
+            tarihSecBtn.click();
         } else if (button.id == "gorev-3") {
             if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
-            yapilacaklar.push({
-                tarih: tarihSec.value,
-                madde1: yapilacak1.textContent,
-                madde2: yapilacak2.textContent,
-                madde3: "Yapıldı",
-                madde4: yapilacak4.textContent,
-                madde5: yapilacak5.textContent,
-                madde6: yapilacak6.textContent,
-                madde7: yapilacak7.textContent,
-                madde8: yapilacak8.textContent,
-                madde9: yapilacak9.textContent,
-                madde10: yapilacak10.textContent,
-            })
-            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";}
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: "Yapıldı",
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                button.children[0].style.backgroundColor = "#DC143C";
+            };
+            tarihSecBtn.click();
         } else if (button.id == "gorev-4") {
             if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
-            yapilacaklar.push({
-                tarih: tarihSec.value,
-                madde1: yapilacak1.textContent,
-                madde2: yapilacak2.textContent,
-                madde3: yapilacak3.textContent,
-                madde4: "Yapıldı",
-                madde5: yapilacak5.textContent,
-                madde6: yapilacak6.textContent,
-                madde7: yapilacak7.textContent,
-                madde8: yapilacak8.textContent,
-                madde9: yapilacak9.textContent,
-                madde10: yapilacak10.textContent,
-            })
-            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";}
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: "Yapıldı",
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                button.children[0].style.backgroundColor = "#DC143C";
+            };
+            tarihSecBtn.click();
         } else if (button.id == "gorev-5") {
             if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
-            yapilacaklar.push({
-                tarih: tarihSec.value,
-                madde1: yapilacak1.textContent,
-                madde2: yapilacak2.textContent,
-                madde3: yapilacak3.textContent,
-                madde4: yapilacak4.textContent,
-                madde5: "Yapıldı",
-                madde6: yapilacak6.textContent,
-                madde7: yapilacak7.textContent,
-                madde8: yapilacak8.textContent,
-                madde9: yapilacak9.textContent,
-                madde10: yapilacak10.textContent,
-            })
-            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";}
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: "Yapıldı",
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                button.children[0].style.backgroundColor = "#DC143C";
+            };
+            tarihSecBtn.click();
         } else if (button.id == "gorev-6") {
             if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
-            yapilacaklar.push({
-                tarih: tarihSec.value,
-                madde1: yapilacak1.textContent,
-                madde2: yapilacak2.textContent,
-                madde3: yapilacak3.textContent,
-                madde4: yapilacak4.textContent,
-                madde5: yapilacak5.textContent,
-                madde6: "Yapıldı",
-                madde7: yapilacak7.textContent,
-                madde8: yapilacak8.textContent,
-                madde9: yapilacak9.textContent,
-                madde10: yapilacak10.textContent,
-            })
-            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";}
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: "Yapıldı",
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                button.children[0].style.backgroundColor = "#DC143C";
+            };
+            tarihSecBtn.click();
         } else if (button.id == "gorev-7") {
             if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
-            yapilacaklar.push({
-                tarih: tarihSec.value,
-                madde1: yapilacak1.textContent,
-                madde2: yapilacak2.textContent,
-                madde3: yapilacak3.textContent,
-                madde4: yapilacak4.textContent,
-                madde5: yapilacak5.textContent,
-                madde6: yapilacak6.textContent,
-                madde7: "Yapıldı",
-                madde8: yapilacak8.textContent,
-                madde9: yapilacak9.textContent,
-                madde10: yapilacak10.textContent,
-            })
-            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";}
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: "Yapıldı",
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                button.children[0].style.backgroundColor = "#DC143C";
+            };
+            tarihSecBtn.click();
         } else if (button.id == "gorev-8") {
             if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
-            yapilacaklar.push({
-                tarih: tarihSec.value,
-                madde1: yapilacak1.textContent,
-                madde2: yapilacak2.textContent,
-                madde3: yapilacak3.textContent,
-                madde4: yapilacak4.textContent,
-                madde5: yapilacak5.textContent,
-                madde6: yapilacak6.textContent,
-                madde7: yapilacak7.textContent,
-                madde8: "Yapıldı",
-                madde9: yapilacak9.textContent,
-                madde10: yapilacak10.textContent,
-            })
-            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";}
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: "Yapıldı",
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                button.children[0].style.backgroundColor = "#DC143C";
+            };
+            tarihSecBtn.click();
         } else if (button.id == "gorev-9") {
             if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
-            yapilacaklar.push({
-                tarih: tarihSec.value,
-                madde1: yapilacak1.textContent,
-                madde2: yapilacak2.textContent,
-                madde3: yapilacak3.textContent,
-                madde4: yapilacak4.textContent,
-                madde5: yapilacak5.textContent,
-                madde6: yapilacak6.textContent,
-                madde7: yapilacak7.textContent,
-                madde8: yapilacak8.textContent,
-                madde9: "Yapıldı",
-                madde10: yapilacak10.textContent,
-            })
-            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";}
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: "Yapıldı",
+                    madde10: yapilacak10.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                button.children[0].style.backgroundColor = "#DC143C";
+            };
+            tarihSecBtn.click();
         } else if (button.id == "gorev-10") {
             if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
-            yapilacaklar.push({
-                tarih: tarihSec.value,
-                madde1: yapilacak1.textContent,
-                madde2: yapilacak2.textContent,
-                madde3: yapilacak3.textContent,
-                madde4: yapilacak4.textContent,
-                madde5: yapilacak5.textContent,
-                madde6: yapilacak6.textContent,
-                madde7: yapilacak7.textContent,
-                madde8: yapilacak8.textContent,
-                madde9: yapilacak9.textContent,
-                madde10: "Yapıldı",
-            })
-            localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";}
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: "Yapıldı",
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                button.children[0].style.backgroundColor = "#DC143C";
+            };
+            tarihSecBtn.click();
         }
 
         e.preventDefault()
     })
 })
-
-
-
-
-
-
 
 
 
