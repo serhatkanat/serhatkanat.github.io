@@ -169,6 +169,7 @@ gorevDiv.forEach(function (button) {
 
 
         if (button.id == "gorev-1") {
+            if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
             yapilacaklar.push({
                 tarih: tarihSec.value,
                 madde1: "Yapıldı",
@@ -184,8 +185,9 @@ gorevDiv.forEach(function (button) {
             })
             localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
 
-            button.children[0].style.backgroundColor = "#DC143C";
+            button.children[0].style.backgroundColor = "#DC143C";}
         } else if (button.id == "gorev-2") {
+            if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
             yapilacaklar.push({
                 tarih: tarihSec.value,
                 madde1: yapilacak1.textContent,
@@ -200,8 +202,9 @@ gorevDiv.forEach(function (button) {
                 madde10: yapilacak10.textContent,
             })
             localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";
+            button.children[0].style.backgroundColor = "#DC143C";}
         } else if (button.id == "gorev-3") {
+            if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
             yapilacaklar.push({
                 tarih: tarihSec.value,
                 madde1: yapilacak1.textContent,
@@ -216,8 +219,9 @@ gorevDiv.forEach(function (button) {
                 madde10: yapilacak10.textContent,
             })
             localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";
+            button.children[0].style.backgroundColor = "#DC143C";}
         } else if (button.id == "gorev-4") {
+            if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
             yapilacaklar.push({
                 tarih: tarihSec.value,
                 madde1: yapilacak1.textContent,
@@ -232,8 +236,9 @@ gorevDiv.forEach(function (button) {
                 madde10: yapilacak10.textContent,
             })
             localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";
+            button.children[0].style.backgroundColor = "#DC143C";}
         } else if (button.id == "gorev-5") {
+            if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
             yapilacaklar.push({
                 tarih: tarihSec.value,
                 madde1: yapilacak1.textContent,
@@ -248,8 +253,9 @@ gorevDiv.forEach(function (button) {
                 madde10: yapilacak10.textContent,
             })
             localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";
+            button.children[0].style.backgroundColor = "#DC143C";}
         } else if (button.id == "gorev-6") {
+            if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
             yapilacaklar.push({
                 tarih: tarihSec.value,
                 madde1: yapilacak1.textContent,
@@ -264,8 +270,9 @@ gorevDiv.forEach(function (button) {
                 madde10: yapilacak10.textContent,
             })
             localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";
+            button.children[0].style.backgroundColor = "#DC143C";}
         } else if (button.id == "gorev-7") {
+            if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
             yapilacaklar.push({
                 tarih: tarihSec.value,
                 madde1: yapilacak1.textContent,
@@ -280,8 +287,9 @@ gorevDiv.forEach(function (button) {
                 madde10: yapilacak10.textContent,
             })
             localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";
+            button.children[0].style.backgroundColor = "#DC143C";}
         } else if (button.id == "gorev-8") {
+            if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
             yapilacaklar.push({
                 tarih: tarihSec.value,
                 madde1: yapilacak1.textContent,
@@ -296,8 +304,9 @@ gorevDiv.forEach(function (button) {
                 madde10: yapilacak10.textContent,
             })
             localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";
+            button.children[0].style.backgroundColor = "#DC143C";}
         } else if (button.id == "gorev-9") {
+            if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
             yapilacaklar.push({
                 tarih: tarihSec.value,
                 madde1: yapilacak1.textContent,
@@ -312,8 +321,9 @@ gorevDiv.forEach(function (button) {
                 madde10: yapilacak10.textContent,
             })
             localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";
+            button.children[0].style.backgroundColor = "#DC143C";}
         } else if (button.id == "gorev-10") {
+            if (confirm('Bu görev yapıldı mı? (Bu seçimi daha sonra geri alamazsınız!)')) {
             yapilacaklar.push({
                 tarih: tarihSec.value,
                 madde1: yapilacak1.textContent,
@@ -328,7 +338,7 @@ gorevDiv.forEach(function (button) {
                 madde10: "Yapıldı",
             })
             localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
-            button.children[0].style.backgroundColor = "#DC143C";
+            button.children[0].style.backgroundColor = "#DC143C";}
         }
 
         e.preventDefault()
