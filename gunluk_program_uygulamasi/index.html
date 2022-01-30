@@ -34,10 +34,10 @@
 </head>
 
 <body>
+        <h1>Günlük Program</h1>
     <div class="container">
-        <div class="heading">
-            <h1>Günlük Program</h1>
-        </div>
+        <div class="container-item">
+        <h3 style="margin-top: 5px; color: #007fff; text-align: center;">Görev Oluştur/Düzenle</h3>
         <div class="duzenle-div">
             <label for="tarih-duzenle">Değiştireceğiniz Tarih:</label>
             <input type="date" name="tarih-duzenle" id="tarih-duzenle">
@@ -65,14 +65,14 @@
 
             <input type="submit" value="Kaydet" id="tarih-duzenle-btn">
         </div>
-
+</div>
         <div class="gorevler-div">
-            <h2>Yapılacaklar:</h2>
+            <h3 style="color:#32cd32; text-align: center; margin-top: 5px;">Yapılacaklar</h3>
             <div class="tarih-sec-div">
-                <label for="tarih-sec">Tarih:</label>
-                <input type="date" id="tarih-sec">
-                <input type="submit" value="Seç" id="tarih-sec-btn">
+                <label for="tarih-sec">Tarih:&nbsp; </label> <input type="date" id="tarih-sec">&nbsp;
+                <input type="submit" value="Güncelle" id="tarih-sec-btn">
             </div>
+            <div class="yapilacaklar-divi">
             <div class="gorev-div" id="gorev-1"><button class="btn-tamam"><i class="fas fa-check"></i></button><span><b>
                         1. </b></span>
                 <p class="p-yapilacak" id="yapilacak1"></p>
@@ -113,7 +113,7 @@
                         class="fas fa-check"></i></button><span><b> 10. </b></span>
                 <p class="p-yapilacak" id="yapilacak10"></p>
             </div>
-
+        </div>
         </div>
 
     </div>

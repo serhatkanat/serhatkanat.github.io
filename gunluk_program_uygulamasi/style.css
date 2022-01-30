@@ -1,48 +1,60 @@
+body {
+    background-color: #f5e4ce;
+}
+
 .container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    justify-content: space-evenly;
+    /* align-items: center;
+    flex-direction: column; */
     padding-bottom: 50px;
 }
 
-.tarih-sec-div{
+.duzenle-div{
+    width: max-content;
+}
+
+
+#tarih-duzenle-btn {
+    margin-top: 10px;
+    margin-left: 26px;
+}
+
+.tarih-sec-div {
     margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
 }
 
 
 .gorevler-div {
-    margin-top: 30px;
+    margin-top: 0;
 }
 
 .gorev-div {
     width: 350px;
     height: 105px;
-    border: 1px solid black;
+    border: 1px solid #696969;
     margin-bottom: 5px;
-    border-radius: 0px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
     background-color: #74EBD5;
 }
 
 .btn-tamam {
-	box-shadow: 0px 1px 0px 0px #f0f7fa;
-	background-color:#019ad2;
-	border-radius:6px;
-	border:1px solid #057fd0;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 8px;
-	text-decoration:none;
-	text-shadow:0px -1px 0px #5b6178;
+    box-shadow: 0px 1px 0px 0px #f0f7fa;
+    background-color: #019ad2;
+    border-radius: 10px;
+    border: 0px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 8px;
+    text-decoration: none;
+    text-shadow: 0px -1px 0px #5b6178;
     margin: 3px;
-}
-.btn-tamam:hover {
-	background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
-	background-color:#019ad2;
 }
 
 .btn-tamam {
@@ -53,6 +65,75 @@
     display: inline;
 }
 
-.yapilacak-div input{
-    width: 300px;
+.yapilacak-div input {
+    width: 330px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border-width: 1px;
+}
+
+.yapilacak-div input:not(#yapilacak-metin10) {
+    margin-left: 9px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.yapilacaklar-divi{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+#tarih-duzenle, #tarih-sec{
+        border-radius: 6px;
+        padding: 3px;
+        border-width: 1px;
+}
+
+#tarih-duzenle-btn, #tarih-sec-btn {
+    font-size:15px;
+    font-family:Arial;
+    width:97px;
+    height:32px;
+    border-width:1px;
+    color:#ffffff;
+    border-color:#057fd0;
+    font-weight:bold;
+    border-top-left-radius:6px;
+    border-top-right-radius:6px;
+    border-bottom-left-radius:6px;
+    border-bottom-right-radius:6px;
+    box-shadow: 0px 1px 0px 0px #f0f7fa;
+    text-shadow: 0px -1px 0px #5b6178;
+    background:linear-gradient(#33bdef, #019ad2);
+  }
+  
+  #tarih-duzenle-btn:hover, #tarih-sec-btn:hover {
+    background: linear-gradient(#019ad2, #33bdef);
+  }
+
+@media screen and (max-width: 970px) {
+    .container {
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .gorevler-div {
+        margin-top: 15px;
+    }
+}
+
+@media screen and (max-width: 365px) {
+    .yapilacaklar-divi{
+        width: 320px;
+    }
+    .container-item{
+        width: 315px;
+    }
+    .yapilacak-div input{
+        width: 288px;
+    }
 }
