@@ -10,6 +10,8 @@ window.onload = function () {
     tarihSecBtn.click();
 };
 
+document.addEventListener('DOMContentLoaded', localStoragOku)
+
 const gorevDiv = document.querySelectorAll('.gorev-div');
 
 const tarihDuzenle = document.querySelector('#tarih-duzenle');
@@ -88,23 +90,41 @@ const enFazla20GorevP = document.querySelector('#en-fazla-20-gorev-p');
 kacTaneGorevOlsun.addEventListener('input', (e) => {
 
 
-    
     kacTaneGorevEklesin(kacTaneGorevOlsun.value);
 
     if (kacTaneGorevOlsun.value > 20) {
         enFazla20GorevP.textContent = "En Fazla 20 Görev Ekleybilirsiniz!"
-        enFazla20GorevP.classList.add('text-danger','animate__animated','animate__shakeX')
+        enFazla20GorevP.classList.add('text-danger', 'animate__animated', 'animate__shakeX')
         kacTaneGorevEklesin('20');
         kacTaneGorevOlsun.value = 20;
-    }else{
-            enFazla20GorevP.textContent = ""
+    } else {
+        enFazla20GorevP.textContent = ""
     }
 
-        enFazla20GorevP.addEventListener('animationend', () => {
-        enFazla20GorevP.classList.remove('animate__animated','animate__shakeX')
+    enFazla20GorevP.addEventListener('animationend', () => {
+        enFazla20GorevP.classList.remove('animate__animated', 'animate__shakeX')
         uyariyiSil();
-      });
-    
+    });
+
+
+    const gorevlerObject = JSON.parse(localStorage.getItem(tarihDuzenle.value));
+
+    const gorevlerArray = Object.values(gorevlerObject).reverse();
+    let x = 20;
+
+    // for (let i = 0; i < 20; i++) {
+
+    //     //   console.log(gorevlerArray[i]);
+    //     x--;
+
+    //       if((gorevlerArray[i] != '') && (gorevlerArray[i] != tarihDuzenle.value)){
+    //                 console.log(gorevlerArray[i] + " kod çalıştı");
+    //                 break;
+    //             }   
+    //     kacTaneGorevEklesin((x).toString())
+    //     kacTaneGorevOlsun.value = x
+    // }
+
 
     e.preventDefault();
 })
@@ -126,17 +146,17 @@ tarihDuzenle.addEventListener('change', (e) => {
         //   console.log(gorevlerArray[i]);
         x--;
 
-          if((gorevlerArray[i] != '') && (gorevlerArray[i] != tarihDuzenle.value)){
-                    console.log(gorevlerArray[i] + " kod çalıştı");
-                    break;
-                }   
+        if ((gorevlerArray[i] != '') && (gorevlerArray[i] != tarihDuzenle.value)) {
+            console.log(gorevlerArray[i] + " kod çalıştı");
+            break;
+        }
         kacTaneGorevEklesin((x).toString())
         kacTaneGorevOlsun.value = x
     }
 
 
 
-    })
+})
 
 
 
@@ -279,7 +299,7 @@ tarihSec.addEventListener('change', (e) => {
         yapilacak17.textContent = "";
         yapilacak18.textContent = "";
         yapilacak19.textContent = "";
-        yapilacak20.textContent = ""; 
+        yapilacak20.textContent = "";
     } else {
         yapilacak1.textContent = JSON.parse(localStorage.getItem(tarihSec.value)).madde1;
         yapilacak2.textContent = JSON.parse(localStorage.getItem(tarihSec.value)).madde2;
@@ -356,23 +376,23 @@ tarihDuzenleBtn.addEventListener('click', (e) => {
         window.scroll({
             top: 1,
             behavior: 'smooth'
-          });
+        });
         enFazla20GorevP.textContent = "Görevler Kaydedildi!"
         enFazla20GorevP.classList.remove('text-danger')
-        enFazla20GorevP.classList.add('text-success','animate__animated','animate__rubberBand')
+        enFazla20GorevP.classList.add('text-success', 'animate__animated', 'animate__rubberBand')
 
         enFazla20GorevP.addEventListener('animationend', () => {
-        enFazla20GorevP.classList.remove('animate__animated','animate__rubberBand')
-        uyariyiSil();
-          });  
+            enFazla20GorevP.classList.remove('animate__animated', 'animate__rubberBand')
+            uyariyiSil();
+        });
     }
     e.preventDefault()
 })
 
 function uyariyiSil() {
-    setTimeout(()=>{
+    setTimeout(() => {
         enFazla20GorevP.textContent = ""
-    }, 2500);
+    }, 3500);
 }
 
 
@@ -430,6 +450,155 @@ tarihDuzenle.addEventListener('change', (e) => {
 
     e.preventDefault();
 })
+
+
+const faBookmark = document.querySelector('.fa-bookmark');
+const closeBtn = document.querySelector('.favoriler-close');
+const favorilerBackground = document.querySelector('.favoriler-background');
+const copyP = document.querySelector('.copy-p');
+const favoriP = document.querySelectorAll('.favori-p');
+const favorDivler = document.querySelectorAll('.favori-div');
+
+
+faBookmark.addEventListener('click', (e) => {
+
+    favorilerBackground.classList.toggle('hidden');
+    localStoragOku()
+
+    e.preventDefault();
+})
+
+closeBtn.addEventListener('click', (e) => {
+
+    favorilerBackground.classList.add('hidden');
+
+    e.preventDefault();
+})
+
+yapilacakDivler.forEach(function (yapilacakDiv) {
+
+
+    yapilacakDiv.addEventListener('mouseover', (e) => {
+        yapilacakDiv.children[2].classList.remove('hidden');
+        yapilacakDiv.children[1].style.width = '290px';
+    })
+
+    yapilacakDiv.addEventListener('mouseout', (e) => {
+        yapilacakDiv.children[2].classList.add('hidden');
+        yapilacakDiv.children[1].style.width = '330px';
+    })
+
+
+    yapilacakDiv.children[2].addEventListener('click', () => {
+
+        let favoriler;
+
+        if (localStorage.getItem('favoriler') === null) {
+            favoriler = [];
+        } else {
+            favoriler = JSON.parse(localStorage.getItem('favoriler'))
+        }
+
+
+        if (yapilacakDiv.children[1].value != '' ) {
+
+        if (favoriler.length < 10) {
+            favoriler.push(yapilacakDiv.children[1].value)
+            localStorage.setItem('favoriler', JSON.stringify(favoriler))
+
+            window.scroll({
+                top: 1,
+                behavior: 'smooth'
+            });
+
+            enFazla20GorevP.textContent = "Favorilere Eklendi!"
+            enFazla20GorevP.classList.remove('text-danger')
+            enFazla20GorevP.classList.add('text-success', 'animate__animated', 'animate__rubberBand')
+            enFazla20GorevP.addEventListener('animationend', () => {
+                enFazla20GorevP.classList.remove('animate__animated', 'animate__rubberBand')
+                uyariyiSil();
+            });
+
+        } else {
+            window.scroll({
+                top: 1,
+                behavior: 'smooth'
+            });
+            enFazla20GorevP.textContent = "En Fazla 10 Tane Görev Kopyalayabilirsiniz!"
+            enFazla20GorevP.classList.add('text-danger', 'animate__animated', 'animate__shakeX');
+
+            enFazla20GorevP.addEventListener('animationend', () => {
+                enFazla20GorevP.classList.remove('animate__animated', 'animate__shakeX')
+                uyariyiSil();
+            });
+        }
+
+    }
+
+    })
+
+})
+
+
+favorDivler.forEach(function (favoriDiv) {
+
+    favoriDiv.children[1].addEventListener('click', () => {
+        let favoriler;
+
+        if (localStorage.getItem('favoriler') === null) {
+            favoriler = [];
+        } else {
+            favoriler = JSON.parse(localStorage.getItem('favoriler'))
+        }
+
+        if (favoriDiv.children[0].textContent != '') {
+            // splice item silme
+            if (confirm("Bu favori görevi silmekten emin misiniz?")) {
+                const silinecekElemanİndex = favoriler.indexOf(favoriDiv.children[0].textContent);
+                favoriler.splice(silinecekElemanİndex, 1);
+                localStorage.setItem('favoriler', JSON.stringify(favoriler));
+                localStoragOku()
+            }
+
+        }
+
+
+    })
+
+    favoriDiv.children[2].addEventListener('click', () => {
+        console.log(favoriDiv.children[0].textContent);
+
+        navigator.clipboard.writeText(favoriDiv.children[0].textContent);
+    })
+
+})
+
+
+
+function localStoragOku() {
+
+    let favoriler;
+    if (localStorage.getItem('favoriler') === null) {
+        favoriler = [];
+    } else {
+        favoriler = JSON.parse(localStorage.getItem('favoriler'))
+    }
+
+    // favoriP.forEach(function (favori) {
+
+    //     favori.te
+
+    // })
+
+    for (let i = 0; i < favoriP.length; i++) {
+        const element = favoriP[i];
+        element.textContent = favoriler[i];
+    }
+}
+
+
+
+
 
 
 gorevDiv.forEach(function (button) {
