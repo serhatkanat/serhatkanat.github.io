@@ -70,6 +70,9 @@ const kacTaneGorevOlsunBtn = document.querySelector('#kac-tane-gorev-olsun-btn')
 
 const enFazla20GorevP = document.querySelector('#en-fazla-20-gorev-p');
 
+const gosterGizle = document.querySelector('#goster-gizle');
+const istatistikler = document.querySelector('#istatistikler');
+
 // let prev;
 
 // const change = (i) => {
@@ -205,8 +208,79 @@ tarihSecBtn.addEventListener('click', (e) => {
 
     })
 
+
+
     e.preventDefault();
+
+    istatistiklerFun();
+
 })
+
+function istatistiklerFun() {
+    let yapildiSayisi = 0;
+    let birGunOnceYapildiSayisi = 0;
+    let toplamGorevSayisi = 0;
+    let birGunOnceToplamGorevSayisi = 0;
+    const tarihSecArray = tarihSec.value.split("-")
+
+    tarihSecArray[2] = (tarihSecArray[2] - 1).toString();
+
+    const birGunOnce = tarihSecArray.join('-');
+
+
+    let birGunOnceArray;
+    if (localStorage.getItem(birGunOnce) != null) {
+        birGunOnceArray = Object.values(JSON.parse(localStorage.getItem(birGunOnce)));
+
+
+
+        for (let i = 1; i < birGunOnceArray.length; i++) {
+
+
+            if (birGunOnceArray[i] == 'Yapıldı') {
+                birGunOnceYapildiSayisi++
+            }
+
+            if (birGunOnceArray[i] != '') {
+                birGunOnceToplamGorevSayisi++;
+            }
+        }
+    }
+
+
+    for (let i = 0; i < yapilacakListesi.length; i++) {
+
+
+        if (yapilacakListesi[i].textContent == 'Yapıldı') {
+            yapildiSayisi++
+        }
+
+        if (yapilacakListesi[i].textContent != '') {
+            toplamGorevSayisi++;
+        }
+    }
+
+    const basariOrani = (100 / toplamGorevSayisi) * yapildiSayisi
+    const birGunOnceBasariOrani = (100 / birGunOnceToplamGorevSayisi) * birGunOnceYapildiSayisi
+    const degisimOrani = basariOrani - birGunOnceBasariOrani
+    console.log(degisimOrani);
+
+    // if (localStorage.getItem(tarihSec.value) == null) {
+        
+    // }
+
+    if (localStorage.getItem(tarihSec.value) == null && isNaN(degisimOrani)){
+        istatistikler.innerHTML = ``
+    }else if(localStorage.getItem(tarihSec.value) == null){
+        istatistikler.innerHTML = ``
+    }else if(isNaN(degisimOrani) ){
+        istatistikler.innerHTML = `Bugünün Başarı Oranı: %${parseInt(basariOrani)}`
+        console.log("çalıştı");
+    }else{
+        istatistikler.innerHTML = `Bugünün Başarı Oranı: %${parseInt(basariOrani)}</br>Bir Önceki Güne Göre Değişim: %${parseInt(degisimOrani)}`
+    }
+}
+
 
 function yapilacakMadde(gorev, yapilacak) {
 
@@ -332,6 +406,8 @@ tarihSec.addEventListener('change', (e) => {
         }
 
     });
+
+    istatistiklerFun();
 
     e.preventDefault();
 
@@ -500,40 +576,40 @@ yapilacakDivler.forEach(function (yapilacakDiv) {
         }
 
 
-        if (yapilacakDiv.children[1].value != '' ) {
+        if (yapilacakDiv.children[1].value != '') {
 
-        if (favoriler.length < 10) {
-            favoriler.push(yapilacakDiv.children[1].value)
-            localStorage.setItem('favoriler', JSON.stringify(favoriler))
+            if (favoriler.length < 10) {
+                favoriler.push(yapilacakDiv.children[1].value)
+                localStorage.setItem('favoriler', JSON.stringify(favoriler))
 
-            window.scroll({
-                top: 1,
-                behavior: 'smooth'
-            });
+                window.scroll({
+                    top: 1,
+                    behavior: 'smooth'
+                });
 
-            enFazla20GorevP.textContent = "Favorilere Eklendi!"
-            enFazla20GorevP.classList.remove('text-danger')
-            enFazla20GorevP.classList.add('text-success', 'animate__animated', 'animate__rubberBand')
-            enFazla20GorevP.addEventListener('animationend', () => {
-                enFazla20GorevP.classList.remove('animate__animated', 'animate__rubberBand')
-                uyariyiSil();
-            });
+                enFazla20GorevP.textContent = "Favorilere Eklendi!"
+                enFazla20GorevP.classList.remove('text-danger')
+                enFazla20GorevP.classList.add('text-success', 'animate__animated', 'animate__rubberBand')
+                enFazla20GorevP.addEventListener('animationend', () => {
+                    enFazla20GorevP.classList.remove('animate__animated', 'animate__rubberBand')
+                    uyariyiSil();
+                });
 
-        } else {
-            window.scroll({
-                top: 1,
-                behavior: 'smooth'
-            });
-            enFazla20GorevP.textContent = "En Fazla 10 Tane Görev Kopyalayabilirsiniz!"
-            enFazla20GorevP.classList.add('text-danger', 'animate__animated', 'animate__shakeX');
+            } else {
+                window.scroll({
+                    top: 1,
+                    behavior: 'smooth'
+                });
+                enFazla20GorevP.textContent = "En Fazla 10 Tane Görev Kopyalayabilirsiniz!"
+                enFazla20GorevP.classList.add('text-danger', 'animate__animated', 'animate__shakeX');
 
-            enFazla20GorevP.addEventListener('animationend', () => {
-                enFazla20GorevP.classList.remove('animate__animated', 'animate__shakeX')
-                uyariyiSil();
-            });
+                enFazla20GorevP.addEventListener('animationend', () => {
+                    enFazla20GorevP.classList.remove('animate__animated', 'animate__shakeX')
+                    uyariyiSil();
+                });
+            }
+
         }
-
-    }
 
     })
 
@@ -597,6 +673,21 @@ function localStoragOku() {
 }
 
 
+// İstatistikler İçin Kodlar
+
+
+gosterGizle.addEventListener('click', (e) => {
+
+    istatistikler.classList.toggle('hidden');
+    istatistikler.classList.add('acilma-animasyonu')
+
+    if (istatistikler.classList.contains('hidden')) {
+        gosterGizle.textContent = 'Göster'
+    } else {
+        gosterGizle.textContent = 'Gizle'
+    }
+
+})
 
 
 
