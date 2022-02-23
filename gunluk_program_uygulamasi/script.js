@@ -440,6 +440,7 @@ tarihSec.addEventListener('change', (e) => {
 
 const gorevleriGosterGizle = function () {
     const gorevlerGG = JSON.parse(localStorage.getItem(tarihSec.value));
+    if(gorevlerGG != null){
     const gorevlerGGArray = Object.values(gorevlerGG).reverse();
     console.log(gorevlerGGArray);
 
@@ -457,6 +458,9 @@ const gorevleriGosterGizle = function () {
     }
 
     kacTaneGorevDiviGostersin((x + 1).toString())
+}else{
+    kacTaneGorevDiviGostersin('0')
+}
 }
 
 
