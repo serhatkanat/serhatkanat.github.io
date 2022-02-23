@@ -8,6 +8,7 @@ const guncelTarih = formatYmd(new Date());
 window.onload = function () {
     tarihSec.value = guncelTarih;
     tarihSecBtn.click();
+    gorevleriGosterGizle();
 };
 
 document.addEventListener('DOMContentLoaded', localStoragOku)
@@ -18,6 +19,27 @@ const tarihDuzenle = document.querySelector('#tarih-duzenle');
 const tarihDuzenleBtn = document.querySelector('#tarih-duzenle-btn');
 
 const kacinciMadde = document.querySelector('#kacinci-madde');
+
+const gorev1 = document.querySelector('#gorev-1');
+const gorev2 = document.querySelector('#gorev-2');
+const gorev3 = document.querySelector('#gorev-3');
+const gorev4 = document.querySelector('#gorev-4');
+const gorev5 = document.querySelector('#gorev-5');
+const gorev6 = document.querySelector('#gorev-6');
+const gorev7 = document.querySelector('#gorev-7');
+const gorev8 = document.querySelector('#gorev-8');
+const gorev9 = document.querySelector('#gorev-9');
+const gorev10 = document.querySelector('#gorev-10');
+const gorev11 = document.querySelector('#gorev-11');
+const gorev12 = document.querySelector('#gorev-12');
+const gorev13 = document.querySelector('#gorev-13');
+const gorev14 = document.querySelector('#gorev-14');
+const gorev15 = document.querySelector('#gorev-15');
+const gorev16 = document.querySelector('#gorev-16');
+const gorev17 = document.querySelector('#gorev-17');
+const gorev18 = document.querySelector('#gorev-18');
+const gorev19 = document.querySelector('#gorev-19');
+const gorev20 = document.querySelector('#gorev-20');
 
 
 const yapilacakMetin1 = document.querySelector('#yapilacak-metin1');
@@ -266,17 +288,17 @@ function istatistiklerFun() {
     console.log(degisimOrani);
 
     // if (localStorage.getItem(tarihSec.value) == null) {
-        
+
     // }
 
-    if (localStorage.getItem(tarihSec.value) == null && isNaN(degisimOrani)){
+    if (localStorage.getItem(tarihSec.value) == null && isNaN(degisimOrani)) {
         istatistikler.innerHTML = ``
-    }else if(localStorage.getItem(tarihSec.value) == null){
+    } else if (localStorage.getItem(tarihSec.value) == null) {
         istatistikler.innerHTML = ``
-    }else if(isNaN(degisimOrani) ){
+    } else if (isNaN(degisimOrani)) {
         istatistikler.innerHTML = `Bugünün Başarı Oranı: %${parseInt(basariOrani)}`
         console.log("çalıştı");
-    }else{
+    } else {
         istatistikler.innerHTML = `Bugünün Başarı Oranı: %${parseInt(basariOrani)}</br>Bir Önceki Güne Göre Değişim: %${parseInt(degisimOrani)}`
     }
 }
@@ -407,12 +429,35 @@ tarihSec.addEventListener('change', (e) => {
 
     });
 
+    gorevleriGosterGizle()
+
     istatistiklerFun();
 
     e.preventDefault();
 
 
 })
+
+const gorevleriGosterGizle = function () {
+    const gorevlerGG = JSON.parse(localStorage.getItem(tarihSec.value));
+    const gorevlerGGArray = Object.values(gorevlerGG).reverse();
+    console.log(gorevlerGGArray);
+
+    let x = 20;
+
+    for (let i = 0; i < 20; i++) {
+
+        //   console.log(gorevlerArray[i]);
+        x--;
+
+        if ((gorevlerGGArray[i] != '') && (gorevlerGGArray[i] != tarihDuzenle.value)) {
+            // console.log(gorevlerGGArray[i] + " kod çalıştı");
+            break;
+        }
+    }
+
+    kacTaneGorevDiviGostersin((x + 1).toString())
+}
 
 
 // Butona tıkladıktan sonra yapılacak görevi listeye ekler
@@ -618,7 +663,25 @@ yapilacakDivler.forEach(function (yapilacakDiv) {
 
 favorDivler.forEach(function (favoriDiv) {
 
-    favoriDiv.children[1].addEventListener('click', () => {
+    console.log(favoriDiv.children[0].textContent);
+
+        favoriDiv.children[2].addEventListener('click', () => {
+            if (favoriDiv.children[0].textContent != '') {
+                const kopyalamaikonu = favoriDiv.children[2];
+            kopyalamaikonu.classList.remove('far');
+            kopyalamaikonu.classList.add('fas');
+            kopyalamaikonu.style.marginTop = '3px'
+
+            setInterval(() => {
+                kopyalamaikonu.classList.add('far');
+                kopyalamaikonu.classList.remove('fas');
+                kopyalamaikonu.style.marginTop = '0px'
+            }, 300)
+            }
+        })
+    
+    favoriDiv.children[1].addEventListener('click', (e) => {
+
         let favoriler;
 
         if (localStorage.getItem('favoriler') === null) {
@@ -675,7 +738,6 @@ function localStoragOku() {
 
 // İstatistikler İçin Kodlar
 
-
 gosterGizle.addEventListener('click', (e) => {
 
     istatistikler.classList.toggle('hidden');
@@ -690,8 +752,614 @@ gosterGizle.addEventListener('click', (e) => {
 })
 
 
+//duzenle için kodlar
+gorevDiv.forEach(function (duzenle) {
+
+    const duzenlebtn = duzenle.children[3];
+    const kacinciGorev = parseInt(duzenle.children[1].textContent);
+
+    duzenlebtn.addEventListener('click', (e) => {
+        const secilenGorev = JSON.parse(localStorage.getItem(tarihSec.value));
+        secilenGorevArray = Object.keys(secilenGorev);
+        gorevValueleri = Object.values(secilenGorev);
+        const kacinciMadde = gorevValueleri[kacinciGorev]
+        console.log(kacinciMadde);
+
+        // const yeniValue = prompt("Seçilen Görevi Düzenle",kacinciMadde);
+
+        if (duzenle.children[2].textContent == "") {
+            alert("Bu görev oluşturulmamış. Lütfen görev oluşturun!")
+        } else if (duzenle.children[2].textContent == "Yapıldı") {
+            alert('Bu görevi yaptığınız için buradan düzenleyemezsiniz! Düzenleme işlemini "Görev Oluştur/Düzenle" bölümünden yapabilirsiniz.')
+        } else {
+            const yeniValue = prompt("Seçilen Görevi Düzenle", kacinciMadde);
+            if (duzenle.id == "gorev-1") {
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yeniValue,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));;
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-2") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yeniValue,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-3") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yeniValue,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-4") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yeniValue,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-5") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yeniValue,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-6") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yeniValue,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-7") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yeniValue,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-8") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yeniValue,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-9") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yeniValue,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-10") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yeniValue,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-11") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yeniValue,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-12") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yeniValue,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-13") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yeniValue,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-14") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yeniValue,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-15") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yeniValue,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-16") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yeniValue,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-17") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yeniValue,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-18") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yeniValue,
+                    madde19: yapilacak19.textContent,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-19") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yeniValue,
+                    madde20: yapilacak20.textContent,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            } else if (duzenle.id == "gorev-20") {
+
+                yapilacaklar.push({
+                    tarih: tarihSec.value,
+                    madde1: yapilacak1.textContent,
+                    madde2: yapilacak2.textContent,
+                    madde3: yapilacak3.textContent,
+                    madde4: yapilacak4.textContent,
+                    madde5: yapilacak5.textContent,
+                    madde6: yapilacak6.textContent,
+                    madde7: yapilacak7.textContent,
+                    madde8: yapilacak8.textContent,
+                    madde9: yapilacak9.textContent,
+                    madde10: yapilacak10.textContent,
+                    madde11: yapilacak11.textContent,
+                    madde12: yapilacak12.textContent,
+                    madde13: yapilacak13.textContent,
+                    madde14: yapilacak14.textContent,
+                    madde15: yapilacak15.textContent,
+                    madde16: yapilacak16.textContent,
+                    madde17: yapilacak17.textContent,
+                    madde18: yapilacak18.textContent,
+                    madde19: yapilacak19.textContent,
+                    madde20: yeniValue,
+                })
+                localStorage.setItem(tarihSec.value, JSON.stringify(yapilacaklar[yapilacaklar.length - 1]));
+                duzenle.children[0].style.backgroundColor = "#28a745";
+
+                tarihSecBtn.click();
+            }
+        }
 
 
+    })
+
+})
+
+
+//yapıldı butonu için kodlar    
 gorevDiv.forEach(function (button) {
 
     // console.log(button.children[2].textContent);
@@ -1758,6 +2426,476 @@ function kacTaneGorevEklesin(gorevSayisi) {
             yapilacakMetin18.parentElement.classList.add('hidden');
             yapilacakMetin19.parentElement.classList.add('hidden');
             yapilacakMetin20.parentElement.classList.add('hidden');
+            break;
+    }
+}
+
+
+// kaç tan gorev divi göstersin kodlar
+function kacTaneGorevDiviGostersin(gorevSayisi) {
+
+    switch (gorevSayisi) {
+        case "1":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.add('hidden');
+            gorev3.classList.add('hidden');
+            gorev4.classList.add('hidden');
+            gorev5.classList.add('hidden');
+            gorev6.classList.add('hidden');
+            gorev7.classList.add('hidden');
+            gorev8.classList.add('hidden');
+            gorev9.classList.add('hidden');
+            gorev10.classList.add('hidden');
+            gorev11.classList.add('hidden');
+            gorev12.classList.add('hidden');
+            gorev13.classList.add('hidden');
+            gorev14.classList.add('hidden');
+            gorev15.classList.add('hidden');
+            gorev16.classList.add('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "2":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.add('hidden');
+            gorev4.classList.add('hidden');
+            gorev5.classList.add('hidden');
+            gorev6.classList.add('hidden');
+            gorev7.classList.add('hidden');
+            gorev8.classList.add('hidden');
+            gorev9.classList.add('hidden');
+            gorev10.classList.add('hidden');
+            gorev11.classList.add('hidden');
+            gorev12.classList.add('hidden');
+            gorev13.classList.add('hidden');
+            gorev14.classList.add('hidden');
+            gorev15.classList.add('hidden');
+            gorev16.classList.add('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "3":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.add('hidden');
+            gorev5.classList.add('hidden');
+            gorev6.classList.add('hidden');
+            gorev7.classList.add('hidden');
+            gorev8.classList.add('hidden');
+            gorev9.classList.add('hidden');
+            gorev10.classList.add('hidden');
+            gorev11.classList.add('hidden');
+            gorev12.classList.add('hidden');
+            gorev13.classList.add('hidden');
+            gorev14.classList.add('hidden');
+            gorev15.classList.add('hidden');
+            gorev16.classList.add('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "4":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.add('hidden');
+            gorev6.classList.add('hidden');
+            gorev7.classList.add('hidden');
+            gorev8.classList.add('hidden');
+            gorev9.classList.add('hidden');
+            gorev10.classList.add('hidden');
+            gorev11.classList.add('hidden');
+            gorev12.classList.add('hidden');
+            gorev13.classList.add('hidden');
+            gorev14.classList.add('hidden');
+            gorev15.classList.add('hidden');
+            gorev16.classList.add('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "5":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.remove('hidden');
+            gorev6.classList.add('hidden');
+            gorev7.classList.add('hidden');
+            gorev8.classList.add('hidden');
+            gorev9.classList.add('hidden');
+            gorev10.classList.add('hidden');
+            gorev11.classList.add('hidden');
+            gorev12.classList.add('hidden');
+            gorev13.classList.add('hidden');
+            gorev14.classList.add('hidden');
+            gorev15.classList.add('hidden');
+            gorev16.classList.add('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "6":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.remove('hidden');
+            gorev6.classList.remove('hidden');
+            gorev7.classList.add('hidden');
+            gorev8.classList.add('hidden');
+            gorev9.classList.add('hidden');
+            gorev10.classList.add('hidden');
+            gorev11.classList.add('hidden');
+            gorev12.classList.add('hidden');
+            gorev13.classList.add('hidden');
+            gorev14.classList.add('hidden');
+            gorev15.classList.add('hidden');
+            gorev16.classList.add('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "7":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.remove('hidden');
+            gorev6.classList.remove('hidden');
+            gorev7.classList.remove('hidden');
+            gorev8.classList.add('hidden');
+            gorev9.classList.add('hidden');
+            gorev10.classList.add('hidden');
+            gorev11.classList.add('hidden');
+            gorev12.classList.add('hidden');
+            gorev13.classList.add('hidden');
+            gorev14.classList.add('hidden');
+            gorev15.classList.add('hidden');
+            gorev16.classList.add('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "8":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.remove('hidden');
+            gorev6.classList.remove('hidden');
+            gorev7.classList.remove('hidden');
+            gorev8.classList.remove('hidden');
+            gorev9.classList.add('hidden');
+            gorev10.classList.add('hidden');
+            gorev11.classList.add('hidden');
+            gorev12.classList.add('hidden');
+            gorev13.classList.add('hidden');
+            gorev14.classList.add('hidden');
+            gorev15.classList.add('hidden');
+            gorev16.classList.add('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "9":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.remove('hidden');
+            gorev6.classList.remove('hidden');
+            gorev7.classList.remove('hidden');
+            gorev8.classList.remove('hidden');
+            gorev9.classList.remove('hidden');
+            gorev10.classList.add('hidden');
+            gorev11.classList.add('hidden');
+            gorev12.classList.add('hidden');
+            gorev13.classList.add('hidden');
+            gorev14.classList.add('hidden');
+            gorev15.classList.add('hidden');
+            gorev16.classList.add('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "10":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.remove('hidden');
+            gorev6.classList.remove('hidden');
+            gorev7.classList.remove('hidden');
+            gorev8.classList.remove('hidden');
+            gorev9.classList.remove('hidden');
+            gorev10.classList.remove('hidden');
+            gorev11.classList.add('hidden');
+            gorev12.classList.add('hidden');
+            gorev13.classList.add('hidden');
+            gorev14.classList.add('hidden');
+            gorev15.classList.add('hidden');
+            gorev16.classList.add('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "11":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.remove('hidden');
+            gorev6.classList.remove('hidden');
+            gorev7.classList.remove('hidden');
+            gorev8.classList.remove('hidden');
+            gorev9.classList.remove('hidden');
+            gorev10.classList.remove('hidden');
+            gorev11.classList.remove('hidden');
+            gorev12.classList.add('hidden');
+            gorev13.classList.add('hidden');
+            gorev14.classList.add('hidden');
+            gorev15.classList.add('hidden');
+            gorev16.classList.add('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "12":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.remove('hidden');
+            gorev6.classList.remove('hidden');
+            gorev7.classList.remove('hidden');
+            gorev8.classList.remove('hidden');
+            gorev9.classList.remove('hidden');
+            gorev10.classList.remove('hidden');
+            gorev11.classList.remove('hidden');
+            gorev12.classList.remove('hidden');
+            gorev13.classList.add('hidden');
+            gorev14.classList.add('hidden');
+            gorev15.classList.add('hidden');
+            gorev16.classList.add('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "13":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.remove('hidden');
+            gorev6.classList.remove('hidden');
+            gorev7.classList.remove('hidden');
+            gorev8.classList.remove('hidden');
+            gorev9.classList.remove('hidden');
+            gorev10.classList.remove('hidden');
+            gorev11.classList.remove('hidden');
+            gorev12.classList.remove('hidden');
+            gorev13.classList.remove('hidden');
+            gorev14.classList.add('hidden');
+            gorev15.classList.add('hidden');
+            gorev16.classList.add('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "14":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.remove('hidden');
+            gorev6.classList.remove('hidden');
+            gorev7.classList.remove('hidden');
+            gorev8.classList.remove('hidden');
+            gorev9.classList.remove('hidden');
+            gorev10.classList.remove('hidden');
+            gorev11.classList.remove('hidden');
+            gorev12.classList.remove('hidden');
+            gorev13.classList.remove('hidden');
+            gorev14.classList.remove('hidden');
+            gorev15.classList.add('hidden');
+            gorev16.classList.add('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "15":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.remove('hidden');
+            gorev6.classList.remove('hidden');
+            gorev7.classList.remove('hidden');
+            gorev8.classList.remove('hidden');
+            gorev9.classList.remove('hidden');
+            gorev10.classList.remove('hidden');
+            gorev11.classList.remove('hidden');
+            gorev12.classList.remove('hidden');
+            gorev13.classList.remove('hidden');
+            gorev14.classList.remove('hidden');
+            gorev15.classList.remove('hidden');
+            gorev16.classList.add('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "16":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.remove('hidden');
+            gorev6.classList.remove('hidden');
+            gorev7.classList.remove('hidden');
+            gorev8.classList.remove('hidden');
+            gorev9.classList.remove('hidden');
+            gorev10.classList.remove('hidden');
+            gorev11.classList.remove('hidden');
+            gorev12.classList.remove('hidden');
+            gorev13.classList.remove('hidden');
+            gorev14.classList.remove('hidden');
+            gorev15.classList.remove('hidden');
+            gorev16.classList.remove('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "17":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.remove('hidden');
+            gorev6.classList.remove('hidden');
+            gorev7.classList.remove('hidden');
+            gorev8.classList.remove('hidden');
+            gorev9.classList.remove('hidden');
+            gorev10.classList.remove('hidden');
+            gorev11.classList.remove('hidden');
+            gorev12.classList.remove('hidden');
+            gorev13.classList.remove('hidden');
+            gorev14.classList.remove('hidden');
+            gorev15.classList.remove('hidden');
+            gorev16.classList.remove('hidden');
+            gorev17.classList.remove('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "18":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.remove('hidden');
+            gorev6.classList.remove('hidden');
+            gorev7.classList.remove('hidden');
+            gorev8.classList.remove('hidden');
+            gorev9.classList.remove('hidden');
+            gorev10.classList.remove('hidden');
+            gorev11.classList.remove('hidden');
+            gorev12.classList.remove('hidden');
+            gorev13.classList.remove('hidden');
+            gorev14.classList.remove('hidden');
+            gorev15.classList.remove('hidden');
+            gorev16.classList.remove('hidden');
+            gorev17.classList.remove('hidden');
+            gorev18.classList.remove('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "19":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.remove('hidden');
+            gorev6.classList.remove('hidden');
+            gorev7.classList.remove('hidden');
+            gorev8.classList.remove('hidden');
+            gorev9.classList.remove('hidden');
+            gorev10.classList.remove('hidden');
+            gorev11.classList.remove('hidden');
+            gorev12.classList.remove('hidden');
+            gorev13.classList.remove('hidden');
+            gorev14.classList.remove('hidden');
+            gorev15.classList.remove('hidden');
+            gorev16.classList.remove('hidden');
+            gorev17.classList.remove('hidden');
+            gorev18.classList.remove('hidden');
+            gorev19.classList.remove('hidden');
+            gorev20.classList.add('hidden');
+            break;
+        case "20":
+            gorev1.classList.remove('hidden');
+            gorev2.classList.remove('hidden');
+            gorev3.classList.remove('hidden');
+            gorev4.classList.remove('hidden');
+            gorev5.classList.remove('hidden');
+            gorev6.classList.remove('hidden');
+            gorev7.classList.remove('hidden');
+            gorev8.classList.remove('hidden');
+            gorev9.classList.remove('hidden');
+            gorev10.classList.remove('hidden');
+            gorev11.classList.remove('hidden');
+            gorev12.classList.remove('hidden');
+            gorev13.classList.remove('hidden');
+            gorev14.classList.remove('hidden');
+            gorev15.classList.remove('hidden');
+            gorev16.classList.remove('hidden');
+            gorev17.classList.remove('hidden');
+            gorev18.classList.remove('hidden');
+            gorev19.classList.remove('hidden');
+            gorev20.classList.remove('hidden');
+            break;
+        default:
+            gorev1.classList.add('hidden');
+            gorev2.classList.add('hidden');
+            gorev3.classList.add('hidden');
+            gorev4.classList.add('hidden');
+            gorev5.classList.add('hidden');
+            gorev6.classList.add('hidden');
+            gorev7.classList.add('hidden');
+            gorev8.classList.add('hidden');
+            gorev9.classList.add('hidden');
+            gorev10.classList.add('hidden');
+            gorev11.classList.add('hidden');
+            gorev12.classList.add('hidden');
+            gorev13.classList.add('hidden');
+            gorev14.classList.add('hidden');
+            gorev15.classList.add('hidden');
+            gorev16.classList.add('hidden');
+            gorev17.classList.add('hidden');
+            gorev18.classList.add('hidden');
+            gorev19.classList.add('hidden');
+            gorev20.classList.add('hidden');
             break;
     }
 }
