@@ -33,7 +33,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/?utm_source=webapp",
+  "start_url": "https://serhatkanat.github.io/gunluk_program_uygulamasi/",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "standalone",
