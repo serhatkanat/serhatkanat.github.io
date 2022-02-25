@@ -137,20 +137,25 @@ kacTaneGorevOlsun.addEventListener('input', (e) => {
     const gorevlerArray = Object.values(gorevlerObject).reverse();
     let x = 20;
 
-    // for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 20; i++) {
 
-    //     //   console.log(gorevlerArray[i]);
-    //     x--;
+        //   console.log(gorevlerArray[i]);
+        x--;
 
-    //       if((gorevlerArray[i] != '') && (gorevlerArray[i] != tarihDuzenle.value)){
-    //                 console.log(gorevlerArray[i] + " kod çalıştı");
-    //                 break;
-    //             }   
-    //     kacTaneGorevEklesin((x).toString())
-    //     kacTaneGorevOlsun.value = x
-    // }
+        if ((gorevlerArray[i] != '') && (gorevlerArray[i] != tarihDuzenle.value)) {
+            break;
+        }
 
+        //
+    }
+    if (kacTaneGorevOlsun.value < x + 1) {
+        kacTaneGorevEklesin((x + 1).toString())
+        kacTaneGorevOlsun.value = x + 1
+        enFazla20GorevP.innerHTML = "Daha az görev eklemek isterseniz, <br> ilk önce en sondaki görevi silip kaydedin!";
+        enFazla20GorevP.classList.add('text-danger', 'animate__animated', 'animate__shakeX');
+        uyariyiSil();
 
+    }
     e.preventDefault();
 })
 
@@ -440,27 +445,27 @@ tarihSec.addEventListener('change', (e) => {
 
 const gorevleriGosterGizle = function () {
     const gorevlerGG = JSON.parse(localStorage.getItem(tarihSec.value));
-    if(gorevlerGG != null){
-    const gorevlerGGArray = Object.values(gorevlerGG).reverse();
-    // console.log(gorevlerGGArray);
+    if (gorevlerGG != null) {
+        const gorevlerGGArray = Object.values(gorevlerGG).reverse();
+        // console.log(gorevlerGGArray);
 
-    let x = 20;
+        let x = 20;
 
-    for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 20; i++) {
 
-        //   console.log(gorevlerArray[i]);
-        x--;
+            //   console.log(gorevlerArray[i]);
+            x--;
 
-        if ((gorevlerGGArray[i] != '') && (gorevlerGGArray[i] != tarihDuzenle.value)) {
-            // console.log(gorevlerGGArray[i] + " kod çalıştı");
-            break;
+            if ((gorevlerGGArray[i] != '') && (gorevlerGGArray[i] != tarihDuzenle.value)) {
+                // console.log(gorevlerGGArray[i] + " kod çalıştı");
+                break;
+            }
         }
-    }
 
-    kacTaneGorevDiviGostersin((x + 1).toString())
-}else{
-    kacTaneGorevDiviGostersin('0')
-}
+        kacTaneGorevDiviGostersin((x + 1).toString())
+    } else {
+        kacTaneGorevDiviGostersin('0')
+    }
 }
 
 
@@ -471,6 +476,8 @@ tarihDuzenleBtn.addEventListener('click', (e) => {
 
     if (tarihDuzenle.value == '') {
         alert("Lütfen Bir Tarih Seçin")
+    } else if (bosGorevKaydetme()) {
+    alert("Lütfen En Az Bir Görev Ekleyin!")
     } else {
         yapilacaklar.push({
             tarih: duzenlenecekTarih,
@@ -511,8 +518,39 @@ tarihDuzenleBtn.addEventListener('click', (e) => {
             uyariyiSil();
         });
     }
+
+    // bosGorevKaydetme()
     e.preventDefault()
 })
+
+
+//boş görev kaydetmeye çalışırken çaluşacak kodlar
+function bosGorevKaydetme() {
+
+    let bosMu;
+    let x = 0;
+
+    yapilacakDivler.forEach(yapilacakDiv => {
+        
+        yapilacakDiv.children[1].value
+
+        if (yapilacakDiv.children[1].value === '') {
+            x++
+        }
+    })
+
+    if (x==20) {
+        return true
+    }else{
+        return false
+    }
+
+    // return bosMu;
+
+
+}
+
+bosGorevKaydetme()
 
 function uyariyiSil() {
     setTimeout(() => {
@@ -525,6 +563,7 @@ function uyariyiSil() {
 // Tarih seçildiğinde yapılacakların textlerde gösterilmesi
 tarihDuzenle.addEventListener('change', (e) => {
 
+    let y = kacTaneGorevOlsun.value;
 
     if (JSON.parse(localStorage.getItem(tarihDuzenle.value)) == null) {
         yapilacakMetin1.value = "";
@@ -547,9 +586,12 @@ tarihDuzenle.addEventListener('change', (e) => {
         yapilacakMetin18.value = "";
         yapilacakMetin19.value = "";
         yapilacakMetin20.value = "";
-        kacTaneGorevOlsun.value = '';
+        // kacTaneGorevOlsun.value = '';
 
-        kacTaneGorevEklesin('0')
+        kacTaneGorevOlsun.value = y;
+        kacTaneGorevEklesin(y)
+
+
     } else {
         yapilacakMetin1.value = JSON.parse(localStorage.getItem(tarihDuzenle.value)).madde1;
         yapilacakMetin2.value = JSON.parse(localStorage.getItem(tarihDuzenle.value)).madde2;
@@ -571,6 +613,10 @@ tarihDuzenle.addEventListener('change', (e) => {
         yapilacakMetin18.value = JSON.parse(localStorage.getItem(tarihDuzenle.value)).madde18;
         yapilacakMetin19.value = JSON.parse(localStorage.getItem(tarihDuzenle.value)).madde19;
         yapilacakMetin20.value = JSON.parse(localStorage.getItem(tarihDuzenle.value)).madde20;
+    }
+
+    if (tarihDuzenle.value === '') {
+
     }
 
     e.preventDefault();
@@ -669,9 +715,9 @@ favorDivler.forEach(function (favoriDiv) {
 
     // console.log(favoriDiv.children[0].textContent);
 
-        favoriDiv.children[2].addEventListener('click', () => {
-            if (favoriDiv.children[0].textContent != '') {
-                const kopyalamaikonu = favoriDiv.children[2];
+    favoriDiv.children[2].addEventListener('click', () => {
+        if (favoriDiv.children[0].textContent != '') {
+            const kopyalamaikonu = favoriDiv.children[2];
             kopyalamaikonu.classList.remove('far');
             kopyalamaikonu.classList.add('fas');
             kopyalamaikonu.style.marginTop = '3px'
@@ -681,9 +727,9 @@ favorDivler.forEach(function (favoriDiv) {
                 kopyalamaikonu.classList.remove('fas');
                 kopyalamaikonu.style.marginTop = '0px'
             }, 300)
-            }
-        })
-    
+        }
+    })
+
     favoriDiv.children[1].addEventListener('click', (e) => {
 
         let favoriler;
