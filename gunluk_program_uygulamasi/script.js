@@ -230,7 +230,7 @@ tarihSecBtn.addEventListener('click', (e) => {
 
     })
 
-
+    gorevleriGosterGizle();
 
     e.preventDefault();
 
@@ -285,7 +285,7 @@ function istatistiklerFun() {
     const basariOrani = (100 / toplamGorevSayisi) * yapildiSayisi
     const birGunOnceBasariOrani = (100 / birGunOnceToplamGorevSayisi) * birGunOnceYapildiSayisi
     const degisimOrani = basariOrani - birGunOnceBasariOrani
-    console.log(degisimOrani);
+    // console.log(degisimOrani);
 
     // if (localStorage.getItem(tarihSec.value) == null) {
 
@@ -429,7 +429,7 @@ tarihSec.addEventListener('change', (e) => {
 
     });
 
-    gorevleriGosterGizle()
+    gorevleriGosterGizle();
 
     istatistiklerFun();
 
@@ -442,7 +442,7 @@ const gorevleriGosterGizle = function () {
     const gorevlerGG = JSON.parse(localStorage.getItem(tarihSec.value));
     if(gorevlerGG != null){
     const gorevlerGGArray = Object.values(gorevlerGG).reverse();
-    console.log(gorevlerGGArray);
+    // console.log(gorevlerGGArray);
 
     let x = 20;
 
@@ -667,7 +667,7 @@ yapilacakDivler.forEach(function (yapilacakDiv) {
 
 favorDivler.forEach(function (favoriDiv) {
 
-    console.log(favoriDiv.children[0].textContent);
+    // console.log(favoriDiv.children[0].textContent);
 
         favoriDiv.children[2].addEventListener('click', () => {
             if (favoriDiv.children[0].textContent != '') {
