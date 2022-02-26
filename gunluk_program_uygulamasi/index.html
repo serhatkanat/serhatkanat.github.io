@@ -33,8 +33,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
-  <!-- Web App Manifest -->
-  <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="https://serhatkanat.github.io/gunluk_program_uygulamasi/manifest.json">
 
 
 </head>
@@ -138,20 +137,20 @@
         crossorigin="anonymous"></script>
 
         <script>
-
             if ('serviceWorker' in navigator) {
-                  navigator.serviceWorker.register('/sw.js?v3', {
-                      scope: '.' // THIS IS REQUIRED FOR RUNNING A PROGRESSIVE WEB APP FROM A NON_ROOT PATH
-                  }).then(function(registration) {
-                      // Registration was successful
-                      console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                  }, function(err) {
-                      // registration failed :(
-                      console.log('ServiceWorker registration failed: ', err);
-                  });
-              }
-          </script>
-    
+             window.addEventListener('load', function () {
+              navigator.serviceWorker.register('service-worker.js').then(function (registration) {
+               console.log('Registered!');
+              }, function (err) {
+               console.log('ServiceWorker registration failed: ', err);
+              }).catch(function (err) {
+               console.log(err);
+              });
+             });
+            } else {
+             console.log('service worker is not supported');
+            }
+           </script>
 </body>
 
 </html>
