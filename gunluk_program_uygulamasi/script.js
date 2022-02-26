@@ -148,7 +148,7 @@ kacTaneGorevOlsun.addEventListener('input', (e) => {
 
         //
     }
-    if (kacTaneGorevOlsun.value < x + 1) {
+    if (kacTaneGorevOlsun.value < x + 1 && kacTaneGorevOlsun.value != '' ) {
         kacTaneGorevEklesin((x + 1).toString())
         kacTaneGorevOlsun.value = x + 1
         enFazla20GorevP.innerHTML = "Daha az görev eklemek isterseniz, <br> ilk önce en sondaki görevi silip kaydedin!";
