@@ -7,7 +7,7 @@ let q;
 gonderBtn.addEventListener('click', (e) => {
     q = yerBilgisi.value;
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${q}&lang=tr&appid=c55bc6507054d973a178d0ae119c27c6`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${q}&lang=tr&appid=`)
         .then((response) => response.json())
         .then((json) => havadurumu(json))
         .catch((err) => console.log(err));
