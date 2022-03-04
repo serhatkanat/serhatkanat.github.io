@@ -2,13 +2,12 @@ const yerBilgisi = document.querySelector('#yer-bilgisi');
 const gonderBtn = document.querySelector('#gonder-btn');
 const havaBilgisi = document.querySelector('#hava-bilgisi');
 const header = document.querySelector('#header');
-var token = config.API_KEY;
-let q;
+
 
 gonderBtn.addEventListener('click', (e) => {
     q = yerBilgisi.value;
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${q}&lang=tr&appid=${token}`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${q}&lang=tr&appid=13ebb2c17ffcfd6e60a6d1d54084336b`)
         .then((response) => response.json())
         .then((json) => havadurumu(json))
         .catch((err) => console.log(err));
