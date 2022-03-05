@@ -1,0 +1,156 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.main-item {
+    width: 1000px;
+    height: 575px;
+}
+
+img {
+    width: 1000px;
+    height: 575px;
+    border-radius: 20px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+
+.button {
+    box-shadow: 0px 10px 14px -7px #276873;
+    background-color: #00a8ff;
+    border-radius: 145px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 13px 20px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #3d768a;
+    border: 1px solid #353b48;
+    margin-right: 2px;
+}
+
+.button:hover {
+    background-color: rgb(0, 151, 230);
+}
+
+.acilma-animasyonu {
+    animation-name: acilma;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0, 1.45, 1, 1.01);
+}
+
+@keyframes acilma {
+    0% {
+        width: 0px;
+        height: 0px;
+    }
+
+    100% {
+        width: 1000px;
+        height: 575px;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+@media screen and (max-width: 1020px) {
+    .main-item {
+        width: 750px;
+        height: 383px;
+    }
+
+    img {
+        width: 750px;
+        height: 383px;
+    }
+
+    .button {
+        font-size: 13px;
+        padding: 10px 17px;
+    }
+
+    @keyframes acilma {
+        0% {
+            width: 0px;
+            height: 0px;
+        }
+
+        100% {
+            width: 750px;
+            height: 383px;
+        }
+    }
+}
+
+
+@media screen and (max-width: 760px) {
+    .main-item {
+        width: 500px;
+        height: 287px;
+    }
+
+    img {
+        width: 500px;
+        height: 287px;
+    }
+
+    .button {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+
+    @keyframes acilma {
+        0% {
+            width: 0px;
+            height: 0px;
+        }
+
+        100% {
+            width: 500px;
+            height: 287px;
+        }
+    }
+}
+
+@media screen and (max-width: 510px) {
+    .main-item {
+        width: 300px;
+        height: 170px;
+    }
+
+    img {
+        width: 300px;
+        height: 170px;
+    }
+
+    .button {
+        font-size: 11px;
+        padding: 6px 13px;
+    }
+
+    @keyframes acilma {
+        0% {
+            width: 0px;
+            height: 0px;
+        }
+
+        100% {
+            width: 300px;
+            height: 170px;
+        }
+    }
+}
