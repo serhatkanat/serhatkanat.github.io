@@ -1,0 +1,29 @@
+[{
+    "IlacAdi" : "Metpamid",
+    "EtkenMadde" : "metoklopramid",
+    "Siniflandirma" : "Antiemetik",
+    "Endikasyonlari" : "Bulantı ve kusma tedavasinde ve önlenmesinde kullanılır.",
+    "ImageUrl" : "images/metpamid.jpg"
+},
+{
+    "IlacAdi" : "Parol",
+    "EtkenMadde" : "parasetamol",
+    "Siniflandirma" : "Aneljezik",
+    "Endikasyonlari" : "Hafif ve orta şiddette ağrılar için kullanılan bir ağrı kesicidir",
+    "ImageUrl" : "images/parol.jpg"
+},
+{
+    "IlacAdi" : "Vorix",
+    "EtkenMadde" : "vorikonazol",
+    "Siniflandirma" : "Antifungal",
+    "Endikasyonlari" : "Mantar enfeksiyonunu tedavi etmek için kullanılan ilaçtır.",
+    "ImageUrl" : "images/vorix.jpg"
+},
+{
+    "IlacAdi" : "Pandev",
+    "EtkenMadde" : "pantoprazol",
+    "Siniflandirma" : "Proton Pompası İnhibitörüdür",
+    "Endikasyonlari" : "Midede hidroklorik asit salgılanmasını inhibe eder.",
+    "ImageUrl" : "images/pandev.jpg"
+}
+]

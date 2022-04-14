@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İlaç Kartı Uygulaması</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <style>
+        .ortala {
+            display: flex !important;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ilacKartlari {
+            width: 300px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            height: 100%;
+        }
+
+        .anaIlaclar {
+            display: flex !important;
+            flex-wrap: wrap;
+            margin: 20px;
+        }
+
+        .aramaKutusu{
+            width: 500px;
+        }
+
+        @media screen and (max-width: 970px) {
+            .anaIlaclar {
+            display: flex !important;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: center;
+            margin: 20px;
+        }
+
+        .aramaKutusu{
+            width: 400px;
+        }
+        }
+
+        @media screen and (max-width: 660px) {
+            .anaIlaclar {
+            display: flex !important;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: center;
+            margin: 20px;
+        }
+
+        .aramaKutusu{
+            width: 250px;
+        }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <section class="hero is-success has-text-centered">
+            <div class="hero-body">
+                <h1 class="title is-1">İlaç Kartları</h1>
+                <h2 class="subtitle is-4 mt-1">İlaçları Araştırın</h2>
+            </div>
+        </section>
+
+        <div class="container mt-2">
+            <div class="field container aramaKutusu">
+                <label class="label">İlaç Adını Giriniz:</label>
+                <div class="control">
+                    <input v-model="search" class="input" type="text"
+                        placeholder="İlaç adı, etken maddesi, ilaç türü, endikasyon yazınız ">
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <div class="anaIlaclar">
+            <div v-for="ilac in ilacAdinaGore" style="margin-bottom: 20px;">
+
+                <div class="card ilacKartlari">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img :src="ilac.ImageUrl" alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-4">{{ilac.IlacAdi}}</p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <p><strong>Etken Maddesi:</strong> {{ilac.EtkenMadde}}</p>
+                            <p><strong>İlaç Türü:</strong> {{ilac.Siniflandirma}}</p>
+                            <p><strong>İlaç Türü:</strong> {{ilac.Endikasyonlari}}</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+        <br><br>
+
+    </div>
+
+
+    <script src="app.js"></script>
+</body>
+
+</html>
