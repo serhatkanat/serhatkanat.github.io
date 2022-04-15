@@ -78,8 +78,9 @@
             <div class="field container aramaKutusu">
                 <label class="label">İlaç Adını Giriniz:</label>
                 <div class="control">
-                    <input v-model="search" class="input" type="text"
-                        placeholder="İlaç adı, etken maddesi, ilaç türü, endikasyon yazınız ">
+                    <input v-model="search" @input="tikla" class="input" type="text"
+                        placeholder="İlaç adı, etken maddesi, ilaç türü, endikasyon yazınız">
+                        <button @click="deneme" class="button is-primary mt-2" id="buttonilac">Primary</button>
                 </div>
             </div>
         </div>

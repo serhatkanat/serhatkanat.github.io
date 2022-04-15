@@ -1,3 +1,12 @@
+const buttonilac = document.querySelector("#buttonilac");
+
+buttonilac.addEventListener('click', (e) => {
+
+    console.log("deneme");
+
+    e.preventDefault()
+})
+
 class IlacBilgileri {
     constructor() {
         this.baseURL = 'ilaclar.json';
@@ -20,16 +29,25 @@ class IlacBilgileri {
                 computed: {
                     ilacAdinaGore() {
                         return ilacIsimleri.filter(post => {
-                            return post.IlacAdi.toLowerCase().includes(this.search.toLowerCase()) || post.EtkenMadde.toLowerCase().includes(this.search.toLowerCase()) || post.Siniflandirma.toLowerCase().includes(this.search.toLowerCase()) || post.Endikasyonlari   .toLowerCase().includes(this.search.toLowerCase())
+                            return post.IlacAdi.toLowerCase().includes(this.search.toLowerCase()) || post.EtkenMadde.toLowerCase().includes(this.search.toLowerCase()) || post.Siniflandirma.toLowerCase().includes(this.search.toLowerCase()) || post.Endikasyonlari.toLowerCase().includes(this.search.toLowerCase())
                         })
                     },
-            },
-            methods: {
-                deneme(){
-                    console.log(this.ilacAdinaGore());
+                },
+                methods: {
+                    deneme() {
+                        console.log("deneme");
+                    },
+                    tikla() {
+                        const buttonilac = document.querySelector("#buttonilac");
+
+                        if (this.search.length > 0) {
+                            buttonilac.click()
+                        } else {
+                            console.log("else");
+                        }
+                    }
                 }
-            }
-        })
+            })
 
 
 
