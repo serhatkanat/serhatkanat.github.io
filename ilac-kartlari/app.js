@@ -41,8 +41,9 @@ class IlacBilgileri {
                     },
                     tikla() {
                         const buttonilac = document.querySelector("#buttonilac");
+const inputIlac = document.querySelector("#inputIlac");
                         if (this.search.length > 0) {
-                            buttonilac.click()
+                        inputIlac.keydown()
                         } else {
                             console.log("else");
                         }
