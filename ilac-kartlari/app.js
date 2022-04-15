@@ -35,7 +35,9 @@ class IlacBilgileri {
                 },
                 methods: {
                     deneme() {
-                        console.log("deneme");
+                        const inputIlac = document.querySelector("#inputIlac");
+                        alert("Çalıştı")
+                        inputIlac.keydown()
                     },
                     tikla() {
                         const buttonilac = document.querySelector("#buttonilac");
