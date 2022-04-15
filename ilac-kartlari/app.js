@@ -34,16 +34,10 @@ class IlacBilgileri {
                     },
                 },
                 methods: {
-                    deneme() {
-                        const inputIlac = document.querySelector("#inputIlac");
-           
-                        inputIlac.keydown()
-                    },
                     tikla() {
-                        const buttonilac = document.querySelector("#buttonilac");
-const inputIlac = document.querySelector("#inputIlac");
+                        const inputIlac = document.querySelector("#inputIlac");
                         if (this.search.length > 0) {
-                        inputIlac.keydown()
+                            inputIlac.keydown()
                         } else {
                             console.log("else");
                         }
