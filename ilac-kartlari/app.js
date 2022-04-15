@@ -36,12 +36,11 @@ class IlacBilgileri {
                 methods: {
                     deneme() {
                         const inputIlac = document.querySelector("#inputIlac");
-                        alert("Çalıştı")
+           
                         inputIlac.keydown()
                     },
                     tikla() {
                         const buttonilac = document.querySelector("#buttonilac");
-
                         if (this.search.length > 0) {
                             buttonilac.click()
                         } else {
