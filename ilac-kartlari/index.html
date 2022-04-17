@@ -7,84 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İlaç Kartı Uygulaması</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@300&family=Shadows+Into+Light&family=Ubuntu:wght@700&display=swap"
+        rel="stylesheet">
+
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-    <style>
-        .ortala {
-            display: flex !important;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .ilacKartlari {
-            width: 300px;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            height: 100%;
-            cursor: pointer;
-        }
-
-        .ilacKartlari:hover {
-            -webkit-box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.7);
-            box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.7);
-        }
-
-        .mainIlaclar {
-            display: flex !important;
-            flex-wrap: wrap;
-            margin: 20px;
-        }
-
-        .aramaKutusu {
-            width: 500px;
-        }
-
-        .uyariKutusu {
-            width: 700px;
-        }
-
-        .isActive {
-            display: flex;
-        }
-
-        @media screen and (max-width: 970px) {
-            .mainIlaclar {
-                display: flex !important;
-                flex-wrap: wrap;
-                justify-content: center;
-                align-content: center;
-                margin: 20px;
-            }
-
-            .aramaKutusu {
-                width: 400px;
-            }
-
-            .uyariKutusu {
-                width: 600px;
-            }
-
-        }
-
-        @media screen and (max-width: 660px) {
-            .mainIlaclar {
-                display: flex !important;
-                flex-wrap: wrap;
-                justify-content: center;
-                align-content: center;
-                margin: 20px;
-            }
-
-            .aramaKutusu {
-                width: 250px;
-            }
-
-            .uyariKutusu {
-                width: 300px;
-            }
-
-        }
-    </style>
 </head>
 
 <body>
@@ -99,7 +31,7 @@
         </section>
 
         <div class="container mt-2">
-            <div class="field container aramaKutusu">
+            <div class="field container aramaKutusu" style="margin-top: 15px;">
                 <label class="label">İlaç Adını Giriniz:</label>
                 <div class="control">
                     <input v-model="search" @input="tikla" class="input" type="text"
@@ -110,6 +42,7 @@
         <hr>
 
         <div v-show="!uyarıKutusuGoster">
+            <h3 class="title is-3 ml-5">Arama Sonuçları:</h3>
             <div class="mainIlaclar">
                 <div v-for="(ilac,index) in ilacAdinaGore" :key="index" style="margin-bottom: 20px;">
                     <div class="card ilacKartlari">
@@ -128,32 +61,60 @@
                             </div>
 
                             <div class="content">
-                                <p><strong>Etken Maddesi:</strong> {{ilac.EtkenMadde}}</p>
-                                <p><strong>İlaç Türü:</strong> {{ilac.Siniflandirma}}</p>
-                                <p><strong>İlaç Türü:</strong> {{ilac.Endikasyonlari}}</p>
+                                <p><strong class="kalınMetin">Etken Maddesi:</strong> {{ilac.EtkenMadde}}</p>
+                                <p><strong class="kalınMetin">İlaç Türü:</strong> {{ilac.Siniflandirma}}</p>
+                                <p><strong class="kalınMetin">Endikasyonları:</strong> {{ilac.Endikasyonlari}}</p>
                             </div>
                         </div>
                     </div>
 
-
-                    <div class="modal" :class="{isActive : ilacKarti}">
+                    <div class="modal is-clipped" :class="{isActive : ilacKarti}">
                         <div class="modal-background"></div>
                         <div class="modal-card">
                             <header class="modal-card-head">
-                                <p class="modal-card-title">Modal title</p>
+                                <p class="modal-card-title">İlaç Bilgileri</p>
                                 <button @click="ilacKartiKapat" class="delete" aria-label="close"></button>
                             </header>
-                            <section class="modal-card-body">
-                                {{ilacIndexList.IlacAdi}}
-                                <img :src="ilacIndexList.ImageUrl" alt="">
+                            <section class="modal-card-body"
+                                style="background-image: url(./images/ilacKartiBack.png); background-size: cover;">
+                                <h2 class="title is-1 ilacKartiBasligi">{{ilacIndexList.IlacAdi}}</h2>
+
+                                <div class="columns">
+                                    <div class="column">
+                                        <figure class="image is-4by3">
+                                            <img class="ilacKartiImg" :src="ilacIndexList.ImageUrl"
+                                                alt="Placeholder image">
+                                        </figure>
+                                    </div>
+                                    <div class="column">
+                                        <p><strong class="kalınMetin">Etken Maddesi:
+                                            </strong>{{ilacIndexList.EtkenMadde}}</p>
+                                        <p><strong class="kalınMetin">İlaç Türü:
+                                            </strong>{{ilacIndexList.Siniflandirma}}</p>
+                                        <p><strong class="kalınMetin">Endikasyonları:
+                                            </strong>{{ilacIndexList.Endikasyonlari}}</p>
+                                        <p><strong class="kalınMetin">Kontrendike Durumlar:
+                                            </strong>{{ilacIndexList.Kontrendike}}</p>
+                                        <p><strong class="kalınMetin">Yan Etkileri:
+                                            </strong>{{ilacIndexList.YanEtkileri}}</p>
+                                        <p><strong class="kalınMetin">Birlikte Kullanılmaması Gereken İlaçlar:
+                                            </strong>{{ilacIndexList.BirlikteKullanilmaz}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="columns">
+                                    <div class="column">
+                                        <h3 class="title is-3 kalınMetin">Hemşireye Notlar:</h3>
+                                        <p class="hemsireyeNotlarP">
+                                            {{ilacIndexList.HemsireyeNotlar}}
+                                        </p>
+                                    </div>
+                                </div>
+
                             </section>
-                            <footer class="modal-card-foot">
-                                <button class="button is-success">Save changes</button>
-                                <button class="button">Cancel</button>
-                            </footer>
+            
                         </div>
                     </div>
-
                 </div>
 
             </div>
@@ -167,7 +128,7 @@
                         <p>Bilgi</p>
                     </div>
                     <div class="message-body">
-                        Lütfen En 3 Harf Giriniz.
+                        Lütfen En Az 3 Harf Girip Arama Yapınız.
                     </div>
                 </article>
             </div>
@@ -180,7 +141,7 @@
                         <p>Uyarı</p>
                     </div>
                     <div class="message-body">
-                        İlaç bulunamadı. Başka bir şeyi aramayı deneyin.
+                        İlaç bulunamadı. Lütfen başka bir şekilde aramayı deneyin.
                     </div>
 
                 </article>
@@ -189,6 +150,15 @@
 
         <br><br>
 
+        <footer class="footer">
+            <div class="content has-text-centered">
+              <p>
+                <strong>İlaç Kartları Uygulaması</strong> by <a href="https://www.instagram.com/serhatkanat99/">Serhat Kanat</a>. Bir <a href="https://hemsirekitabi.com/">Hemşire Kitabı</a> Projesidir. <br>
+                &copy Bütün Telif Hakları Sakladır. <br>
+                Version 1.0.2 Alpha
+              </p>
+            </div>
+          </footer>
     </div>
 
 

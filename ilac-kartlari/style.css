@@ -1,0 +1,99 @@
+.ortala {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.ilacKartlari {
+    width: 300px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    height: 100%;
+    cursor: pointer;
+}
+
+.ilacKartlari:hover {
+    -webkit-box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.7);
+    box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.7);
+}
+
+.mainIlaclar {
+    display: flex !important;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+.aramaKutusu {
+    width: 500px;
+}
+
+.uyariKutusu {
+    width: 700px;
+}
+
+.isActive {
+    display: flex;
+}
+
+.ilacKartiImg {
+    border: 1px solid #22577E;
+    border-radius: 17px;
+}
+
+.ilacKartiBasligi {
+    font-family: 'Fredoka One', cursive;
+    font-weight: 400;
+}
+
+.hemsireyeNotlarP {
+    font-family: 'Shadows Into Light', cursive;
+    font-weight: bolder;
+    font-size: 20px ;
+}
+
+.kalınMetin{
+    font-family: 'Ubuntu', sans-serif;
+}
+
+p{
+    font-weight: 600;
+}
+
+
+@media screen and (max-width: 970px) {
+    .mainIlaclar {
+        display: flex !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        margin: 20px;
+    }
+
+    .aramaKutusu {
+        width: 400px;
+    }
+
+    .uyariKutusu {
+        width: 600px;
+    }
+
+}
+
+@media screen and (max-width: 660px) {
+    .mainIlaclar {
+        display: flex !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        margin: 20px;
+    }
+
+    .aramaKutusu {
+        width: 250px;
+    }
+
+    .uyariKutusu {
+        width: 300px;
+    }
+
+}

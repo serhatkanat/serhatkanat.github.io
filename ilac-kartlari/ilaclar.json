@@ -3,27 +3,43 @@
     "EtkenMadde" : "metoklopramid",
     "Siniflandirma" : "Antiemetik",
     "Endikasyonlari" : "Bulantı ve kusma tedavasinde ve önlenmesinde kullanılır.",
-    "ImageUrl" : "images/metpamid.jpg"
+    "ImageUrl" : "images/metpamid.jpg",
+    "Kontrendike" : "Hastalık 1, Hastalık 2, Olay 1, Olay 2",
+    "YanEtkileri" : "Yan etki 1, Yan Etki 2, Yan Etki 3",
+    "BirlikteKullanilmaz" : "ilaç 1, ilaç 2, ilaç 3",
+    "HemsireyeNotlar" : "Önemli Notlar Burada Yazılacak..."
 },
 {
     "IlacAdi" : "Parol",
     "EtkenMadde" : "parasetamol",
     "Siniflandirma" : "Aneljezik",
     "Endikasyonlari" : "Hafif ve orta şiddette ağrılar için kullanılan bir ağrı kesicidir",
-    "ImageUrl" : "images/parol.jpg"
+    "ImageUrl" : "images/parol.jpg",
+    "Kontrendike" : "Hastalık 3, Hastalık 4, Olay 3, Olay 4",
+    "YanEtkileri" : "Yan etki 4, Yan Etki 5, Yan Etki 6",
+    "BirlikteKullanilmaz" : "ilaç 4, ilaç 5, ilaç 6",
+    "HemsireyeNotlar" : "Önemli Notlar Burada Yazılacak..."
 },
 {
     "IlacAdi" : "Vorix",
     "EtkenMadde" : "vorikonazol",
     "Siniflandirma" : "Antifungal",
     "Endikasyonlari" : "Mantar enfeksiyonunu tedavi etmek için kullanılan ilaçtır.",
-    "ImageUrl" : "images/vorix.jpg"
+    "ImageUrl" : "images/vorix.jpg",
+    "Kontrendike" : "Hastalık 5, Hastalık 6, Olay 5, Olay 6",
+    "YanEtkileri" : "Yan etki 7, Yan Etki 8, Yan Etki 9",
+    "BirlikteKullanilmaz" : "ilaç 7, ilaç 8, ilaç 9",
+    "HemsireyeNotlar" : "Önemli Notlar Burada Yazılacak..."
 },
 {
     "IlacAdi" : "Pandev",
     "EtkenMadde" : "pantoprazol",
     "Siniflandirma" : "Proton Pompası İnhibitörüdür",
     "Endikasyonlari" : "Midede hidroklorik asit salgılanmasını inhibe eder.",
-    "ImageUrl" : "images/pandev.jpg"
+    "ImageUrl" : "images/pandev.jpg",
+    "Kontrendike" : "Hastalık 7, Hastalık 8, Olay 7, Olay 8",
+    "YanEtkileri" : "Yan etki 10, Yan Etki 11, Yan Etki 12",
+    "BirlikteKullanilmaz" : "ilaç 10, ilaç 11, ilaç 12",
+    "HemsireyeNotlar" : "Önemli Notlar Burada Yazılacak..."
 }
 ]
