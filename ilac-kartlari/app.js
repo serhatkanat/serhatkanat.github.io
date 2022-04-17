@@ -1,11 +1,3 @@
-const buttonilac = document.querySelector("#buttonilac");
-
-buttonilac.addEventListener('click', (e) => {
-
-    console.log("deneme");
-
-    e.preventDefault()
-})
 
 class IlacBilgileri {
     constructor() {
@@ -25,6 +17,12 @@ class IlacBilgileri {
                 data: {
                     ilaclar: ilacResponse.data,
                     search: '',
+                    uyarıKutusuGoster: true,
+                    sonDangerBox: false,
+                    dangerBox: '',
+                    ilacKarti: false,
+                    ilacIndexNum : '',
+                    ilacIndexList: ''
                 },
                 computed: {
                     ilacAdinaGore() {
@@ -35,12 +33,28 @@ class IlacBilgileri {
                 },
                 methods: {
                     tikla() {
-                        const inputIlac = document.querySelector("#inputIlac");
-                        if (this.search.length > 0) {
-                            inputIlac.keydown()
-                        } else {
-                            console.log("else");
+                        if (this.search.length > 2) {
+                            this.uyarıKutusuGoster = false;
+                        } else if(this.search.length <= 2){
+                            this.uyarıKutusuGoster = true;
                         }
+                    },
+                    kontrol(){
+                        if (this.ilacAdinaGore.length === 0 && !this.uyarıKutusuGoster) {
+                            this.dangerBox = true;
+                        }else{
+                            this.dangerBox = false;
+                        }
+
+                    },
+                    ilacKartiGoster(event){
+                        this.ilacKarti = true;
+                        this.ilacIndexNum = event.target.parentElement.children[0].innerText;
+                        console.log(event.target.parentElement.children[0].innerText);
+                        this.ilacIndexList = this.ilacAdinaGore[this.ilacIndexNum] 
+                    },
+                    ilacKartiKapat(){
+                        this.ilacKarti = false;
                     }
                 }
             })

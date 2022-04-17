@@ -21,44 +21,68 @@
             margin-right: 10px;
             margin-bottom: 10px;
             height: 100%;
+            cursor: pointer;
         }
 
-        .anaIlaclar {
+        .ilacKartlari:hover {
+            -webkit-box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.7);
+            box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.7);
+        }
+
+        .mainIlaclar {
             display: flex !important;
             flex-wrap: wrap;
             margin: 20px;
         }
 
-        .aramaKutusu{
+        .aramaKutusu {
             width: 500px;
         }
 
-        @media screen and (max-width: 970px) {
-            .anaIlaclar {
-            display: flex !important;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-content: center;
-            margin: 20px;
+        .uyariKutusu {
+            width: 700px;
         }
 
-        .aramaKutusu{
-            width: 400px;
+        .isActive {
+            display: flex;
         }
+
+        @media screen and (max-width: 970px) {
+            .mainIlaclar {
+                display: flex !important;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-content: center;
+                margin: 20px;
+            }
+
+            .aramaKutusu {
+                width: 400px;
+            }
+
+            .uyariKutusu {
+                width: 600px;
+            }
+
         }
 
         @media screen and (max-width: 660px) {
-            .anaIlaclar {
-            display: flex !important;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-content: center;
-            margin: 20px;
-        }
+            .mainIlaclar {
+                display: flex !important;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-content: center;
+                margin: 20px;
+            }
 
-        .aramaKutusu{
-            width: 250px;
-        }
+            .aramaKutusu {
+                width: 250px;
+            }
+
+            .uyariKutusu {
+                width: 300px;
+            }
+
         }
     </style>
 </head>
@@ -66,7 +90,7 @@
 <body>
 
     <div id="app">
-
+        {{kontrol()}}
         <section class="hero is-success has-text-centered">
             <div class="hero-body">
                 <h1 class="title is-1">İlaç Kartları</h1>
@@ -78,41 +102,89 @@
             <div class="field container aramaKutusu">
                 <label class="label">İlaç Adını Giriniz:</label>
                 <div class="control">
-                    <input v-model="search" @input="tikla" class="input" id="inputIlac" type="text"
+                    <input v-model="search" @input="tikla" class="input" type="text"
                         placeholder="İlaç adı, etken maddesi, ilaç türü, endikasyon yazınız">
                 </div>
             </div>
         </div>
         <hr>
 
-        <div class="anaIlaclar">
-            <div v-for="ilac in ilacAdinaGore" style="margin-bottom: 20px;">
+        <div v-show="!uyarıKutusuGoster">
+            <div class="mainIlaclar">
+                <div v-for="(ilac,index) in ilacAdinaGore" :key="index" style="margin-bottom: 20px;">
+                    <div class="card ilacKartlari">
+                        <span style="display: none;">{{index}}</span>
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img :src="ilac.ImageUrl" alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <button @click="ilacKartiGoster" class="button is-info mt-2 ml-2">İlaç Kartına Bak</button>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4">{{ilac.IlacAdi}}</p>
+                                </div>
+                            </div>
 
-                <div class="card ilacKartlari">
-                    <div class="card-image">
-                        <figure class="image is-4by3">
-                            <img :src="ilac.ImageUrl" alt="Placeholder image">
-                        </figure>
-                    </div>
-                    <div class="card-content">
-                        <div class="media">
-                            <div class="media-content">
-                                <p class="title is-4">{{ilac.IlacAdi}}</p>
+                            <div class="content">
+                                <p><strong>Etken Maddesi:</strong> {{ilac.EtkenMadde}}</p>
+                                <p><strong>İlaç Türü:</strong> {{ilac.Siniflandirma}}</p>
+                                <p><strong>İlaç Türü:</strong> {{ilac.Endikasyonlari}}</p>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="content">
-                            <p><strong>Etken Maddesi:</strong> {{ilac.EtkenMadde}}</p>
-                            <p><strong>İlaç Türü:</strong> {{ilac.Siniflandirma}}</p>
-                            <p><strong>İlaç Türü:</strong> {{ilac.Endikasyonlari}}</p>
+
+                    <div class="modal" :class="{isActive : ilacKarti}">
+                        <div class="modal-background"></div>
+                        <div class="modal-card">
+                            <header class="modal-card-head">
+                                <p class="modal-card-title">Modal title</p>
+                                <button @click="ilacKartiKapat" class="delete" aria-label="close"></button>
+                            </header>
+                            <section class="modal-card-body">
+                                {{ilacIndexList.IlacAdi}}
+                                <img :src="ilacIndexList.ImageUrl" alt="">
+                            </section>
+                            <footer class="modal-card-foot">
+                                <button class="button is-success">Save changes</button>
+                                <button class="button">Cancel</button>
+                            </footer>
                         </div>
                     </div>
+
                 </div>
-
-
 
             </div>
 
+        </div>
+
+        <div v-show="uyarıKutusuGoster">
+            <div class="ortala">
+                <article class="message is-info uyariKutusu" style="margin-top: 20px;">
+                    <div class="message-header">
+                        <p>Bilgi</p>
+                    </div>
+                    <div class="message-body">
+                        Lütfen En 3 Harf Giriniz.
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <div v-show="dangerBox">
+            <div class="ortala">
+                <article class="message is-danger uyariKutusu">
+                    <div class="message-header">
+                        <p>Uyarı</p>
+                    </div>
+                    <div class="message-body">
+                        İlaç bulunamadı. Başka bir şeyi aramayı deneyin.
+                    </div>
+
+                </article>
+            </div>
         </div>
 
         <br><br>
