@@ -37,19 +37,25 @@
     border-bottom: 0px solid #bdbdbd;
 }
 
-.btn-sil{
+.gorevler-hero {
+    padding-top: 15px;
+    margin-top: 7px;
+    margin-left: unset;
+}
+
+.btn-sil {
     background-color: #F14668;
 }
 
-.btn-sil:hover{
+.btn-sil:hover {
     background-color: #cf3151;
 }
 
-.ikon-engel{
+.ikon-engel {
     pointer-events: none;
 }
 
-.pointer-oto{
+.pointer-oto {
     pointer-events: auto !important;
     cursor: pointer;
 }
@@ -63,13 +69,26 @@
     cursor: pointer;
 }
 
+.bildirim-padding{
+    padding: 0.30rem 2.5rem 0.3rem 1rem;
+    margin-bottom: 12px !important;
+}
+
 
 @media only screen and (max-width: 768px) {
     .orta-cizgi {
         padding-top: 15px;
         padding-bottom: 0px;
         margin-top: 7px;
+        margin-right: 7px;
+        margin-left: 15px;
         border-bottom: 2px solid #bdbdbd;
         border-right: 0px solid #bdbdbd;
+    }
+
+    .gorevler-hero {
+        padding-top: 15px;
+        margin-top: -20px;
+        margin-left: 15px
     }
 }

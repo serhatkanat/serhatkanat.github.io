@@ -13,14 +13,27 @@ new Vue({
         yeniGorevAdi: '',
         kaydetIndexNo: '',
         favoriGorevlerArray: localStorage.getItem('favoriGorevler') == null ? [] : JSON.parse(localStorage.getItem('favoriGorevler')),
-        favoriModalDurumu: false
+        favoriModalDurumu: false,
+        kopyalananGorev: localStorage.getItem('kopyalanan görev'),
+        inputHatasiDurumu: false,
+        gorevlerKaydetDurumu: false,
+        gorevlerKaydedilmediDurumu: false,
     },
     methods: {
         inputEkle: function () {
-            this.sayiKacTaneEklesin = this.sayiKacTaneEklesin + parseInt(this.kacTaneEklesin);
+            if (parseInt(this.kacTaneEklesin) <= 0 || parseInt(this.kacTaneEklesin) >= 26) {
+                this.inputHatasiDurumu = true;
+                this.uyarilariZamanlaKapat()
+            } else {
+                this.sayiKacTaneEklesin = this.sayiKacTaneEklesin + parseInt(this.kacTaneEklesin);
+                this.gorevlerKaydetDurumu = false;
+                this.gorevlerKaydedilmediDurumu = false;
+            }
         },
         inputlariSil: function () {
             this.sayiKacTaneEklesin = 0;
+            this.gorevlerKaydetDurumu = false;
+            this.gorevlerKaydedilmediDurumu = false;
         },
         gorevleriKaydet: function () {
 
@@ -29,11 +42,14 @@ new Vue({
             } else {
                 let gorevInput = document.querySelectorAll('.gorev');
                 let gorevler;
+                let count = 0;
                 if (localStorage.getItem(this.secilenTarih) == null) {
                     gorevler = [];
                 } else {
                     gorevler = JSON.parse(localStorage.getItem(this.secilenTarih))
                 }
+
+
 
                 for (let i = 0; i < this.sayiKacTaneEklesin; i++) {
 
@@ -47,8 +63,16 @@ new Vue({
                         //eğer input boşsa kaydetme olmayacak
                     } else {
                         gorevler.push(yeniGorev)
+                        this.gorevlerKaydedilmediDurumu = false;
+                        this.gorevlerKaydetDurumu = true;
+                        count++
                     }
 
+                }
+
+                if (count == 0) {
+                    this.gorevlerKaydetDurumu = false;
+                    this.gorevlerKaydedilmediDurumu = true;
                 }
 
                 localStorage.setItem(this.secilenTarih, JSON.stringify(gorevler))
@@ -73,9 +97,11 @@ new Vue({
         },
         gorevSil: function (event) {
             let indexNo = event.target.parentElement.children[0].innerText;
-            this.gorevlerArray.splice(indexNo - 1, 1)
             gorevler = this.gorevlerArray;
-            localStorage.setItem(this.gorevlerArray[indexNo - 1].tarih, JSON.stringify(gorevler))
+            let gorevlerTarih = gorevler[0].tarih;
+            gorevler.splice(indexNo - 1, 1)
+
+            localStorage.setItem(gorevlerTarih, JSON.stringify(gorevler))
         },
         duzenleKaydet: function () {
             console.log(this.kaydetIndexNo - 1);
@@ -114,6 +140,31 @@ new Vue({
         },
         favoriModalOpen: function () {
             this.favoriModalDurumu = true;
+            this.favoriGorevlerArray = localStorage.getItem('favoriGorevler') == null ? [] : JSON.parse(localStorage.getItem('favoriGorevler'))
+        },
+        favoriKopyala: function (event) {
+            navigator.clipboard.writeText(event.target.parentElement.children[0].innerText);
+            this.kopyalananGorev = event.target.parentElement.children[0].innerText;
+            localStorage.setItem('kopyalanan görev', this.kopyalananGorev)
+            console.log(this.kopyalananGorev);
+        },
+        favoriYapistir: function (event) {
+            event.target.parentElement.children[1].value = this.kopyalananGorev;
+        },
+        uyariKapat: function (event) {
+
+            if (event.target.parentElement.classList.contains('inputHatasiDanger')) {
+                this.inputHatasiDurumu = false;
+            } else if (event.target.parentElement.classList.contains('gorevlerKaydetSucces')) {
+                this.gorevlerKaydetDurumu = false;
+            } else if (event.target.parentElement.classList.contains('gorevlerKaydedilmediWarning')) {
+                this.gorevlerKaydedilmediDurumu = false;
+            }
+        },
+        uyarilariZamanlaKapat: function () {
+            setTimeout(() => {
+                this.inputHatasiDurumu = false;
+            }, 3500)
         }
     }
 })

@@ -11,9 +11,11 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
     <title>Gününü Planla</title>
 </head>
@@ -41,10 +43,20 @@
                             Yeni Görev Ekle
                         </h2>
 
-                        <div class="columns">
+                        <div class="columns" style="margin-bottom: 0px;">
                             <div class="column">
                                 <div class="field">
                                     <label class="label" for="">Kaç Tane Görev Eklemek İstersiniz?</label>
+
+                                    <!-- Uyarı Mesajları Başlangıç -->
+
+                                    <div v-if="inputHatasiDurumu"
+                                        class="notification bildirim-padding is-danger is-light animate__animated animate__shakeX inputHatasiDanger">
+                                        <button @click="uyariKapat" class="delete"></button>
+                                        Lütfen 1 ile 25 arasında bir değer giriniz.
+                                    </div>
+
+                                    <!-- Uyarı Mesajları Bitiş -->
                                     <input style="width: 70px;" class="input" type="number" placeholder="ör:5"
                                         v-model="kacTaneEklesin">
                                 </div>
@@ -52,7 +64,7 @@
                         </div>
 
                         <div class="container">
-                            <div class="mb-3"><button @click="inputEkle" class="button is-primary">Ekle</button>
+                            <div class="mb-5"><button @click="inputEkle" class="button is-primary">Ekle</button>
                                 <button v-if="sayiKacTaneEklesin != 0" @click="inputlariSil"
                                     class="button is-danger">Kutucukları
                                     Sil</button>
@@ -77,17 +89,20 @@
                         <!-- Favori Modal -->
                         <div class="modal" :class="{'is-active':favoriModalDurumu}">
                             <div class="modal-background"></div>
-                            <div class="modal-card">
+                            <div class="modal-card animate__animated animate__zoomIn">
                                 <header class="modal-card-head">
                                     <p class="modal-card-title">Favori Görevleriniz</p>
                                     <button @click="modalKapat" class="delete" aria-label="close"></button>
                                 </header>
                                 <section class="modal-card-body">
-                                    <p v-if="favoriGorevlerArray.length == 0" class="title is-4">Hiçbir görevinizi favorilere eklemediniz!</p>
-                                    <article v-for="(favori,index) in favoriGorevlerArray.length" :key="favori" class="message is-info">
+                                    <p v-if="favoriGorevlerArray.length == 0" class="title is-4">Hiçbir görevinizi
+                                        favorilere eklemediniz!</p>
+                                    <article v-for="(favori,index) in favoriGorevlerArray.length" :key="favori"
+                                        class="message is-info">
                                         <div class="message-header" style="border-radius: 4px;">
                                             <p>{{favoriGorevlerArray[index]}}</p>
-                                            <button><i class="fa-solid fa-plus"></i></button>
+                                            <button @click="favoriKopyala"><i
+                                                    class="fa-solid fa-copy ikon-engel"></i></button>
                                         </div>
                                     </article>
 
@@ -100,31 +115,55 @@
                         <!-- Favori Modal Bitiş -->
 
                         <div class="field" v-for="(sayi,index) in sayiKacTaneEklesin" :key="sayi">
-                            <div class="control has-icons-left has-icons-right">
+                            <div class="control has-icons-left has-icons-right animate__animated animate__fadeInLeft">
                                 <span class="inputDiv" style="display: none;">{{sayi}}</span>
                                 <input class="input gorev" type="text" placeholder="görevinizi yazınız...">
                                 <span class="icon is-small is-left">
                                     {{sayi}}.
+                                </span>
+                                <span @click="favoriYapistir"
+                                    style="margin-right: 40px;border-right: 1px solid; border-left: 1px solid;"
+                                    @click="favorilereKaydet" class="icon is-small is-right pointer-oto">
+                                    <i class="fa-solid fa-paste ikon-engel"></i>
                                 </span>
                                 <span @click="favorilereKaydet" class="icon is-small is-right pointer-oto">
                                     <i class="fa-solid fa-bookmark ikon-engel"></i>
                                 </span>
                             </div>
                         </div>
+                        <!-- Uyarı Mesajları Başlangıç -->
+                        <div v-if="gorevlerKaydetDurumu">
+                            <div
+                                class="notification bildirim-padding is-success is-light animate__animated animate__flipInX gorevlerKaydetSucces">
+                                <button @click="uyariKapat" class="delete"></button>
+                                Görevler Kaydedildi.
+                            </div>
+                        </div>
+
+                        <div v-if="gorevlerKaydedilmediDurumu">
+                            <div
+                                class="notification bildirim-padding is-warning is-light animate__animated animate__pulse gorevlerKaydedilmediWarning">
+                                <button @click="uyariKapat" class="delete"></button>
+                                Hiçbir görev kaydedilmedi! Lütfen en az bir görev yazınız.
+                            </div>
+                        </div>
+                        <!-- Uyarı Mesajları Bitiş -->
                         <button v-if="sayiKacTaneEklesin != 0" @click="gorevleriKaydet"
-                            class="button is-info mb-3">Görevleri
+                            class="button is-info mb-5">Görevleri
                             Kaydet</button>
+
+
+
                     </div>
                 </div>
 
                 <div class="column">
-                    <div style="padding-top: 15px; margin-top: 7px;" class="hero-body">
+                    <div class="hero-body gorevler-hero">
                         <h2 class="title is-2">Görevler</h2>
                         <div class="field">
                             <label class="label">Görevleri Görmek İçin Bir Tarih Seçin?</label>
                             <div class="control">
-                                <input style="width: 200px;" class="input mb-2" type="date"
-                                    v-model="gorevleriGetirenTarih">
+                                <input style="width: 200px;" class="input" type="date" v-model="gorevleriGetirenTarih">
                             </div>
                         </div>
                         <div class="container">
@@ -133,59 +172,62 @@
                         </div>
                         <hr v-if="gorevlerArray.length != 0">
 
-                        <div v-for="(i,index) in gorevlerArray.length" :key="i">
-                            <article class="message" :class="{'is-info' : !gorevlerArray[index].yapildiMi}">
-                                <div class="message-header">
-                                    <p>{{i}}. Görev</p>
-                                    <div>
-                                        <span style="display: none;">{{i}}</span>
-                                        <button @click="gorevDuzenle" class="btn-gorev"><i
-                                                class="fa-solid fa-pen ikon-engel"></i>
-                                            Düzenle</button>
-                                        <button @click="gorevYapildi" class="btn-gorev"><i
-                                                class="fa-solid fa-check ikon-engel"></i> Yapıldı</button>
-                                        <button @click="gorevSil" class="btn-gorev btn-sil"><i
-                                                class="fa-solid fa-trash-can ikon-engel"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="message-body blackFont"
-                                    :class="{ustunuCiz : gorevlerArray[index].yapildiMi}">
-                                    {{gorevlerArray[index].gorevAdi}}
-                                </div>
-                            </article>
-
-
-                            <div class="modal" :class="{'is-active':modalDurumu}">
-                                <div class="modal-background"></div>
-                                <div class="modal-card">
-                                    <header class="modal-card-head">
-                                        <p class="modal-card-title">Seçilen Görevi Düzenle</p>
-                                        <button @click="modalKapat" class="delete" aria-label="close"></button>
-                                    </header>
-                                    <section class="modal-card-body">
-                                        <p class="mb-1"><strong>Şu Anki Görev: </strong>{{duzenlenenGorev.gorevAdi}}</p>
-
-                                        <div class="field">
-                                            <label class="label">Yeni Görevi Yazın:</label>
-                                            <div class="control has-icons-left has-icons-right">
-                                                <input class="input" type="text" placeholder="Yeni bir görev yazın..."
-                                                    v-model="yeniGorevAdi">
-                                                <span class="icon is-small is-left">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                </span>
-                                            </div>
+                        <div>
+                            <div v-for="(i,index) in gorevlerArray.length" :key="i">
+                                <article class="message animate__animated animate__fadeInRight"
+                                    :class="{'is-info' : !gorevlerArray[index].yapildiMi}">
+                                    <div class="message-header">
+                                        <p>{{i}}. Görev</p>
+                                        <div>
+                                            <span style="display: none;">{{i}}</span>
+                                            <button @click="gorevDuzenle" class="btn-gorev"><i
+                                                    class="fa-solid fa-pen ikon-engel"></i>
+                                                Düzenle</button>
+                                            <button @click="gorevYapildi" class="btn-gorev"><i
+                                                    class="fa-solid fa-check ikon-engel"></i> Yapıldı</button>
+                                            <button @click="gorevSil" class="btn-gorev btn-sil"><i
+                                                    class="fa-solid fa-trash-can ikon-engel"></i>
+                                            </button>
                                         </div>
+                                    </div>
+                                    <div class="message-body blackFont"
+                                        :class="{ustunuCiz : gorevlerArray[index].yapildiMi}">
+                                        {{gorevlerArray[index].gorevAdi}}
+                                    </div>
+                                </article>
 
-                                    </section>
-                                    <footer class="modal-card-foot">
-                                        <button @click="duzenleKaydet" class="button is-success">Kaydet</button>
-                                        <button @click="modalKapat" class="button">Vazgeç</button>
-                                    </footer>
-                                </div>
                             </div>
-
                         </div>
+                        <div class="modal" :class="{'is-active':modalDurumu}">
+                            <div class="modal-background "></div>
+                            <div class="modal-card animate__animated animate__zoomIn">
+                                <header class="modal-card-head">
+                                    <p class="modal-card-title">Seçilen Görevi Düzenle</p>
+                                    <button @click="modalKapat" class="delete" aria-label="close"></button>
+                                </header>
+                                <section class="modal-card-body">
+                                    <p class="mb-1"><strong>Şu Anki Görev: </strong>{{duzenlenenGorev.gorevAdi}}</p>
+
+                                    <div class="field">
+                                        <label class="label">Yeni Görevi Yazın:</label>
+                                        <div class="control has-icons-left has-icons-right">
+                                            <input class="input" type="text" placeholder="Yeni bir görev yazın..."
+                                                v-model="yeniGorevAdi">
+                                            <span class="icon is-small is-left">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </section>
+                                <footer class="modal-card-foot">
+                                    <button @click="duzenleKaydet" class="button is-success">Kaydet</button>
+                                    <button @click="modalKapat" class="button">Vazgeç</button>
+                                </footer>
+                            </div>
+                        </div>
+
+
                     </div>
 
                 </div>
