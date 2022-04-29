@@ -1,0 +1,75 @@
+.btn-gorev {
+    background-color: transparent;
+    border-radius: 28px;
+    border: 1px solid #fff;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 12px;
+    padding: 5px 15px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2f6627;
+}
+
+.btn-gorev:hover {
+    background-color: #00000015;
+    border: 1px solid #fff;
+}
+
+.btn-gorev:active {
+    position: relative;
+    top: 1px;
+}
+
+.blackFont {
+    color: black !important;
+}
+
+.ustunuCiz {
+    text-decoration: line-through;
+}
+
+.orta-cizgi {
+    padding-top: 15px;
+    padding-bottom: 0px;
+    margin-top: 7px;
+    border-right: 2px solid #bdbdbd;
+    border-bottom: 0px solid #bdbdbd;
+}
+
+.btn-sil{
+    background-color: #F14668;
+}
+
+.btn-sil:hover{
+    background-color: #cf3151;
+}
+
+.ikon-engel{
+    pointer-events: none;
+}
+
+.pointer-oto{
+    pointer-events: auto !important;
+    cursor: pointer;
+}
+
+.favori-span {
+    height: 38px;
+    width: 38px;
+    background-color: #3488CE;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .orta-cizgi {
+        padding-top: 15px;
+        padding-bottom: 0px;
+        margin-top: 7px;
+        border-bottom: 2px solid #bdbdbd;
+        border-right: 0px solid #bdbdbd;
+    }
+}

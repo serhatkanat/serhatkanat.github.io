@@ -11,7 +11,9 @@ new Vue({
         duzenlenenGorev: '',
         modalDurumu: false,
         yeniGorevAdi: '',
-        kaydetIndexNo: ''
+        kaydetIndexNo: '',
+        favoriGorevlerArray: localStorage.getItem('favoriGorevler') == null ? [] : JSON.parse(localStorage.getItem('favoriGorevler')),
+        favoriModalDurumu: false
     },
     methods: {
         inputEkle: function () {
@@ -41,7 +43,12 @@ new Vue({
                         yapildiMi: false
                     }
 
-                    gorevler.push(yeniGorev)
+                    if (gorevInput[i].value == '') {
+                        //eğer input boşsa kaydetme olmayacak
+                    } else {
+                        gorevler.push(yeniGorev)
+                    }
+
                 }
 
                 localStorage.setItem(this.secilenTarih, JSON.stringify(gorevler))
@@ -64,7 +71,12 @@ new Vue({
             this.kaydetIndexNo = indexNo
             this.duzenlenenGorev = this.gorevlerArray[indexNo - 1]
         },
-
+        gorevSil: function (event) {
+            let indexNo = event.target.parentElement.children[0].innerText;
+            this.gorevlerArray.splice(indexNo - 1, 1)
+            gorevler = this.gorevlerArray;
+            localStorage.setItem(this.gorevlerArray[indexNo - 1].tarih, JSON.stringify(gorevler))
+        },
         duzenleKaydet: function () {
             console.log(this.kaydetIndexNo - 1);
             console.log(this.yeniGorevAdi);
@@ -76,11 +88,32 @@ new Vue({
             localStorage.setItem(this.gorevlerArray[this.kaydetIndexNo - 1].tarih, JSON.stringify(gorevler))
 
             let modaliKapat = this.modalKapat;
-            setTimeout(modaliKapat,1500)
+            setTimeout(modaliKapat, 1000)
         },
         modalKapat: function () {
+            this.favoriModalDurumu = false;
             this.modalDurumu = false;
             this.yeniGorevAdi = '';
+        },
+        favorilereKaydet: function (event) {
+
+            if (localStorage.getItem('favoriGorevler') == null) {
+                gorevler = [];
+            } else {
+                gorevler = JSON.parse(localStorage.getItem('favoriGorevler'));
+            }
+
+            if (event.target.parentElement.children[1].value.length == 0) {
+                //boş kutuyu favorilere eklemez
+            } else {
+                gorevler.push(event.target.parentElement.children[1].value)
+            }
+
+
+            localStorage.setItem('favoriGorevler', JSON.stringify(gorevler))
+        },
+        favoriModalOpen: function () {
+            this.favoriModalDurumu = true;
         }
     }
 })
