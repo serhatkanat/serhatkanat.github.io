@@ -74,7 +74,7 @@ new Vue({
         gorevSil: function (event) {
             let indexNo = event.target.parentElement.children[0].innerText;
             this.gorevlerArray.splice(indexNo - 1, 1)
-            this.gorevlerArray = gorevler ;
+            gorevler = this.gorevlerArray;
             localStorage.setItem(this.gorevlerArray[indexNo - 1].tarih, JSON.stringify(gorevler))
         },
         duzenleKaydet: function () {
