@@ -97,20 +97,28 @@
                                 <section class="modal-card-body">
                                     <p v-if="favoriGorevlerArray.length == 0" class="title is-4">Hiçbir görevinizi
                                         favorilere eklemediniz!</p>
-                                    <article v-for="(favori,index) in favoriGorevlerArray.length" :key="favori"
-                                        class="message is-info">
-                                        <div class="message-header" style="border-radius: 4px;">
-                                            <p><strong>{{index + 1 }}.
-                                                </strong><span>{{favoriGorevlerArray[index]}}</span></p>
-                                            <span style="display: none;">{{index}}</span>
-                                            <div>
-                                                <button @click="favoriKopyala" class="button is-primary favori-btn"><i
-                                                        class="fa-solid fa-copy ikon-engel"></i></button>
-                                                <button @click="favoriSil" class="button is-danger favori-btn"><i
-                                                        class="fa-solid fa-trash ikon-engel"></i></button>
-                                            </div>
-                                        </div>
-                                    </article>  
+
+                                    <transition-group name="list" tag="ul">
+                                        <li v-for="(favori,index) in favoriGorevlerArray.length" :key="favoriGorevlerArray[index]"
+                                            style="margin-bottom: 10px;">
+                                            <article class="message is-info">
+                                                <div class="message-header" style="border-radius: 4px;">
+                                                    <p><strong>{{index + 1 }}.
+                                                        </strong><span>{{favoriGorevlerArray[index]}}</span></p>
+                                                    <span style="display: none;">{{index}}</span>
+                                                    <div>
+                                                        <button @click="favoriKopyala"
+                                                            class="button is-primary favori-btn"><i
+                                                                class="fa-solid fa-copy ikon-engel"></i></button>
+                                                        <button @click="favoriSil"
+                                                            class="button is-danger favori-btn"><i
+                                                                class="fa-solid fa-trash ikon-engel"></i></button>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </li>
+                                    </transition-group>
+
                                 </section>
                                 <footer class="modal-card-foot">
                                     <button @click="modalKapat" class="button is-success">Tamam</button>
