@@ -100,12 +100,17 @@
                                     <article v-for="(favori,index) in favoriGorevlerArray.length" :key="favori"
                                         class="message is-info">
                                         <div class="message-header" style="border-radius: 4px;">
-                                            <p>{{favoriGorevlerArray[index]}}</p>
-                                            <button @click="favoriKopyala"><i
-                                                    class="fa-solid fa-copy ikon-engel"></i></button>
+                                            <p><strong>{{index + 1 }}.
+                                                </strong><span>{{favoriGorevlerArray[index]}}</span></p>
+                                            <span style="display: none;">{{index}}</span>
+                                            <div>
+                                                <button @click="favoriKopyala" class="button is-primary favori-btn"><i
+                                                        class="fa-solid fa-copy ikon-engel"></i></button>
+                                                <button @click="favoriSil" class="button is-danger favori-btn"><i
+                                                        class="fa-solid fa-trash ikon-engel"></i></button>
+                                            </div>
                                         </div>
-                                    </article>
-
+                                    </article>  
                                 </section>
                                 <footer class="modal-card-foot">
                                     <button @click="modalKapat" class="button is-success">Tamam</button>
@@ -121,12 +126,12 @@
                                 <span class="icon is-small is-left">
                                     {{sayi}}.
                                 </span>
-                                <span @click="favoriYapistir"
+                                <span v-if="kopyalananGorev" @click="favoriYapistir"
                                     style="margin-right: 40px;border-right: 1px solid; border-left: 1px solid;"
-                                    @click="favorilereKaydet" class="icon is-small is-right pointer-oto">
+                                    @click="favorilereKaydet" class="icon is-small is-right input-span pointer-oto">
                                     <i class="fa-solid fa-paste ikon-engel"></i>
                                 </span>
-                                <span @click="favorilereKaydet" class="icon is-small is-right pointer-oto">
+                                <span @click="favorilereKaydet" class="icon is-small is-right input-span pointer-oto">
                                     <i class="fa-solid fa-bookmark ikon-engel"></i>
                                 </span>
                             </div>
@@ -174,7 +179,7 @@
 
                         <div>
                             <div v-for="(i,index) in gorevlerArray.length" :key="i">
-                                <article class="message animate__animated animate__fadeInRight"
+                                <article class="message mb-3 animate__animated animate__fadeInRight"
                                     :class="{'is-info' : !gorevlerArray[index].yapildiMi}">
                                     <div class="message-header">
                                         <p>{{i}}. Görev</p>
@@ -185,6 +190,9 @@
                                                 Düzenle</button>
                                             <button @click="gorevYapildi" class="btn-gorev"><i
                                                     class="fa-solid fa-check ikon-engel"></i> Yapıldı</button>
+                                            <button @click="gorevlerdekiFavorileriKaydet" class="btn-gorev"><i
+                                                    class="fa-solid fa-bookmark ikon-engel"></i>
+                                            </button>
                                             <button @click="gorevSil" class="btn-gorev btn-sil"><i
                                                     class="fa-solid fa-trash-can ikon-engel"></i>
                                             </button>

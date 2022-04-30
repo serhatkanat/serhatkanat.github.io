@@ -21,7 +21,8 @@ new Vue({
     },
     methods: {
         inputEkle: function () {
-            if (parseInt(this.kacTaneEklesin) <= 0 || parseInt(this.kacTaneEklesin) >= 26) {
+
+            if (parseInt(this.kacTaneEklesin) <= 0 || parseInt(this.kacTaneEklesin) >= 26 || this.kacTaneEklesin == '') {
                 this.inputHatasiDurumu = true;
                 this.uyarilariZamanlaKapat()
             } else {
@@ -29,6 +30,8 @@ new Vue({
                 this.gorevlerKaydetDurumu = false;
                 this.gorevlerKaydedilmediDurumu = false;
             }
+
+
         },
         inputlariSil: function () {
             this.sayiKacTaneEklesin = 0;
@@ -48,8 +51,6 @@ new Vue({
                 } else {
                     gorevler = JSON.parse(localStorage.getItem(this.secilenTarih))
                 }
-
-
 
                 for (let i = 0; i < this.sayiKacTaneEklesin; i++) {
 
@@ -104,10 +105,6 @@ new Vue({
             localStorage.setItem(gorevlerTarih, JSON.stringify(gorevler))
         },
         duzenleKaydet: function () {
-            console.log(this.kaydetIndexNo - 1);
-            console.log(this.yeniGorevAdi);
-            console.log(this.duzenlenenGorev);
-
             this.gorevlerArray[this.kaydetIndexNo - 1].gorevAdi = this.yeniGorevAdi;
             this.gorevlerArray[this.kaydetIndexNo - 1].yapildiMi = false;
             gorevler = this.gorevlerArray;
@@ -138,18 +135,41 @@ new Vue({
 
             localStorage.setItem('favoriGorevler', JSON.stringify(gorevler))
         },
+        gorevlerdekiFavorileriKaydet: function (event) {
+
+            if (localStorage.getItem('favoriGorevler') == null) {
+                gorevler = [];
+            } else {
+                gorevler = JSON.parse(localStorage.getItem('favoriGorevler'));
+            }
+
+            if (false) {
+                //boş kutuyu favorilere eklemez
+            } else {
+                gorevler.push(event.target.parentElement.parentElement.parentElement.children[1].innerText)
+            }
+
+
+            localStorage.setItem('favoriGorevler', JSON.stringify(gorevler))
+        },
         favoriModalOpen: function () {
             this.favoriModalDurumu = true;
             this.favoriGorevlerArray = localStorage.getItem('favoriGorevler') == null ? [] : JSON.parse(localStorage.getItem('favoriGorevler'))
         },
         favoriKopyala: function (event) {
-            navigator.clipboard.writeText(event.target.parentElement.children[0].innerText);
-            this.kopyalananGorev = event.target.parentElement.children[0].innerText;
+            navigator.clipboard.writeText(event.target.parentElement.parentElement.children[0].children[1].innerText);
+            this.kopyalananGorev = event.target.parentElement.parentElement.children[0].children[1].innerText;
             localStorage.setItem('kopyalanan görev', this.kopyalananGorev)
-            console.log(this.kopyalananGorev);
         },
         favoriYapistir: function (event) {
             event.target.parentElement.children[1].value = this.kopyalananGorev;
+        },
+        favoriSil: function (event) {
+            let favoriSilIndexNo = event.target.parentElement.parentElement.children[1].innerText;
+            let favoriSilinenArray;
+            this.favoriGorevlerArray.splice(favoriSilIndexNo, 1);
+            favoriSilinenArray = this.favoriGorevlerArray;
+            localStorage.setItem('favoriGorevler', JSON.stringify(favoriSilinenArray))
         },
         uyariKapat: function (event) {
 

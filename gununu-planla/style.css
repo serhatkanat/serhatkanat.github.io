@@ -6,7 +6,8 @@
     cursor: pointer;
     color: #ffffff;
     font-size: 12px;
-    padding: 5px 15px;
+    padding: 6px 20px;
+    margin: 1px 0px;
     text-decoration: none;
     text-shadow: 0px 1px 0px #2f6627;
 }
@@ -69,11 +70,41 @@
     cursor: pointer;
 }
 
-.bildirim-padding{
+.bildirim-padding {
     padding: 0.30rem 2.5rem 0.3rem 1rem;
     margin-bottom: 12px !important;
 }
 
+.input-span:active {
+    color: white !important;
+    background-color: #dbdbdb;
+}
+
+.favori-btn{
+    padding: 10px;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+@media only screen and (max-width: 1030px) {
+    .btn-gorev {
+        padding: 6px 10px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .btn-gorev {
+        padding: 6px 6px;
+    }
+}
 
 @media only screen and (max-width: 768px) {
     .orta-cizgi {
