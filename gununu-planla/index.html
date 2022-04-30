@@ -99,8 +99,8 @@
                                         favorilere eklemediniz!</p>
 
                                     <transition-group name="list" tag="ul">
-                                        <li v-for="(favori,index) in favoriGorevlerArray.length" :key="favoriGorevlerArray[index]"
-                                            style="margin-bottom: 10px;">
+                                        <li v-for="(favori,index) in favoriGorevlerArray.length"
+                                            :key="favoriGorevlerArray[index]" style="margin-bottom: 10px;">
                                             <article class="message is-info">
                                                 <div class="message-header" style="border-radius: 4px;">
                                                     <p><strong>{{index + 1 }}.
@@ -251,6 +251,24 @@
             </div>
 
         </section>
+
+        <footer class="footer">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>Gününü Planla Uygulaması</strong> by <a
+                        href="https://www.instagram.com/serhatkanat99/">Serhat Kanat</a>.
+                    &copy; Bütün Telif Hakları Saklıdır. All Rights Reserved.
+                </p>
+                <nav class="breadcrumb is-centered has-bullet-separator " aria-label="breadcrumbs">
+                    <ul>
+                        <li style="margin-top: .25em;"><a href="#">Hata Bildir</a></li>
+                        <li><a href="#">Öneride Bulun</a></li>
+                        <li><a href="#">İletişime Geç</a></li>
+                        <li><a href="#">Geliştiriciler İçin Bilgiler</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </footer>
 
     </div>
 
