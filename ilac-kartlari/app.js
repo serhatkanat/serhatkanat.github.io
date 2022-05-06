@@ -38,6 +38,8 @@ class IlacBilgileri {
                         } else if(this.search.length <= 2){
                             this.uyarıKutusuGoster = true;
                         }
+
+                        console.log(ilacIsimleri);
                     },
                     kontrol(){
                         if (this.ilacAdinaGore.length === 0 && !this.uyarıKutusuGoster) {
