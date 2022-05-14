@@ -272,7 +272,7 @@ new Vue({
                 if (isNaN(yeniMiktar)) {
                     yeniMiktar = this.enPara
                 }
-                localStorage.setItem('enpara', JSON.stringify(yeniMiktar))
+                localStorage.setItem('enPara', JSON.stringify(yeniMiktar))
                 this.enPara = yeniMiktar
             } else if (tiklanilanEleman == 'Papara') {
                 let yeniMiktar = parseFloat(prompt("Şu Anki Miktar: " + this.papara));
