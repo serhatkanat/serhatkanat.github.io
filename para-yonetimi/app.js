@@ -496,7 +496,7 @@ new Vue({
     },
     computed: {
         toplamVarlikHesaplama: function () {
-           this.v_ToplamVarlik = this.nakit + this.ziraat + this.isBankasi + this.enPara + this.papara + this.diger
+           this.v_ToplamVarlik = parseFloat(this.nakit) + parseFloat(this.ziraat) + parseFloat(this.isBankasi) + parseFloat(this.enPara) + parseFloat(this.papara) + parseFloat(this.diger)
         },
         toplamBorcHesaplama: function () {
             this.v_ToplamBorc = parseFloat(this.harclikBorcTutari) + parseFloat(this.ziraatBorcTutari) + parseFloat(this.isBorcTutari) + parseFloat(this.digerBorcTutari)
