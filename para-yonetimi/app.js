@@ -18,6 +18,8 @@ new Vue({
         nereyeEklendi: '',
         secilenTarih: [],
         v_gunlukToplamTutar: '',
+        v_ToplamVarlik: '',
+        v_ToplamBorc: '',
         harclikBoxDurumu: true,
         ziraatBoxDurumu: false,
         isBoxDurumu: false,
@@ -41,19 +43,16 @@ new Vue({
     },
     methods: {
         harcamalarFonk: function () {
-            console.log("1 çalıştı");
             this.harcamalarDurum = true;
             this.varliklarDurum = false;
             this.borclarDurum = false;
         },
         varliklarFonk: function () {
-            console.log("2 çalıştı");
             this.harcamalarDurum = false;
             this.varliklarDurum = true;
             this.borclarDurum = false;
         },
         borclarFonk: function () {
-            console.log("3 çalıştı");
             this.harcamalarDurum = false;
             this.varliklarDurum = false;
             this.borclarDurum = true;
@@ -297,7 +296,7 @@ new Vue({
                 localStorage.setItem('diger', JSON.stringify(yeniMiktar))
                 this.diger = yeniMiktar
             }
-
+            this.toplamVarlikHesaplama
 
         },
         tiklanilanTabLi: function (event) {
@@ -494,5 +493,13 @@ new Vue({
                 this.digerKaydetBtn = true;
             }
         }
+    },
+    computed: {
+        toplamVarlikHesaplama: function () {
+           this.v_ToplamVarlik = this.nakit + this.ziraat + this.isBankasi + this.enPara + this.papara + this.diger
+        },
+        toplamBorcHesaplama: function () {
+            this.v_ToplamBorc = parseFloat(this.harclikBorcTutari) + parseFloat(this.ziraatBorcTutari) + parseFloat(this.isBorcTutari) + parseFloat(this.digerBorcTutari)
+         }
     }
 })

@@ -19,7 +19,8 @@
 
     <div id="app">
         <div class="container is-fullhd">
-
+            {{toplamVarlikHesaplama }}
+            {{toplamBorcHesaplama}}
             <section class="hero is-info has-text-centered">
                 <div class="hero-body">
                     <p class="title">
@@ -81,11 +82,11 @@
                                             <option>Ziraat Bankası</option>
                                             <option>Enpara</option>
                                             <option>Papara</option>
-                                            <option>İş Bankası</option>                    
-                                            <option>Harçlık Avans</option>                    
-                                            <option>Maximum</option>                    
+                                            <option>İş Bankası</option>
+                                            <option>Harçlık Avans</option>
+                                            <option>Maximum</option>
                                             <option>Genç Kart</option>
-                                            <option>Diğer Borç</option>                    
+                                            <option>Diğer Borç</option>
                                             <option>Diğer</option>
                                         </select>
                                     </div>
@@ -156,7 +157,6 @@
                         <div class="column">
                             <p><strong>Seçilen Tarihe Ait Toplam Tutar: </strong>₺{{v_gunlukToplamTutar}}</p>
                         </div>
-
                     </div>
                 </div>
             </section>
@@ -271,6 +271,11 @@
                             </article>
                         </div>
                     </div>
+                    <div class="columns">
+                        <div class="column">
+                            <p><strong>Toplam Varlık </strong>₺{{v_ToplamVarlik}}</p>
+                        </div>
+                    </div>
                 </div>
             </section>
             <!-- Varlıklar Bitiş-->
@@ -314,8 +319,9 @@
                         <div class="column is-two-fifths">
                             <div v-if="harclikBoxDurumu" class="notification is-success borcBilgisiBox">
                                 <span style="display: none;">harclik</span>
-                                <p><strong>Borç Tutarı: </strong>₺<span>{{harclikBorcTutari}} </span><i @click="borcTutariDuzenle" class="fas fa-lg fa-edit"></i></p>
-                                
+                                <p><strong>Borç Tutarı: </strong>₺<span>{{harclikBorcTutari}} </span><i
+                                        @click="borcTutariDuzenle" class="fas fa-lg fa-edit"></i></p>
+
                                 <p><strong>Hesap Kesim Tarihi: </strong>Her ayın 10'u Burstan Otomatik Olarak Kesiliyor
                                 </p>
                                 <div>
@@ -324,14 +330,16 @@
                                         v-model="harclikNotKutusu">{{harclikNotKutusu}}</textarea>
                                     <div class="kaydetBtn">
                                         <input v-if="harclikKaydetBtn" id="harclikNotKutusuId" @click="borcNotuKaydet"
-                                            class="button mt-2 animate__animated animate__fadeInDown" type="submit" value="Kaydet">
+                                            class="button mt-2 animate__animated animate__fadeInDown" type="submit"
+                                            value="Kaydet">
                                     </div>
                                 </div>
                             </div>
 
                             <div v-if="ziraatBoxDurumu" class="notification is-danger borcBilgisiBox">
                                 <span style="display: none;">ziraat</span>
-                                <p><strong>Borç Tutarı: </strong> ₺<span>{{ziraatBorcTutari}}</span> <i @click="borcTutariDuzenle" class="fas fa-lg fa-edit"></i></p>
+                                <p><strong>Borç Tutarı: </strong> ₺<span>{{ziraatBorcTutari}}</span> <i
+                                        @click="borcTutariDuzenle" class="fas fa-lg fa-edit"></i></p>
                                 <p><strong>Hesap Kesim Tarihi: </strong>Her ayın 1'i</p>
                                 <p><strong>Son Ödeme Tarihi: </strong>Her ayın 11,12 veya 13'ü</p>
                                 <div>
@@ -339,14 +347,16 @@
                                     <textarea class="textarea" v-model="ziraatNotKutusu">{{ziraatNotKutusu}}</textarea>
                                     <div class="kaydetBtn">
                                         <input v-if="ziraatKaydetBtn" id="ziraatNotKutusuId" @click="borcNotuKaydet"
-                                            class="button mt-2 animate__animated animate__fadeInDown" type="submit" value="Kaydet">
+                                            class="button mt-2 animate__animated animate__fadeInDown" type="submit"
+                                            value="Kaydet">
                                     </div>
                                 </div>
                             </div>
 
                             <div v-if="isBoxDurumu" class="notification is-info borcBilgisiBox">
                                 <span style="display: none;">isBank</span>
-                                <p><strong>Borç Tutarı:  </strong>₺<span>{{isBorcTutari}}</span> <i @click="borcTutariDuzenle" class="fas fa-lg fa-edit"></i></p>
+                                <p><strong>Borç Tutarı: </strong>₺<span>{{isBorcTutari}}</span> <i
+                                        @click="borcTutariDuzenle" class="fas fa-lg fa-edit"></i></p>
                                 <p><strong>Hesap Kesim Tarihi: </strong>Her ayın 4'ü</p>
                                 <p><strong>Son Ödeme Tarihi: </strong>Her ayın 14,15 veya 16'sı</p>
                                 <div>
@@ -354,25 +364,33 @@
                                     <textarea class="textarea" v-model="isNotKutusu">{{isNotKutusu}}</textarea>
                                     <div class="kaydetBtn">
                                         <input v-if="isKaydetBtn" id="isNotKutusuId" @click="borcNotuKaydet"
-                                            class="button mt-2 animate__animated animate__fadeInDown" type="submit" value="Kaydet">
+                                            class="button mt-2 animate__animated animate__fadeInDown" type="submit"
+                                            value="Kaydet">
                                     </div>
                                 </div>
                             </div>
 
                             <div v-if="digerBoxDurumu" class="notification is-link borcBilgisiBox">
                                 <span style="display: none;">diger</span>
-                                <p><strong>Borç Tutarı:  </strong>₺<span>{{digerBorcTutari}}</span> <i @click="borcTutariDuzenle" class="fas fa-lg fa-edit"></i></p>
+                                <p><strong>Borç Tutarı: </strong>₺<span>{{digerBorcTutari}}</span> <i
+                                        @click="borcTutariDuzenle" class="fas fa-lg fa-edit"></i></p>
                                 <div>
                                     <label style="color:white" class="label mt-2">Notlar:</label>
                                     <textarea class="textarea" v-model="digerNotKutusu">{{digerNotKutusu}}</textarea>
                                     <div class="kaydetBtn">
                                         <input v-if="digerKaydetBtn" id="digerNotKutusuId" @click="borcNotuKaydet"
-                                            class="button mt-2 animate__animated animate__fadeInDown" type="submit" value="Kaydet">
+                                            class="button mt-2 animate__animated animate__fadeInDown" type="submit"
+                                            value="Kaydet">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+                    </div>
+                    <div class="columns">
+                        <div class="column">
+                            <p><strong>Toplam Borç </strong>₺{{v_ToplamBorc}}</p>
+                        </div>
                     </div>
             </section>
             <!-- Borçlar Bitiş-->
