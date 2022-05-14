@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Yönetimi</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="container is-fullhd">
+
+            <section class="hero is-info has-text-centered">
+                <div class="hero-body">
+                    <p class="title">
+                        Para Yönetimi
+                    </p>
+                </div>
+            </section>
+
+            <nav class="level">
+                <div class="level-item has-text-centered p-4">
+                    <div class="control">
+                        <h4 class="title is-4 mb-2">Bir Tane Seç</h4>
+                        <label class="radio">
+                            <input @change="harcamalarFonk" type="radio" name="rsvp" checked>
+                            Harcamalar
+                        </label>
+                        <label class="radio">
+                            <input @change="varliklarFonk" type="radio" name="rsvp">
+                            Varlıklar
+                        </label>
+                        <label class="radio">
+                            <input @change="borclarFonk" type="radio" name="rsvp">
+                            Borçlar
+                        </label>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Harcamalar Başlangıç-->
+            <section v-if="harcamalarDurum" class="hero">
+                <div class="hero-body sectionlar has-text-centered">
+                    <p class="title">
+                        Harcamalar
+                    </p>
+                    <div class="columns is-centered">
+                        <div class="column is-two-fifths">
+                            <div class="field">
+                                <label class="label">Açıklama</label>
+                                <div class="control">
+                                    <input class="input" type="text" placeholder="Açıklama Ekleyin" v-model="aciklama">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-1">
+                            <div class="field">
+                                <label class="label">Tutar</label>
+                                <div class="control">
+                                    <input class="input" type="number" v-model="tutar">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-2">
+                            <div class="field">
+                                <label class="label">Nereden Harcandı</label>
+                                <div class="control">
+                                    <div class="select">
+                                        <select v-model="neredenHarcandi">
+                                            <option>Nakit</option>
+                                            <option>Ziraat Bankası</option>
+                                            <option>Enpara</option>
+                                            <option>Papara</option>
+                                            <option>İş Bankası</option>                    
+                                            <option>Harçlık Avans</option>                    
+                                            <option>Maximum</option>                    
+                                            <option>Genç Kart</option>
+                                            <option>Diğer Borç</option>                    
+                                            <option>Diğer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-one-fifth">
+                            <div class="field">
+                                <label class="label">Tarih</label>
+                                <div class="control">
+                                    <input @change="asilTarihDegisti" class="input" type="date" v-model="tarih">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-1 harcamalar-btn">
+                            <div class="field">
+                                <div class="buttons">
+                                    <button @click="harcamaEkle" class="button is-primary">Ekle</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr>
+                    <div class="columns is-centered">
+                        <div class="column is-one-fifth">
+                            <div class="field">
+                                <label class="label">Harcamaları Görüntüle</label>
+                                <div class="control">
+                                    <input @change="tarihDegisti" class="input" type="date" v-model="tarih">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="columns  is-centered">
+                        <div class="column is-half">
+                            <!-- <transition-group name="list" tag="ul"> -->
+                            <ul>
+                                <li v-for="(harcama,index) in secilenTarih.length" style="margin-bottom: 10px;">
+                                    <article class="message is-info">
+                                        <div class="message-header" style="border-radius: 4px;">
+                                            <p>{{index+1}}. Harcama</p>
+                                            <span style="display: none;"></span>
+                                            <div>
+                                                <span style="display:none">{{index}}</span>
+                                                <!-- <button class="button is-primary favori-btn"><i
+                                                        class="fa-solid fa-copy ikon-engel"></i></button> -->
+                                                <button @click="harcamaSil" class="button is-danger favori-btn"><i
+                                                        class="fa-solid fa-trash ikon-engel"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="message-body">
+                                            <p><strong>Açıklama: </strong>{{secilenTarih[index].aciklama}}</p>
+                                            <p><strong>Harcama Tutarı: </strong>₺{{secilenTarih[index].tutar}}</p>
+                                            <p><strong>Nereden Harcandı:
+                                                </strong>{{secilenTarih[index].neredenHarcandi}}</p>
+                                            <p><strong>Tarih: </strong>{{secilenTarih[index].tarih}}</p>
+                                        </div>
+                                    </article>
+                                </li>
+                            </ul>
+                            <!-- </transition-group> -->
+                        </div>
+                    </div>
+                    <div v-if="v_gunlukToplamTutar" class="columns">
+                        <div class="column">
+                            <p><strong>Seçilen Tarihe Ait Toplam Tutar: </strong>₺{{v_gunlukToplamTutar}}</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <!-- Harcamalar Bitiş-->
+
+
+            <!-- Varlıklar Başlangıç-->
+            <section v-if="varliklarDurum" class="hero">
+                <div class="hero-body sectionlar has-text-centered">
+                    <p class="title">
+                        Varlıklar
+                    </p>
+                    <div class="columns is-centered">
+                        <div class="column is-2">
+                            <div class="field">
+                                <label class="label"> Eklenecek Tutar</label>
+                                <div class="control">
+                                    <input class="input" type="number" v-model="eklenenTutar">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-2">
+                            <div class="field">
+                                <label class="label">Nereye Eklenilecek</label>
+                                <div class="control">
+                                    <div class="select">
+                                        <select v-model="nereyeEklendi">
+                                            <option>Nakit</option>
+                                            <option>Ziraat Bankası</option>
+                                            <option>Enpara</option>
+                                            <option>Papara</option>
+                                            <option>İş Bankası</option>
+                                            <option>Diğer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-1 harcamalar-btn">
+                            <div class="field">
+                                <div class="buttons">
+                                    <button @click="paraEkle" class="button is-primary">Ekle</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns is-multiline">
+                        <div class="column is-4">
+                            <article class="message is-primary">
+                                <div class="message-header">
+                                    <p>Nakit</p>
+                                </div>
+                                <div class="message-body">
+                                    <strong>Miktar:</strong> ₺{{nakit}}
+                                    <i @click="hesapTutariDuzenle" class="fas fa-lg fa-edit"></i>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="column is-4">
+                            <article class="message is-link">
+                                <div class="message-header" style="background-color: #DC0813;">
+                                    <p>Ziraat Bankası</p>
+                                </div>
+                                <div class="message-body" style="color:rgb(204, 2, 2); background-color:#eb777d3b;">
+                                    <strong>Miktar:</strong> ₺{{ziraat}}
+                                    <i @click="hesapTutariDuzenle" class="fas fa-lg fa-edit"></i>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="column is-4">
+                            <article class="message is-info">
+                                <div class="message-header" style="background-color: #861389;">
+                                    <p>Enpara</p>
+                                </div>
+                                <div class="message-body" style="color:#861389; background-color:#e44ee931;">
+                                    <strong>Miktar:</strong> ₺{{enPara}}
+                                    <i @click="hesapTutariDuzenle" class="fas fa-lg fa-edit"></i>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="column is-4">
+                            <article class="message is-success">
+                                <div class="message-header" style="background-color: #C83565;">
+                                    <p>Papara</p>
+                                </div>
+                                <div class="message-body" style="color:#861389; background-color:#df5d8844;">
+                                    <strong>Miktar:</strong> ₺{{papara}}
+                                    <i @click="hesapTutariDuzenle" class="fas fa-lg fa-edit"></i>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="column is-4">
+                            <article class="message is-success">
+                                <div class="message-header" style="background-color: #01448A;">
+                                    <p>İş Bankası</p>
+                                </div>
+                                <div class="message-body" style="color:#01448A; background-color:#5094dd62;">
+                                    <strong>Miktar:</strong> ₺{{isBankasi}}
+                                    <i @click="hesapTutariDuzenle" class="fas fa-lg fa-edit"></i>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="column is-4">
+                            <article class="message is-link">
+                                <div class="message-header">
+                                    <p>Diğer</p>
+                                </div>
+                                <div class="message-body">
+                                    <strong>Miktar:</strong> ₺{{diger}}
+                                    <i @click="hesapTutariDuzenle" class="fas fa-lg fa-edit"></i>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Varlıklar Bitiş-->
+
+
+            <!-- Borçlar Başlangıç-->
+            <section v-if="borclarDurum" class="hero">
+                <div class="hero-body sectionlar has-text-centered">
+                    <p class="title">
+                        Borçlar
+                    </p>
+                    <div class="columns is-centered" style="margin-bottom: -12.51px;">
+                        <div class="column is-two-fifths" style="padding-bottom: 0;">
+                            <div class="tabs is-boxed is-centered">
+                                <ul style="    border-bottom: 1px solid #dbdbdb;">
+                                    <li @click="tiklanilanTabLi" class="is-active">
+                                        <a id="harclikAvans" class="tiklanilanLiler">
+                                            <span class="ikon-engel">Harçlık Avans</span>
+                                        </a>
+                                    </li>
+                                    <li @click="tiklanilanTabLi">
+                                        <a id="zirratBorc" class="tiklanilanLiler">
+                                            <span class="ikon-engel">Ziraat Bankası</span>
+                                        </a>
+                                    </li>
+                                    <li @click="tiklanilanTabLi">
+                                        <a id="isBorc" class="tiklanilanLiler">
+                                            <span class="ikon-engel">İş Bankası</span>
+                                        </a>
+                                    </li>
+                                    <li @click="tiklanilanTabLi">
+                                        <a id="digerBorc" class="tiklanilanLiler">
+                                            <span class="ikon-engel">Diğer Borçlar</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns is-centered ">
+                        <div class="column is-two-fifths">
+                            <div v-if="harclikBoxDurumu" class="notification is-success borcBilgisiBox">
+                                <span style="display: none;">harclik</span>
+                                <p><strong>Borç Tutarı: </strong>₺<span>{{harclikBorcTutari}} </span><i @click="borcTutariDuzenle" class="fas fa-lg fa-edit"></i></p>
+                                
+                                <p><strong>Hesap Kesim Tarihi: </strong>Her ayın 10'u Burstan Otomatik Olarak Kesiliyor
+                                </p>
+                                <div>
+                                    <label style="color:white" class="label mt-2">Notlar:</label>
+                                    <textarea class="textarea"
+                                        v-model="harclikNotKutusu">{{harclikNotKutusu}}</textarea>
+                                    <div class="kaydetBtn">
+                                        <input v-if="harclikKaydetBtn" id="harclikNotKutusuId" @click="borcNotuKaydet"
+                                            class="button mt-2 animate__animated animate__fadeInDown" type="submit" value="Kaydet">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div v-if="ziraatBoxDurumu" class="notification is-danger borcBilgisiBox">
+                                <span style="display: none;">ziraat</span>
+                                <p><strong>Borç Tutarı: </strong> ₺<span>{{ziraatBorcTutari}}</span> <i @click="borcTutariDuzenle" class="fas fa-lg fa-edit"></i></p>
+                                <p><strong>Hesap Kesim Tarihi: </strong>Her ayın 1'i</p>
+                                <p><strong>Son Ödeme Tarihi: </strong>Her ayın 11,12 veya 13'ü</p>
+                                <div>
+                                    <label style="color:white" class="label mt-2">Notlar:</label>
+                                    <textarea class="textarea" v-model="ziraatNotKutusu">{{ziraatNotKutusu}}</textarea>
+                                    <div class="kaydetBtn">
+                                        <input v-if="ziraatKaydetBtn" id="ziraatNotKutusuId" @click="borcNotuKaydet"
+                                            class="button mt-2 animate__animated animate__fadeInDown" type="submit" value="Kaydet">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div v-if="isBoxDurumu" class="notification is-info borcBilgisiBox">
+                                <span style="display: none;">isBank</span>
+                                <p><strong>Borç Tutarı:  </strong>₺<span>{{isBorcTutari}}</span> <i @click="borcTutariDuzenle" class="fas fa-lg fa-edit"></i></p>
+                                <p><strong>Hesap Kesim Tarihi: </strong>Her ayın 4'ü</p>
+                                <p><strong>Son Ödeme Tarihi: </strong>Her ayın 14,15 veya 16'sı</p>
+                                <div>
+                                    <label style="color:white" class="label mt-2">Notlar:</label>
+                                    <textarea class="textarea" v-model="isNotKutusu">{{isNotKutusu}}</textarea>
+                                    <div class="kaydetBtn">
+                                        <input v-if="isKaydetBtn" id="isNotKutusuId" @click="borcNotuKaydet"
+                                            class="button mt-2 animate__animated animate__fadeInDown" type="submit" value="Kaydet">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div v-if="digerBoxDurumu" class="notification is-link borcBilgisiBox">
+                                <span style="display: none;">diger</span>
+                                <p><strong>Borç Tutarı:  </strong>₺<span>{{digerBorcTutari}}</span> <i @click="borcTutariDuzenle" class="fas fa-lg fa-edit"></i></p>
+                                <div>
+                                    <label style="color:white" class="label mt-2">Notlar:</label>
+                                    <textarea class="textarea" v-model="digerNotKutusu">{{digerNotKutusu}}</textarea>
+                                    <div class="kaydetBtn">
+                                        <input v-if="digerKaydetBtn" id="digerNotKutusuId" @click="borcNotuKaydet"
+                                            class="button mt-2 animate__animated animate__fadeInDown" type="submit" value="Kaydet">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+            </section>
+            <!-- Borçlar Bitiş-->
+
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>

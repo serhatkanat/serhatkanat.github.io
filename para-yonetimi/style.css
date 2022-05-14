@@ -1,0 +1,54 @@
+.sectionlar{
+    padding-top: 10px !important;
+}
+
+.harcamalar-btn{
+    display: flex !important;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-end;
+}
+
+.ikon-engel {
+    pointer-events: none;
+}
+
+.favori-btn{
+    padding: 10px;
+}
+
+.borcBilgisiBox{
+    border: #dbdbdb solid 1px;
+    border-top-color: transparent;
+}
+
+.tiklanilanLiler{
+    padding: .5em 14.7px !important;
+}
+
+#harclikAvans{
+    background-color: #48c78e;
+    color: white;
+}
+
+#zirratBorc{
+    background-color: #f14668;
+    color: white;
+}
+
+#isBorc{
+    background-color: #3e8ed0;
+    color: white;
+}
+
+#digerBorc{
+    background-color: #485fc7;
+    color: white;
+}
+
+.kaydetBtn{
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
