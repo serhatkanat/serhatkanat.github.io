@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İlaç Ekle</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+
+<body>
+    <div id="app">
+        <section class="hero is-info">
+            <div class="hero-body">
+                <p class="title">
+                    İlaç Ekle
+                </p>
+            </div>
+        </section>
+
+        <div class="columns is-multiline mx-5 mt-3">
+            <div class="column is-3">
+                <div class="field">
+                    <label class="label">İlaç Adı</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Text input" v-model="ilacAdi">
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-3">
+                <div class="field">
+                    <label class="label">Etken Madde</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Text input" v-model="etkenMadde">
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-3">
+                <div class="field">
+                    <label class="label">Sınıflandırma</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Text input" v-model="siniflandirma">
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-3">
+                <div class="field">
+                    <label class="label">Endikasyonları</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Text input" v-model="endikasyonlari">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="column is-3">
+                <div class="field">
+                    <label class="label">Resim Url</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Text input" v-model="imageUrl">
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-3">
+                <div class="field">
+                    <label class="label">Kontrendike</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Text input" v-model="kontrendike">
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-3">
+                <div class="field">
+                    <label class="label">Yan Etkileri</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Text input" v-model="yanEtkileri">
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-3">
+                <div class="field">
+                    <label class="label">Birlikte Kullanılmadığı İlaçlar</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Text input" v-model="birlikteKullanilmaz">
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-3">
+                <div class="field">
+                    <label class="label">Hemşireye Notlar</label>
+                    <div class="control">
+                        <textarea class="textarea" placeholder="e.g. Hello world" v-model="hemsireyeNotlar"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="columns is-multiline ml-5">
+            <div class="column">
+                <button @click="veriEkle" class="button is-primary">Ekle</button>
+                <button @click="veriDuzenle" class="button is-info">Düzenle</button>
+            </div>
+        </div>
+
+        <div class="columns is-multiline ml-5">
+            <div class="column">
+                <h1 class="title">İlaçları Düzenle</h1>
+            </div>
+        </div>
+
+        <div class="columns mx-5">
+            <div class="column is-5">
+                <div class="field container aramaKutusu" style="margin-top: 15px">
+                    <label class="label">İlaç Adını Giriniz:</label>
+                    <div class="control">
+                        <input v-model="search" @input="tikla" class="input" type="text"
+                            placeholder="İlaç adı, etken maddesi, ilaç türü, endikasyon yazınız" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="columns is-multiline mx-5">
+
+            <div v-for="(ilac, index) in ilacAdinaGore" :key="index" class="column is-5">
+                <article class="message is-primary">
+                    <div class="message-header">
+                        <p>{{ilac.IlacAdi}}</p>
+                        <button @click="duzenle">Düzenle</button>
+                    </div>
+                </article>
+            </div>
+
+        </div>
+
+
+        <br> <br> <br>
+
+    </div>
+
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
