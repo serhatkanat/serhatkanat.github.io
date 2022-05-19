@@ -4,6 +4,9 @@ new Vue({
         root: 'https://ilac-kartlari-default-rtdb.firebaseio.com/ilaclar/',
     },
     data: {
+        ilacEkleSection: true,
+        ilacDuzenleSection: false,
+        duzenleColumns: false,
         ilaclar: [],
         ilaclarGuncelle: [],
         duzenlenecekIlacAdi: '',
@@ -18,6 +21,15 @@ new Vue({
         kontrendike: '',
         hemsireyeNotlar: '',
         birlikteKullanilmaz: '',
+        editilacAdi: '',
+        editetkenMadde: '',
+        editendikasyonlari: '',
+        editsiniflandirma: '',
+        edityanEtkileri: '',
+        editimageUrl: '',
+        editkontrendike: '',
+        edithemsireyeNotlar: '',
+        editbirlikteKullanilmaz: '',
     },
     computed: {
         ilacAdinaGore() {
@@ -34,6 +46,14 @@ new Vue({
         },
     },
     methods: {
+        ilacEkleFonk: function () {
+          this.ilacEkleSection = true;
+          this.ilacDuzenleSection = false;
+        },
+        ilacDuzenleFonk: function () {
+            this.ilacEkleSection = false;
+            this.ilacDuzenleSection = true;
+          },
         veriEkle: function () {
             this.$http.post('.json', {
                 "BirlikteKullanilmaz": this.birlikteKullanilmaz,
@@ -57,6 +77,7 @@ new Vue({
         tikla() {
             this.verileriGetir()
             this.ilaclariGetir();
+            this.duzenleColumns = false
         },
         duzenle: function (event) {
             this.duzenlenecekIlacAdi = event.target.parentElement.children[0].textContent;
@@ -69,19 +90,19 @@ new Vue({
                 if (element[1].IlacAdi == this.duzenlenecekIlacAdi) {
                     this.guncellenecekIlacId = element[0];
 
-                    this.birlikteKullanilmaz = element[1].BirlikteKullanilmaz;
-                    this.endikasyonlari = element[1].Endikasyonlari
-                    this.etkenMadde = element[1].EtkenMadde
-                    this.hemsireyeNotlar = element[1].HemsireyeNotlar
-                    this.ilacAdi = element[1].IlacAdi
-                    this.imageUrl = element[1].ImageUrl
-                    this.kontrendike = element[1].Kontrendike
-                    this.siniflandirma = element[1].Siniflandirma
-                    this.yanEtkileri = element[1].YanEtkileri
+                    this.editbirlikteKullanilmaz = element[1].BirlikteKullanilmaz;
+                    this.editendikasyonlari = element[1].Endikasyonlari
+                    this.editetkenMadde = element[1].EtkenMadde
+                    this.edithemsireyeNotlar = element[1].HemsireyeNotlar
+                    this.editilacAdi = element[1].IlacAdi
+                    this.editimageUrl = element[1].ImageUrl
+                    this.editkontrendike = element[1].Kontrendike
+                    this.editsiniflandirma = element[1].Siniflandirma
+                    this.edityanEtkileri = element[1].YanEtkileri
                 }
 
             }
-            console.log(this.guncellenecekIlacId);
+            this.duzenleColumns = true;
 
         },
         ilaclariGetir: function () {

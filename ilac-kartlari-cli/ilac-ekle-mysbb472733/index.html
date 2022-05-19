@@ -9,142 +9,282 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        .ilacResmi {
+            border: 1px solid #333;
+            border-radius: 12px;
+            max-width: 91% !important;
+        }
+    </style>
 </head>
 
 <body>
     <div id="app">
         <section class="hero is-info">
             <div class="hero-body">
-                <p class="title">
-                    İlaç Ekle
+                <p class="title is-1">
+                    İlaç Ekle/Düzenle
                 </p>
             </div>
         </section>
 
-        <div class="columns is-multiline mx-5 mt-3">
-            <div class="column is-3">
-                <div class="field">
-                    <label class="label">İlaç Adı</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Text input" v-model="ilacAdi">
+        <section class="section">
+            <div class="control">
+                <label class="radio">
+                    <input @change="ilacEkleFonk" type="radio" name="foobar" :checked="ilacEkleSection">
+                    İlaç Ekle
+                </label>
+                <label class="radio">
+                    <input @change="ilacDuzenleFonk" type="radio" name="foobar" :checked="ilacDuzenleSection">
+                    İlaç Düzenle
+                </label>
+            </div>
+        </section>
+
+        <section v-if="ilacEkleSection">
+            <section class="ml-5 mt-5">
+                <div>
+                    <h2 class="title is-2">İlaç Ekle</h2>
+                </div>
+            </section>
+            <div class="columns is-multiline mx-5 mt-3">
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">İlaç Adı</label>
+                        <div class="control">
+                            <input class="input" type="text" v-model="ilacAdi">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Etken Madde</label>
+                        <div class="control">
+                            <input class="input" type="text" v-model="etkenMadde">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Sınıflandırma</label>
+                        <div class="control">
+                            <input class="input" type="text" v-model="siniflandirma">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Birlikte Kullanılmadığı İlaçlar</label>
+                        <div class="control">
+                            <input class="input" type="text" v-model="birlikteKullanilmaz">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Endikasyonları</label>
+                        <div class="control">
+                            <textarea class="textarea" v-model="endikasyonlari"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Kontrendike Durumlar</label>
+                        <div class="control">
+                            <textarea class="textarea" v-model="kontrendike"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Yan Etkileri</label>
+                        <div class="control">
+                            <textarea class="textarea" v-model="yanEtkileri"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Kullanım Şekli</label>
+                        <div class="control">
+                            <textarea class="textarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Hemşireye Notlar</label>
+                        <div class="control">
+                            <textarea class="textarea" rows="10" v-model="hemsireyeNotlar"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Resim Url</label>
+                        <div class="control">
+                            <input class="input" type="text" v-model="imageUrl">
+                        </div>
+                    </div>
+                    <img class="ilacResmi" :src="imageUrl" alt="">
+                </div>
+
+
+
+            </div>
+
+            <div class="columns is-multiline ml-5">
+                <div class="column">
+                    <button @click="veriEkle" class="button is-primary">Ekle</button>
+                </div>
+            </div>
+        </section>
+
+        <section v-if="ilacDuzenleSection">
+            <div class="columns is-multiline ml-5">
+                <div class="column">
+                    <h1 class="title">İlaçları Düzenle</h1>
+                </div>
+            </div>
+
+            <div class="columns mx-5">
+                <div class="column is-5">
+                    <div class="field container aramaKutusu" style="margin-top: 15px">
+                        <label class="label">İlaç Adını Giriniz:</label>
+                        <div class="control">
+                            <input v-model="search" @input="tikla" class="input" type="text"
+                                placeholder="İlaç adı, etken maddesi, ilaç türü, endikasyon yazınız" />
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="column is-3">
-                <div class="field">
-                    <label class="label">Etken Madde</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Text input" v-model="etkenMadde">
-                    </div>
-                </div>
-            </div>
+            <div class="columns is-multiline mx-5">
 
-            <div class="column is-3">
-                <div class="field">
-                    <label class="label">Sınıflandırma</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Text input" v-model="siniflandirma">
-                    </div>
-                </div>
-            </div>
-
-            <div class="column is-3">
-                <div class="field">
-                    <label class="label">Endikasyonları</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Text input" v-model="endikasyonlari">
-                    </div>
+                <div v-for="(ilac, index) in ilacAdinaGore" :key="index" class="column is-5">
+                    <article class="message is-primary">
+                        <div class="message-header">
+                            <p>{{ilac.IlacAdi}}</p>
+                            <button @click="duzenle">Düzenle</button>
+                        </div>
+                    </article>
                 </div>
 
             </div>
 
-            <div class="column is-3">
-                <div class="field">
-                    <label class="label">Resim Url</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Text input" v-model="imageUrl">
+            <div v-if="duzenleColumns" class="columns is-multiline mx-5 mt-3">
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">İlaç Adı</label>
+                        <div class="control">
+                            <input class="input" type="text" v-model="editilacAdi">
+                        </div>
                     </div>
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Etken Madde</label>
+                        <div class="control">
+                            <input class="input" type="text" v-model="editetkenMadde">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Sınıflandırma</label>
+                        <div class="control">
+                            <input class="input" type="text" v-model="editsiniflandirma">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Birlikte Kullanılmadığı İlaçlar</label>
+                        <div class="control">
+                            <input class="input" type="text" v-model="editbirlikteKullanilmaz">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Endikasyonları</label>
+                        <div class="control">
+                            <textarea class="textarea" v-model="editendikasyonlari"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Kontrendike Durumlar</label>
+                        <div class="control">
+                            <textarea class="textarea" v-model="editkontrendike"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Yan Etkileri</label>
+                        <div class="control">
+                            <textarea class="textarea" v-model="edityanEtkileri"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Kullanım Şekli</label>
+                        <div class="control">
+                            <textarea class="textarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Hemşireye Notlar</label>
+                        <div class="control">
+                            <textarea class="textarea" rows="10" v-model="edithemsireyeNotlar"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Resim Url</label>
+                        <div class="control">
+                            <input class="input" type="text" v-model="editimageUrl">
+                        </div>
+                    </div>
+                    <img class="ilacResmi" :src="editimageUrl" alt="">
+                </div>
+
+            </div>
+
+            <div v-if="duzenleColumns" class="columns is-multiline ml-5">
+                <div class="column">
+                    <button @click="veriDuzenle" class="button is-info">Düzenle</button>
                 </div>
             </div>
 
-            <div class="column is-3">
-                <div class="field">
-                    <label class="label">Kontrendike</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Text input" v-model="kontrendike">
-                    </div>
-                </div>
-            </div>
-
-            <div class="column is-3">
-                <div class="field">
-                    <label class="label">Yan Etkileri</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Text input" v-model="yanEtkileri">
-                    </div>
-                </div>
-            </div>
-
-            <div class="column is-3">
-                <div class="field">
-                    <label class="label">Birlikte Kullanılmadığı İlaçlar</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Text input" v-model="birlikteKullanilmaz">
-                    </div>
-                </div>
-            </div>
-
-            <div class="column is-3">
-                <div class="field">
-                    <label class="label">Hemşireye Notlar</label>
-                    <div class="control">
-                        <textarea class="textarea" placeholder="e.g. Hello world" v-model="hemsireyeNotlar"></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="columns is-multiline ml-5">
-            <div class="column">
-                <button @click="veriEkle" class="button is-primary">Ekle</button>
-                <button @click="veriDuzenle" class="button is-info">Düzenle</button>
-            </div>
-        </div>
-
-        <div class="columns is-multiline ml-5">
-            <div class="column">
-                <h1 class="title">İlaçları Düzenle</h1>
-            </div>
-        </div>
-
-        <div class="columns mx-5">
-            <div class="column is-5">
-                <div class="field container aramaKutusu" style="margin-top: 15px">
-                    <label class="label">İlaç Adını Giriniz:</label>
-                    <div class="control">
-                        <input v-model="search" @input="tikla" class="input" type="text"
-                            placeholder="İlaç adı, etken maddesi, ilaç türü, endikasyon yazınız" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="columns is-multiline mx-5">
-
-            <div v-for="(ilac, index) in ilacAdinaGore" :key="index" class="column is-5">
-                <article class="message is-primary">
-                    <div class="message-header">
-                        <p>{{ilac.IlacAdi}}</p>
-                        <button @click="duzenle">Düzenle</button>
-                    </div>
-                </article>
-            </div>
-
-        </div>
-
-
-        <br> <br> <br>
+        </section>
 
     </div>
 
