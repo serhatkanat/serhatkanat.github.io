@@ -112,15 +112,15 @@ new Vue({
         },
         veriDuzenle: function () {
             this.$http.patch(`${this.guncellenecekIlacId}.json`, {
-                "BirlikteKullanilmaz": this.birlikteKullanilmaz,
-                "Endikasyonlari": this.endikasyonlari,
-                "EtkenMadde": this.etkenMadde,
-                "HemsireyeNotlar": this.hemsireyeNotlar,
-                "IlacAdi": this.ilacAdi,
-                "ImageUrl": this.imageUrl,
-                "Kontrendike": this.kontrendike,
-                "Siniflandirma": this.siniflandirma,
-                "YanEtkileri": this.yanEtkileri
+                "BirlikteKullanilmaz": this.editbirlikteKullanilmaz,
+                "Endikasyonlari": this.editendikasyonlari,
+                "EtkenMadde": this.editetkenMadde,
+                "HemsireyeNotlar": this.edithemsireyeNotlar,
+                "IlacAdi": this.editilacAdi,
+                "ImageUrl": this.editimageUrl,
+                "Kontrendike": this.editkontrendike,
+                "Siniflandirma": this.editsiniflandirma,
+                "YanEtkileri": this.edityanEtkileri
             }).then(response => {
                 console.log(response.status);
             })
