@@ -21,6 +21,10 @@
             margin-bottom: 1.5rem !important;
         }
 
+        .columns{
+            margin: 0 15px;
+        }
+
         
     </style>
 </head>
@@ -37,7 +41,7 @@
             </div>
         </section>
 
-        <div class="columns is-mobile is-centered">
+        <div class="columns is-centered">
             <div class="column is-half">
                 <div class="field">
                     <label class="label">Adını Yaz:</label>
@@ -48,7 +52,7 @@
             </div>
         </div>
 
-        <div class="columns is-mobile is-centered">
+        <div class="columns is-centered">
             <div class="column is-half">
                 <div class="field">
                     <label class="label">Mesaj Rengini Seçin:</label>
@@ -69,7 +73,7 @@
             </div>
         </div>
 
-        <div class="columns is-mobile is-centered">
+        <div class="columns is-centered">
             <div class="column is-half">
                 <label for="" class="label">Mesajını Yaz</label>
                 <textarea class="textarea" placeholder="İstediğin bir şeyler yaz..." v-model="mesaj"></textarea>
@@ -91,7 +95,7 @@
                 <p class="title">Mesajlar</p>
             </div>
         </div>
-        <div class="columns is-mobile is-centered mb-5">
+        <div class="columns is-centered mb-5">
             <div class="column is-5 mesajlarKutusu" style="display: flex;
             flex-direction: column-reverse;
             flex-wrap: nowrap;
