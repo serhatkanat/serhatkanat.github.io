@@ -21,6 +21,7 @@
             margin-bottom: 1.5rem !important;
         }
 
+        
     </style>
 </head>
 
@@ -36,9 +37,8 @@
             </div>
         </section>
 
-        <div class="columns is-centered mt-3"
-            style="display: flex; flex-direction: column;justify-content: center;align-items: center;">
-            <div class="column is-5">
+        <div class="columns is-mobile is-centered">
+            <div class="column is-half">
                 <div class="field">
                     <label class="label">Adını Yaz:</label>
                     <div class="control">
@@ -46,7 +46,10 @@
                     </div>
                 </div>
             </div>
-            <div class="column is-5">
+        </div>
+
+        <div class="columns is-mobile is-centered">
+            <div class="column is-half">
                 <div class="field">
                     <label class="label">Mesaj Rengini Seçin:</label>
                     <div class="control">
@@ -64,7 +67,11 @@
                     </div>
                 </div>
             </div>
-            <div class="column is-5"><label for="" class="label">Mesajını Yaz</label>
+        </div>
+
+        <div class="columns is-mobile is-centered">
+            <div class="column is-half">
+                <label for="" class="label">Mesajını Yaz</label>
                 <textarea class="textarea" placeholder="İstediğin bir şeyler yaz..." v-model="mesaj"></textarea>
                 <div class="columns">
                     <div class="column mt-3" style="display: flex;flex-direction: column;align-items: flex-end;">
@@ -77,13 +84,14 @@
                 </div>
             </div>
         </div>
+        
 
-        <div class="columns is-centered mb-5">
+        <div class="columns is-mobile is-centered mb-5">
             <div class="column is-5" style="padding:0">
                 <p class="title">Mesajlar</p>
             </div>
         </div>
-        <div class="columns is-centered mb-5">
+        <div class="columns is-mobile is-centered mb-5">
             <div class="column is-5 mesajlarKutusu" style="display: flex;
             flex-direction: column-reverse;
             flex-wrap: nowrap;
