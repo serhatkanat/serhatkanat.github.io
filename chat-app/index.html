@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
+    <style>
+        .mesajlarKutusu {
+            height: auto;
+            border: 1px solid #333;
+            overflow: auto;
+        }
+
+        .message:last-child {
+            margin-bottom: 1.5rem !important;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        {{verileriGetir()}}
+        <section class="hero is-primary">
+            <div class="hero-body">
+                <p class="title">
+                    Chat App
+                </p>
+            </div>
+        </section>
+
+        <div class="columns is-centered mt-3"
+            style="display: flex; flex-direction: column;justify-content: center;align-items: center;">
+            <div class="column is-5">
+                <div class="field">
+                    <label class="label">Adını Yaz:</label>
+                    <div class="control">
+                        <input v-model="isim" class="input" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="column is-5">
+                <div class="field">
+                    <label class="label">Mesaj Rengini Seçin:</label>
+                    <div class="control">
+                        <div class="select">
+                            <select v-model="kutuRengi">
+                                <option>Siyah</option>
+                                <option>Mavi-Yeşil</option>
+                                <option>Mor</option>
+                                <option>Mavi</option>
+                                <option>Yeşil</option>
+                                <option>Sarı</option>
+                                <option>Kırmızı</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-5"><label for="" class="label">Mesajını Yaz</label>
+                <textarea class="textarea" placeholder="İstediğin bir şeyler yaz..." v-model="mesaj"></textarea>
+                <div class="columns">
+                    <div class="column mt-3" style="display: flex;flex-direction: column;align-items: flex-end;">
+                        <div class="buttons">
+                            <button id="mesajlarSilBtn" @click="mesajlarSil" class="button is-danger">Mesajları
+                                Sil</button>
+                            <button @click="veriEkle" class="button is-primary">Gönder</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="columns is-centered mb-5">
+            <div class="column is-5" style="padding:0">
+                <p class="title">Mesajlar</p>
+            </div>
+        </div>
+        <div class="columns is-centered mb-5">
+            <div class="column is-5 mesajlarKutusu" style="display: flex;
+            flex-direction: column-reverse;
+            flex-wrap: nowrap;
+            justify-content: flex-end;
+            align-content: space-between;">
+                <article v-for="(mesaj,index) in mesajlar" class="message animate__animated animate__fadeInLeft"
+                    :class="mesaj.kutuRengi">
+                    <div class="message-body" style="padding: 0;">
+                        <div style="padding: .5rem 0 .5rem .5rem;"><strong>{{mesaj.isim}} dedi ki:</strong></div>
+                        <p style="padding: 0  0 1rem 1rem;">{{mesaj.mesaj}}</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
