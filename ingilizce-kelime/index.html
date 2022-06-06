@@ -7,40 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İngilizce Kelime</title>
 
-
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <style>
-        .kelime-ekle-div {
-            background-color: #ebfffc;
-            border: 1px solid transparent;
-            border-radius: 4px;
-            padding: 8px;
-            color: #00947e;
-        }
-
-        .ortala {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 10px;
-            overflow: scroll;
-        }
-
-        /* img {
-            width: 100px !important;
-            height: 100px !important;
-        } */
-    </style>
 </head>
 
 <body>
 
     <div id="app">
         {{kontrol()}}
-        <section class="hero is-info">
+        <section  class="hero is-info">
             <div class="hero-body has-text-centered">
                 <p class="title">
                     Benim İngilizce Uygulamam
@@ -50,51 +28,54 @@
 
         <section class="hero">
             <div class="hero-body">
-                <button class="button is-primary is-medium is-fullwidth" @click="kelimeKutusu=!kelimeKutusu">Kelime
+                <button style="z-index: 99;" class="button is-primary is-medium is-fullwidth" @click="kelimeKutusu=!kelimeKutusu">Kelime
                     Ekle</button>
-                <div class="kelime-ekle-div" v-if="kelimeKutusu">
-                    <div class="field">
-                        <label class="label">Türkçe:</label>
-                        <div class="control">
-                            <input v-model="trKelime" class="input" type="text" placeholder="Türkçe karşılğını yazınız">
+                <transition name="slide">
+                    <div class="kelime-ekle-div" v-if="kelimeKutusu">
+                        <div class="field">
+                            <label class="label">Türkçe:</label>
+                            <div class="control">
+                                <input v-model="trKelime" class="input" type="text"
+                                    placeholder="Türkçe karşılğını yazınız">
+                            </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">İngilizce:</label>
-                        <div class="control">
-                            <input v-model="enKelime" class="input" type="text"
-                                placeholder="İngilizce karşılığını yazınız">
+                        <div class="field">
+                            <label class="label">İngilizce:</label>
+                            <div class="control">
+                                <input v-model="enKelime" class="input" type="text"
+                                    placeholder="İngilizce karşılığını yazınız">
+                            </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">Örnek Cümle(İngilizce):</label>
-                        <div class="control">
-                            <textarea v-model="enCumle" class="textarea" name="" id="" cols="37" rows="3"
-                                placeholder="İngilizce cümle yazınız"></textarea>
+                        <div class="field">
+                            <label class="label">Örnek Cümle(İngilizce):</label>
+                            <div class="control">
+                                <textarea v-model="enCumle" class="textarea" name="" id="" cols="37" rows="3"
+                                    placeholder="İngilizce cümle yazınız"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">Türkçe Karşılığı:</label>
-                        <div class="control">
-                            <textarea v-model="trCumle" class="textarea" name="" id="" cols="37" rows="3"
-                                placeholder="Türkçe karşılığını yazınız"></textarea>
+                        <div class="field" style="position: relative;">
+                            <label class="label">Türkçe Karşılığı:</label>
+                            <div class="control">
+                                <textarea v-model="trCumle" class="textarea" name="" id="" cols="37" rows="3"
+                                    placeholder="Türkçe karşılığını yazınız"></textarea>
+                            </div>
                         </div>
+                        <button class="button is-primary" @click="gonder">Ekle</button>
                     </div>
-                    <button class="button is-primary" @click="gonder">Ekle</button>
-                </div>
+                </transition>
             </div>
 
         </section>
 
         <section class="hero">
             <div class="hero-body">
+                <h3 class="title is-3">Kelimelerim</h3>
                 <div class="columns is-multiline">
                     <div v-for="(kelime,index) in kelimeler" :key="index" class="column is-2">
                         <div class="card">
                             <div class="card-image">
                                 <figure class="image is-4by3">
-                                    <img :src="kelime.imageUrl"
-                                        alt="Placeholder image">
+                                    <img :src="kelime.imageUrl" alt="Placeholder image">
                                 </figure>
                             </div>
                             <div class="card-content">
@@ -104,15 +85,34 @@
                                     <p><strong>İngilizce Cümle: </strong>{{kelime.inglizceCumle}}</p>
                                     <p><strong>Türkçe Cümle: </strong>{{kelime.turkceCumle}}</p>
                                 </div>
-                            </div>  
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-<a class="m-4" @click="api">api</a>
+        <section class="hero">
+            <div class="hero-body">
+                <table v-show="false" id="TableToExport">
+                    <thead>
+                        <tr>
+                            <th>
+                                {{kelimeler}}
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+                <button class="button is-info" @click="kelimeleriYedekle"><b>Kelimeleri Yedekle</b></button>
+                <button class="button is-success" @click="kelimeleriYukle"><b>Kelimeleri Yükle</b></button>
+            </div>
+        </section>
+
+
+
+        <a class="m-4" @click="api">api</a>
     </div>
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
     <script src="app.js"></script>
 </body>
 

@@ -1,0 +1,45 @@
+.kelime-ekle-div {
+    background-color: #ebfffc;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 8px;
+    color: #00947e;
+}
+
+.ortala {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    overflow: scroll;
+}
+
+
+.slide-enter-active{
+    animation: slide-in 1s ease-out forwards;
+}
+.slide-leave-active{
+    animation: slide-out 1s ease-in forwards;
+}
+
+@keyframes slide-in     {
+    from{
+       transform: scale(0);
+    }
+    to{
+        transform: scale(1);
+
+    }
+    
+}
+
+@keyframes slide-out     {
+    from{
+       transform: scale(1);
+    }
+    to{
+        transform: scale(0);
+
+    }
+    
+}

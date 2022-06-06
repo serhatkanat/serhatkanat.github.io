@@ -46,9 +46,34 @@ new Vue({
             this.trCumle = ''
 
         },
+        kelimeleriYedekle: function () {
+            const number = parseInt(Math.random() * 100000);
+            var wb = XLSX.utils.table_to_book(document.getElementById("TableToExport"));
+            XLSX.writeFile(wb, `${this.kelimeler.length} tane kelime-${number}.xlsx`);
+
+        },
+        kelimeleriYukle: function () {
+            let yuklenilenKelimeler = prompt("Daha Önce İndirdiğiniz Kelimeleri Yapıştırın");
+            
+            if (yuklenilenKelimeler != '') {
+                if (yuklenilenKelimeler != null) {
+                    let jsonYukKel = JSON.parse(yuklenilenKelimeler);
+                    let tamamDevam = confirm(`${jsonYukKel.length} tane kelime yüklenecek. Bu kelimeleri yüklemek istediğinizden emin misiniz? (Şu anda kayıtlı olan kelimeleriniz silenecek!)`)
+                    if (tamamDevam) {
+                        localStorage.setItem('BenimKelimelerim', JSON.stringify(jsonYukKel));
+                    }
+                } else {
+                   
+                }
+            }else{
+                alert("Bir şey eklemediniz.")
+            }
+
+
+
+        },
         kontrol: function () {
-            if (localStorage.getItem('api key') == null) {
-            } else {
+            if (localStorage.getItem('api key') == null) {} else {
                 this.apiKey = localStorage.getItem('api key')
             }
         },
