@@ -18,10 +18,11 @@ new Vue({
         inputHatasiDurumu: false,
         gorevlerKaydetDurumu: false,
         gorevlerKaydedilmediDurumu: false,
+        vueOayGorevler: '',
+        compNumber: 0,
     },
     methods: {
         inputEkle: function () {
-
             if (parseInt(this.kacTaneEklesin) <= 0 || parseInt(this.kacTaneEklesin) >= 26 || this.kacTaneEklesin == '') {
                 this.inputHatasiDurumu = true;
                 this.uyarilariZamanlaKapat()
@@ -30,8 +31,6 @@ new Vue({
                 this.gorevlerKaydetDurumu = false;
                 this.gorevlerKaydedilmediDurumu = false;
             }
-
-
         },
         inputlariSil: function () {
             this.sayiKacTaneEklesin = 0;
@@ -39,7 +38,7 @@ new Vue({
             this.gorevlerKaydedilmediDurumu = false;
         },
         gorevleriKaydet: function () {
-
+            this.compNumber++
             if (this.secilenTarih == '') {
                 alert("Görevleri Kaydetmek İçin Lütfen Bir Tarih Seçin")
             } else {
@@ -81,37 +80,43 @@ new Vue({
 
         },
         gorevleriGetir: function () {
-            let gorevlerArray = JSON.parse(localStorage.getItem(this.gorevleriGetirenTarih));
-            this.gorevlerArray = gorevlerArray;
+            if (localStorage.getItem(this.gorevleriGetirenTarih) != null) {
+                let gorevlerArray = JSON.parse(localStorage.getItem(this.gorevleriGetirenTarih));
+                this.gorevlerArray = gorevlerArray;
+            }
+
+
         },
         gorevYapildi: function (event) {
             let indexNo = event.target.parentElement.children[0].innerText;
             this.gorevlerArray[indexNo - 1].yapildiMi = true;
             gorevler = this.gorevlerArray;
-            localStorage.setItem(this.gorevlerArray[indexNo - 1].tarih, JSON.stringify(gorevler))
+            localStorage.setItem(this.gorevlerArray[indexNo - 1].tarih, JSON.stringify(gorevler));
+            this.compNumber++
         },
         gorevDuzenle: function (event) {
             this.modalDurumu = true;
             let indexNo = event.target.parentElement.children[0].innerText;
             this.kaydetIndexNo = indexNo
             this.duzenlenenGorev = this.gorevlerArray[indexNo - 1]
+            this.compNumber++
         },
         gorevSil: function (event) {
             let indexNo = event.target.parentElement.children[0].innerText;
             gorevler = this.gorevlerArray;
             let gorevlerTarih = gorevler[0].tarih;
             gorevler.splice(indexNo - 1, 1)
-
             localStorage.setItem(gorevlerTarih, JSON.stringify(gorevler))
+            this.compNumber++
         },
         duzenleKaydet: function () {
             this.gorevlerArray[this.kaydetIndexNo - 1].gorevAdi = this.yeniGorevAdi;
             this.gorevlerArray[this.kaydetIndexNo - 1].yapildiMi = false;
             gorevler = this.gorevlerArray;
             localStorage.setItem(this.gorevlerArray[this.kaydetIndexNo - 1].tarih, JSON.stringify(gorevler))
-
             let modaliKapat = this.modalKapat;
             setTimeout(modaliKapat, 1000)
+            this.compNumber++
         },
         modalKapat: function () {
             this.favoriModalDurumu = false;
@@ -185,6 +190,126 @@ new Vue({
             setTimeout(() => {
                 this.inputHatasiDurumu = false;
             }, 3500)
+        },
+        ayBelirle: function (ayNo) {
+            switch (ayNo) {
+                case 1:
+                    return 'Ocak'
+                    break;
+                case 2:
+                    return 'Şubat'
+                    break;
+                case 3:
+                    return 'Mart'
+                    break;
+                case 4:
+                    return 'Nisan'
+                    break;
+                case 5:
+                    return 'Mayıs'
+                    break;
+                case 6:
+                    return 'Haziran'
+                    break;
+                case 7:
+                    return 'Temmuz'
+                    break;
+                case 8:
+                    return 'Ağustos'
+                    break;
+                case 9:
+                    return 'Eylül'
+                    break;
+                case 10:
+                    return 'Ekim'
+                    break;
+
+                case 11:
+                    return 'Kasım'
+                    break;
+                case 12:
+                    return 'Aralık'
+                    break;
+
+                default:
+                    break;
+            }
+        },
+        buAyBelirle: function () {
+            let d = new Date();
+            let oAy = d.getMonth() + 1;
+            return this.ayBelirle(oAy)
+        },
+        ikiAyOnceBelirle: function () {
+            let d = new Date();
+            let oAy = d.getMonth() + 1;
+            return this.ayBelirle(oAy - 2)
+        },
+        birAyOnceBelirle: function () {
+            let d = new Date();
+            let oAy = d.getMonth() + 1;
+            return this.ayBelirle(oAy - 1)
+        },
+        ikiAySonraBelirle: function () {
+            let d = new Date();
+            let oAy = d.getMonth() + 1;
+            return this.ayBelirle(oAy + 2)
+        },
+        birAySonraBelirle: function () {
+            let d = new Date();
+            let oAy = d.getMonth() + 1;
+            return this.ayBelirle(oAy + 1)
+        },
+        genelBakisDivi(event) {
+            let genelBakisAylari = document.querySelectorAll('.genel-bakis-aylar');
+
+            genelBakisAylari.forEach(ay => {
+                let ayDivId = document.querySelector(`#${ay.id}-div`);
+
+                if (event.target.id == ay.id) {
+                    ayDivId.style.display = 'block'
+                    ay.classList.add('is-active');
+                    ay.classList.add('bold-weight');
+                } else {
+                    ayDivId.style.display = 'none'
+                    ay.classList.remove('is-active');
+                    ay.classList.remove('bold-weight');
+                }
+            })
+
+
+        },
+        
+    },
+    computed: {
+        oAyaAitGorevleriGetir: function () {
+            this.compNumber
+            let d = new Date();
+            let oSene = d.getFullYear();
+            let oAyNo = d.toISOString().split('-')[1];
+            let oAyaAitGorevlerListesi = [];
+
+            for (let i = 0; i <= 31; i++) {
+                let kayıtliTarih;
+                if (i < 10) {
+                    kayıtliTarih = localStorage.getItem(`${oSene}-${oAyNo}-0${i}`)
+                    if (localStorage.getItem(`${oSene}-${oAyNo}-0${i}`) != null) {
+                        for (let j = 0; j < JSON.parse(kayıtliTarih).length; j++) {
+                            oAyaAitGorevlerListesi.push(JSON.parse(kayıtliTarih)[j])
+                        }
+                    }
+                } else {
+                    kayıtliTarih = localStorage.getItem(`${oSene}-${oAyNo}-${i}`)
+                    if (localStorage.getItem(`${oSene}-${oAyNo}-${i}`) != null) {
+                        for (let j = 0; j < JSON.parse(kayıtliTarih).length; j++) {
+                            oAyaAitGorevlerListesi.push(JSON.parse(kayıtliTarih)[j])
+                        }
+                    }
+                }
+
+            }
+
+            this.vueOayGorevler = oAyaAitGorevlerListesi;
         }
     }
 })

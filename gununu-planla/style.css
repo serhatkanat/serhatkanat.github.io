@@ -94,6 +94,51 @@
   transform: translateX(-30px);
 }
 
+.genel-bakis-divleri{
+    width: 100%;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+}
+
+.genel-bakis-divi{
+    background-color: hsl(204, 86%, 53%);
+    color: white;
+    text-align: left !important;
+    display: none;
+}
+
+.genel-bakis-divi h5{
+    color: white;
+    margin-bottom: 10px !important;
+}
+
+.genel-bakis-aylar{
+    cursor: pointer;
+}
+
+
+.genel-bakis-aylar a{
+    pointer-events: none;
+}
+
+.tabs.is-toggle li.is-active a {
+    background-color: hsl(204, 86%, 53%);
+    border-color: hsl(204, 86%, 53%);
+}
+
+.bold-weight{
+    font-weight: 700;
+}
+
+.genel-bakis-gorev-divi{
+    padding: .5rem !important;
+    margin-bottom: 5px;
+}
+
+.genel-bakis-gorev-divi-yapildi{
+    background-color: #e0e0e0;
+}
+
 @media only screen and (max-width: 1030px) {
     .btn-gorev {
         padding: 6px 10px;

@@ -23,6 +23,7 @@
 <body>
 
     <div id="app">
+        {{oAyaAitGorevleriGetir}}
         <section class="hero is-link">
             <div class="hero-body container has-text-centered">
                 <h1 class="title is-1">
@@ -251,7 +252,76 @@
             </div>
 
         </section>
+        <section class="hero">
+            <div class="hero-body has-text-centered">
+                <h3 class="title is-3">Görevlere Genel Bakış ve İstatistikler</h3>
+                <div class="tabs is-centered is-toggle is-fullwidth" style="margin-bottom: 11px;">
+                    <ul>
+                        <li @click="genelBakisDivi" class="genel-bakis-aylar" id="iki-ay-once">
+                            <a>
+                                <span>{{ikiAyOnceBelirle()}}</span>
+                            </a>
+                        </li>
+                        <li @click="genelBakisDivi" class="genel-bakis-aylar" id="bir-ay-once">
+                            <a>
+                                <span>{{birAyOnceBelirle()}}</span>
+                            </a>
+                        </li>
+                        <li @click="genelBakisDivi" class="genel-bakis-aylar is-active bold-weight" id="bu-ay">
+                            <a>
+                                <span>Bu Ay - {{buAyBelirle()}}</span>
+                            </a>
+                        </li>
+                        <li @click="genelBakisDivi" class="genel-bakis-aylar" id="bir-ay-sonra">
+                            <a>
+                                <span>{{birAySonraBelirle()}}</span>
+                            </a>
+                        </li>
+                        <li @click="genelBakisDivi" class="genel-bakis-aylar" id="iki-ay-sonra">
+                            <a>
+                                <span>{{ikiAySonraBelirle()}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="is-centered" style="display: flex; justify-content: center;">
+                    <div class="columns genel-bakis-divleri" style="display: flex;">
+                        <div class="column genel-bakis-divi" id="iki-ay-once-div">
+                            Nisan
+                        </div>
 
+                        <div class="column genel-bakis-divi" id="bir-ay-once-div">
+                            Önceki AY
+                        </div>
+
+                        <div class="column genel-bakis-divi" id="bu-ay-div" style="display: block;">
+                            <h5 class="title is-5">{{buAyBelirle()}} ayına ait bütün göreveler:</h5>
+
+                            <div class="card" v-for="gorev in vueOayGorevler">
+                                <div v-if="" class="card-content genel-bakis-gorev-divi"
+                                    :class="{'genel-bakis-gorev-divi-yapildi':gorev.yapildiMi}">
+                                    <div class="content">
+                                        <strong>Görev: </strong> {{gorev.gorevAdi}} <br>
+                                        <strong>Yapıldı mı?:</strong> {{gorev.yapildiMi == true ?
+                                        'Yapıldı':'Yapılmadı'}} <br>
+                                        <strong>Tarih: </strong> {{gorev.tarih}} <br>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="column genel-bakis-divi" id="bir-ay-sonra-div">
+                            Sonraki Ay
+                        </div>
+
+                        <div class="column genel-bakis-divi" id="iki-ay-sonra-div">
+                            Ağustos
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <footer class="footer">
             <div class="content has-text-centered">
                 <p>
