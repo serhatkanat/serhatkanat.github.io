@@ -96,7 +96,7 @@
 
 .gorevSil-enter-active,
 .gorevSil-leave-active {
-  transition: all .5s ease;
+  transition: all 1s ease;
 }
 .gorevSil-enter-from,
 .gorevSil-leave-to {

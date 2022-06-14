@@ -427,18 +427,20 @@ new Vue({
             })
             let count = 0;
             let count2 = yapilmayanGorevler.length;
-            JSON.parse(localStorage.getItem(birSonrakiGunTarihi)).forEach(gorev => {
+            if (localStorage.getItem(birSonrakiGunTarihi) != null) {
+                JSON.parse(localStorage.getItem(birSonrakiGunTarihi)).forEach(gorev => {
 
-                for (let index = 0; index < yapilmayanGorevler.length; index++) {
-                    if (yapilmayanGorevler[index].gorevAdi == gorev.gorevAdi) {
-                        count++
-                        yapilmayanGorevler.splice(index, 1)
+                    for (let index = 0; index < yapilmayanGorevler.length; index++) {
+                        if (yapilmayanGorevler[index].gorevAdi == gorev.gorevAdi) {
+                            count++
+                            yapilmayanGorevler.splice(index, 1)
+                        }
+
                     }
+                })
+            }
 
-                }
-            })
-
-            function gorevleriAktarmaFun(durum) {
+            function gorevleriAktarmaFun(durum,durum2) {
                 if (localStorage.getItem(birSonrakiGunTarihi) == null) {
                     localStorage.setItem(birSonrakiGunTarihi, JSON.stringify([]))
                 }
@@ -451,14 +453,15 @@ new Vue({
                 localStorage.setItem(birSonrakiGunTarihi, JSON.stringify(birSonrakiGunGorevleriaArray))
                 this.benzerGorevlerDurumu = false;
                 durum;
+                durum2;
                 this.compNumber++
             }
 
             // Aktarma İşlemleri
             if (count2 == yapilmayanGorevler.length) {
-                gorevleriAktarmaFun(this.gorevlerAktarmaDurumu = true)
+                gorevleriAktarmaFun(this.gorevlerAktarmaDurumu = true,this.eksikGorevlerAktarmaDurumu = false)
             } else if (count != count2) {
-                gorevleriAktarmaFun(this.eksikGorevlerAktarmaDurumu = true)
+                gorevleriAktarmaFun(this.eksikGorevlerAktarmaDurumu = true,this.gorevlerAktarmaDurumu = false)
             } else {
                 this.gorevlerAktarmaDurumu = false;
                 this.eksikGorevlerAktarmaDurumu = false;
