@@ -94,6 +94,16 @@
   transform: translateX(-30px);
 }
 
+.gorevSil-enter-active,
+.gorevSil-leave-active {
+  transition: all .5s ease;
+}
+.gorevSil-enter-from,
+.gorevSil-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
 .genel-bakis-divleri{
     width: 100%;
     border: 1px solid #dbdbdb;
