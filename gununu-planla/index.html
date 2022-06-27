@@ -23,11 +23,7 @@
 <body>
 
     <div id="app">
-        {{oAyaAitGorevleriGetir}}
-        {{gecenAyaAitGorevleriGetir}}
-        {{sonrakiAyaAitGorevleriGetir}}
-        {{birSonrakiAyaAitGorevleriGetir}}
-        {{birOncekiAyaAitGorevleriGetir}}
+        {{butunFonksiyonlar()}}
         <section class="hero is-link">
             <div class="hero-body container has-text-centered">
                 <h1 class="title is-1">
@@ -135,7 +131,7 @@
                         <div class="field" v-for="(sayi,index) in sayiKacTaneEklesin" :key="sayi">
                             <div class="control has-icons-left has-icons-right animate__animated animate__fadeInLeft">
                                 <span class="inputDiv" style="display: none;">{{sayi}}</span>
-                                <input class="input gorev" type="text" placeholder="görevinizi yazınız...">
+                                <input style="padding-right:5.5rem" class="input gorev" type="text" placeholder="görevinizi yazınız...">
                                 <span class="icon is-small is-left">
                                     {{sayi}}.
                                 </span>
@@ -365,9 +361,9 @@
                         <div class="column genel-bakis-divi" id="iki-ay-once-div">
                             <h5 class="title is-5">{{ikiAyOnceBelirle()}} ayına ait bütün göreveler:</h5>
 
-                            <div class="card" v-for="gorev in vueikiayOnceGorevler.slice().reverse()">
+                            <div class="card" v-for="gorev in vueikiayOnceGorevler">
                                 <div v-if="" class="card-content genel-bakis-gorev-divi"
-                                    :class="{'genel-bakis-gorev-divi-yapildi':gorev.yapildiMi}">
+                                :class="{'genel-bakis-gorev-divi-yapildi':gorev.yapildiMi,'genel-bakis-gorev-divi-gec-kalindi':gorev.gecKalinma}">
                                     <div class="content">
                                         <strong>Görev: </strong> {{gorev.gorevAdi}} <br>
                                         <strong>Yapıldı mı?:</strong> {{gorev.yapildiMi == true ?
@@ -382,9 +378,9 @@
                         <div class="column genel-bakis-divi" id="bir-ay-once-div">
                             <h5 class="title is-5">{{birAyOnceBelirle()}} ayına ait bütün göreveler:</h5>
 
-                            <div class="card" v-for="gorev in vueGecenayGorevler.slice().reverse()">
+                            <div class="card" v-for="gorev in vueGecenayGorevler">
                                 <div v-if="" class="card-content genel-bakis-gorev-divi"
-                                    :class="{'genel-bakis-gorev-divi-yapildi':gorev.yapildiMi}">
+                                :class="{'genel-bakis-gorev-divi-yapildi':gorev.yapildiMi,'genel-bakis-gorev-divi-gec-kalindi':gorev.gecKalinma}">
                                     <div class="content">
                                         <strong>Görev: </strong> {{gorev.gorevAdi}} <br>
                                         <strong>Yapıldı mı?:</strong> {{gorev.yapildiMi == true ?
@@ -398,9 +394,9 @@
 
                         <div class="column genel-bakis-divi" id="bu-ay-div" style="display: block;">
                             <h5 class="title is-5">{{buAyBelirle()}} ayına ait bütün göreveler:</h5>
-                            <div class="card" v-for="gorev in vueOayGorevler.slice().reverse()">
+                            <div class="card" v-for="gorev in vueOayGorevler">
                                 <div v-if="" class="card-content genel-bakis-gorev-divi"
-                                    :class="{'genel-bakis-gorev-divi-yapildi':gorev.yapildiMi}">
+                                    :class="{'genel-bakis-gorev-divi-yapildi':gorev.yapildiMi,'genel-bakis-gorev-divi-gec-kalindi':gorev.gecKalinma}">
                                     <div class="content">
                                         <strong>Görev: </strong> {{gorev.gorevAdi}} <br>
                                         <strong>Yapıldı mı?:</strong> {{gorev.yapildiMi == true ?
@@ -417,7 +413,7 @@
                         <div class="column genel-bakis-divi" id="bir-ay-sonra-div">
                             <h5 class="title is-5">{{birAySonraBelirle()}} ayına ait bütün göreveler:</h5>
 
-                            <div class="card" v-for="gorev in vueSonrakiayGorevler.slice().reverse()">
+                            <div class="card" v-for="gorev in vueSonrakiayGorevler">
                                 <div v-if="" class="card-content genel-bakis-gorev-divi"
                                     :class="{'genel-bakis-gorev-divi-yapildi':gorev.yapildiMi}">
                                     <div class="content">
@@ -436,7 +432,7 @@
                         <div class="column genel-bakis-divi" id="iki-ay-sonra-div">
                             <h5 class="title is-5">{{ikiAySonraBelirle()}} ayına ait bütün göreveler:</h5>
 
-                            <div class="card" v-for="gorev in vueikiaySonraGorevler.slice().reverse()">
+                            <div class="card" v-for="gorev in vueikiaySonraGorevler">
                                 <div v-if="" class="card-content genel-bakis-gorev-divi"
                                     :class="{'genel-bakis-gorev-divi-yapildi':gorev.yapildiMi}">
                                     <div class="content">

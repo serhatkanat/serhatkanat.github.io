@@ -149,6 +149,11 @@
     background-color: #e0e0e0;
 }
 
+.genel-bakis-gorev-divi-gec-kalindi{
+    background-color: hsl(347, 100%, 79%);
+}
+
+
 @media only screen and (max-width: 1030px) {
     .btn-gorev {
         padding: 6px 10px;

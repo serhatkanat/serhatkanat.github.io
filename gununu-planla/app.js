@@ -76,7 +76,8 @@ new Vue({
                     let yeniGorev = {
                         tarih: this.secilenTarih,
                         gorevAdi: gorevInput[i].value,
-                        yapildiMi: false
+                        yapildiMi: false,
+                        gecKalinma: false
                     }
 
                     if (gorevInput[i].value == '') {
@@ -440,7 +441,7 @@ new Vue({
                 })
             }
 
-            function gorevleriAktarmaFun(durum,durum2) {
+            function gorevleriAktarmaFun(durum, durum2) {
                 if (localStorage.getItem(birSonrakiGunTarihi) == null) {
                     localStorage.setItem(birSonrakiGunTarihi, JSON.stringify([]))
                 }
@@ -459,15 +460,64 @@ new Vue({
 
             // Aktarma İşlemleri
             if (count2 == yapilmayanGorevler.length) {
-                gorevleriAktarmaFun(this.gorevlerAktarmaDurumu = true,this.eksikGorevlerAktarmaDurumu = false)
+                gorevleriAktarmaFun(this.gorevlerAktarmaDurumu = true, this.eksikGorevlerAktarmaDurumu = false)
             } else if (count != count2) {
-                gorevleriAktarmaFun(this.eksikGorevlerAktarmaDurumu = true,this.gorevlerAktarmaDurumu = false)
+                gorevleriAktarmaFun(this.eksikGorevlerAktarmaDurumu = true, this.gorevlerAktarmaDurumu = false)
             } else {
                 this.gorevlerAktarmaDurumu = false;
                 this.eksikGorevlerAktarmaDurumu = false;
                 this.benzerGorevlerDurumu = true;
             }
 
+        },
+        oAyaAitGorevlerYapilmayan: function () {
+            this.vueOayGorevler.forEach(gorev => {
+                let d = new Date(gorev.tarih);
+                let now = new Date();
+                let nowDate = new Date(now.toISOString().split('T')[0])
+
+                if (gorev.yapildiMi) {
+                    gorev.gecKalinma = false;
+                } else if (d < nowDate) {
+                    gorev.gecKalinma = true;
+                }
+            })
+        },
+        gecenAyaAitGorevlerYapilmayan: function () {
+            this.vueGecenayGorevler.forEach(gorev => {
+                let d = new Date(gorev.tarih);
+                let now = new Date();
+                let nowDate = new Date(now.toISOString().split('T')[0])
+
+                if (gorev.yapildiMi) {
+                    gorev.gecKalinma = false;
+                } else if (d < nowDate) {
+                    gorev.gecKalinma = true;
+                }
+            })
+        },
+        birOncekiAyaAitGorevlerYapilmayan: function () {
+            this.vueikiayOnceGorevler.forEach(gorev => {
+                let d = new Date(gorev.tarih);
+                let now = new Date();
+                let nowDate = new Date(now.toISOString().split('T')[0])
+
+                if (gorev.yapildiMi) {
+                    gorev.gecKalinma = false;
+                } else if (d < nowDate) {
+                    gorev.gecKalinma = true;
+                }
+            })
+        },
+        butunFonksiyonlar: function () {
+            this.oAyaAitGorevleriGetir
+            this.gecenAyaAitGorevleriGetir
+            this.sonrakiAyaAitGorevleriGetir
+            this.birSonrakiAyaAitGorevleriGetir
+            this.birOncekiAyaAitGorevleriGetir
+            this.oAyaAitGorevlerYapilmayan()
+            this.gecenAyaAitGorevlerYapilmayan()
+            this.birOncekiAyaAitGorevlerYapilmayan()
         }
 
     },
