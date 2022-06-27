@@ -469,7 +469,7 @@ new Vue({
                 this.eksikGorevlerAktarmaDurumu = false;
                 this.benzerGorevlerDurumu = true;
             }
-
+            this.compNumber++
         },
         oAyaAitGorevlerYapilmayan: function () {
             this.vueOayGorevler.forEach(gorev => {
