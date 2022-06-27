@@ -9,6 +9,9 @@
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -18,7 +21,7 @@
 
     <div id="app">
         {{kontrol()}}
-        <section  class="hero is-info">
+        <section class="hero is-info">
             <div class="hero-body has-text-centered">
                 <p class="title">
                     Benim İngilizce Uygulamam
@@ -28,10 +31,17 @@
 
         <section class="hero">
             <div class="hero-body">
-                <button style="z-index: 99;" class="button is-primary is-medium is-fullwidth" @click="kelimeKutusu=!kelimeKutusu">Kelime
+                <button class="button is-primary is-medium is-fullwidth" @click="kelimeKutusu=!kelimeKutusu">Kelime
                     Ekle</button>
                 <transition name="slide">
                     <div class="kelime-ekle-div" v-if="kelimeKutusu">
+                        <div class="field">
+                            <label class="label">İngilizce:</label>
+                            <div class="control">
+                                <input v-model="enKelime" class="input" type="text"
+                                    placeholder="İngilizce karşılığını yazınız">
+                            </div>
+                        </div>
                         <div class="field">
                             <label class="label">Türkçe:</label>
                             <div class="control">
@@ -40,10 +50,16 @@
                             </div>
                         </div>
                         <div class="field">
-                            <label class="label">İngilizce:</label>
-                            <div class="control">
-                                <input v-model="enKelime" class="input" type="text"
-                                    placeholder="İngilizce karşılığını yazınız">
+                            <label class="label">Tür:</label>
+                            <div class="select">
+                                <select v-model="tur">
+                                    <option>İsim</option>
+                                    <option>Fiil</option>
+                                    <option>Sıfat</option>
+                                    <option>Zarf</option>
+                                    <option>Bağlaç/Edat</option>
+                                    <option>Diğer</option>
+                                </select>
                             </div>
                         </div>
                         <div class="field">
@@ -60,6 +76,13 @@
                                     placeholder="Türkçe karşılığını yazınız"></textarea>
                             </div>
                         </div>
+                        <div class="field">
+                            <label class="label">Not:</label>
+                            <div class="control">
+                                <textarea v-model="not" class="textarea" name="" id="" cols="37" rows="3"
+                                    placeholder="Kelime ile ilgili kısa bir notunuzu yazın"></textarea>
+                            </div>
+                        </div>
                         <button class="button is-primary" @click="gonder">Ekle</button>
                     </div>
                 </transition>
@@ -67,11 +90,79 @@
 
         </section>
 
+        <!-- kelime duzenle modal başlangıç -->
+        <div class="modal" :class="{'is-active':kelimeDuzenleModalDurumu}">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Kelimeyi Düzenle</p>
+                    <button @click="modalKapat" class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+
+                    <div class="field">
+                        <label class="label">İngilizce:</label>
+                        <div class="control">
+                            <input v-model="duzenleEnKelime" class="input" type="text"
+                                placeholder="İngilizce karşılığını yazınız" disabled>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Türkçe:</label>
+                        <div class="control">
+                            <input v-model="duzenleTrKelime" class="input" type="text"
+                                placeholder="Türkçe karşılğını yazınız">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Tür:</label>
+                        <div class="select">
+                            <select v-model="duzenleTur">
+                                <option>İsim</option>
+                                <option>Fiil</option>
+                                <option>Sıfat</option>
+                                <option>Zarf</option>
+                                <option>Bağlaç/Edat</option>
+                                <option>Diğer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Örnek Cümle(İngilizce):</label>
+                        <div class="control">
+                            <textarea v-model="duzenleEnCumle" class="textarea" name="" id="" cols="37" rows="3"
+                                placeholder="İngilizce cümle yazınız"></textarea>
+                        </div>
+                    </div>
+                    <div class="field" style="position: relative;">
+                        <label class="label">Türkçe Karşılığı:</label>
+                        <div class="control">
+                            <textarea v-model="duzenleTrCumle" class="textarea" name="" id="" cols="37" rows="3"
+                                placeholder="Türkçe karşılığını yazınız"></textarea>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Not:</label>
+                        <div class="control">
+                            <textarea v-model="duzenleNot" class="textarea" name="" id="" cols="37" rows="3"
+                                placeholder="Kelime ile ilgili kısa bir notunuzu yazın"></textarea>
+                        </div>
+                    </div>
+
+                </section>
+                <footer class="modal-card-foot">
+                    <button @click="kelimeDuzenle" class="button is-success">Kaydet</button>
+                    <button @click="modalKapat" class="button">Vazgeç</button>
+                </footer>
+            </div>
+        </div>
+        <!-- kelime duzenle modal Bitiş -->
+
         <section class="hero">
             <div class="hero-body">
                 <h3 class="title is-3">Kelimelerim</h3>
                 <div class="columns is-multiline">
-                    <div v-for="(kelime,index) in kelimeler" :key="index" class="column is-2">
+                    <div v-for="(kelime,index) in kelimeler" :key="kelime.inglizceKelime" class="column is-3">
                         <div class="card">
                             <div class="card-image">
                                 <figure class="image is-4by3">
@@ -80,10 +171,33 @@
                             </div>
                             <div class="card-content">
                                 <div class="content">
-                                    <p><strong>İngilizce Kelime: </strong>{{kelime.inglizceKelime}} </p>
-                                    <p><strong>Türkçe Kelime: </strong>{{kelime.turkceKelime}} </p>
-                                    <p><strong>İngilizce Cümle: </strong>{{kelime.inglizceCumle}}</p>
-                                    <p><strong>Türkçe Cümle: </strong>{{kelime.turkceCumle}}</p>
+                                    <span style="display: none;">{{index}}</span>
+                                    <p style="margin-bottom: -2px !important;"><strong><span
+                                                style="color:hsl(217, 71%, 53%)">Word</span>/<span
+                                                style="color:hsl(171, 100%, 41%);">Kelime:</span></strong></p>
+                                    <p><span
+                                            style="color: hsl(217, 71%, 53%); font-weight: 700;">{{kelime.inglizceKelime}}</span>:
+                                        <span
+                                            style="color:hsl(171, 100%, 41%); font-weight: 700;">{{kelime.turkceKelime}}</span>
+                                    </p>
+                                    <p><strong>Tür: </strong>{{kelime.tur}}</p>
+                                    <hr>
+                                    <p><strong>Örnek Cümle: </strong>{{kelime.inglizceCumle}}</p>
+                                    <p><strong>Çeviri: </strong>{{kelime.turkceCumle}}</p>
+                                    <hr>
+                                    <p style="margin-bottom: -2px;"><strong>Notunuz:</strong></p>
+                                    <p>{{kelime.not}}</p>
+                                    <hr>
+                                    <p style="margin-bottom: 10px;"><strong>İşlemler:</strong></p>
+                                    <div class="buttons">
+                                        <button @click="resimYenileFun" class="button is-info"><i
+                                                class="fa-solid fa-image"></i>&nbsp;<i
+                                                class="fa-solid fa-arrows-rotate fa-2xs"></i></button>
+                                        <button @click="kelimeDuzenleModalOpen" class="button is-primary"><i
+                                                class="fa-solid fa-pen-to-square"></i></button>
+                                        <button @click="kelimeSil" class="button is-danger"><i
+                                                class="fa-solid fa-trash"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -103,14 +217,50 @@
                         </tr>
                     </thead>
                 </table>
-                <button class="button is-info" @click="kelimeleriYedekle"><b>Kelimeleri Yedekle</b></button>
-                <button class="button is-success" @click="kelimeleriYukle"><b>Kelimeleri Yükle</b></button>
+                <button class="button btn-islem is-info" @click="kelimeleriYedekle"><b>Kelimeleri Yedekle</b></button>
+                <button class="button btn-islem is-success" @click="kelimeleriYukle"><b>Kelimeleri Yükle</b></button>
+                <button class="button btn-islem is-primary" @click="api"><b>API</b></button>
+                <button class="button btn-islem is-link" @click="tabloOlustur"><b>Kelimeleri Tablo Halinde Göster</b></button>
+                <br> <br>
+                
+                <div class="modal" :class="{'is-active':tabloKelimelerModal}">
+                    <div class="modal-background"></div>
+                    <div class="modal-card">
+                      <header class="modal-card-head">
+                        <p class="modal-card-title">Kelimeler</p>
+                      </header>
+                      <section class="modal-card-body">
+                        <table style="width: 100px;" class="table is-bordered is-striped is-narrow is-hoverable">
+                            <thead>
+                                <tr>
+                                    <th>İngilizce</th>
+                                    <th>Türkçe</th>
+                                    <th>Tür</th>
+                                    <th>İngilizce Cümle</th>
+                                    <th>Türkçe Cümle</th>
+                                    <th>Not</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="kelime in kelimeler ">
+                                    <td>{{kelime.inglizceKelime}}</td>
+                                    <td>{{kelime.turkceKelime}}</td>
+                                    <td>{{kelime.tur}}</td>
+                                    <td>{{kelime.inglizceCumle}}</td>
+                                    <td>{{kelime.turkceCumle}}</td>
+                                    <td>{{kelime.not}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                      </section>
+                      <footer class="modal-card-foot">
+                        <button @click="modalKapat" class="button is-success">Tamam</button>
+                      </footer>
+                    </div>
+                  </div>
             </div>
+
         </section>
-
-
-
-        <a class="m-4" @click="api">api</a>
     </div>
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
     <script src="app.js"></script>

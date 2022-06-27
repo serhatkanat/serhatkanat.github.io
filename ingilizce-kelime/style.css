@@ -22,6 +22,15 @@
     animation: slide-out 1s ease-in forwards;
 }
 
+.fa-solid{
+    pointer-events: none;
+}
+.content blockquote:not(:last-child), .content dl:not(:last-child), .content ol:not(:last-child), .content p:not(:last-child), .content pre:not(:last-child), .content table:not(:last-child), .content ul:not(:last-child){
+    margin-bottom: .4em !important;
+}
+.btn-islem{
+margin-bottom: 10px;
+}
 @keyframes slide-in     {
     from{
        transform: scale(0);
