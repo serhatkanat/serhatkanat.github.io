@@ -131,7 +131,8 @@
                         <div class="field" v-for="(sayi,index) in sayiKacTaneEklesin" :key="sayi">
                             <div class="control has-icons-left has-icons-right animate__animated animate__fadeInLeft">
                                 <span class="inputDiv" style="display: none;">{{sayi}}</span>
-                                <input style="padding-right:5.5rem" class="input gorev" type="text" placeholder="görevinizi yazınız...">
+                                <input style="padding-right:5.5rem" class="input gorev" type="text"
+                                    placeholder="görevinizi yazınız...">
                                 <span class="icon is-small is-left">
                                     {{sayi}}.
                                 </span>
@@ -363,7 +364,7 @@
 
                             <div class="card" v-for="gorev in vueikiayOnceGorevler">
                                 <div v-if="" class="card-content genel-bakis-gorev-divi"
-                                :class="{'genel-bakis-gorev-divi-yapildi':gorev.yapildiMi,'genel-bakis-gorev-divi-gec-kalindi':gorev.gecKalinma}">
+                                    :class="{'genel-bakis-gorev-divi-yapildi':gorev.yapildiMi,'genel-bakis-gorev-divi-gec-kalindi':gorev.gecKalinma}">
                                     <div class="content">
                                         <strong>Görev: </strong> {{gorev.gorevAdi}} <br>
                                         <strong>Yapıldı mı?:</strong> {{gorev.yapildiMi == true ?
@@ -380,7 +381,7 @@
 
                             <div class="card" v-for="gorev in vueGecenayGorevler">
                                 <div v-if="" class="card-content genel-bakis-gorev-divi"
-                                :class="{'genel-bakis-gorev-divi-yapildi':gorev.yapildiMi,'genel-bakis-gorev-divi-gec-kalindi':gorev.gecKalinma}">
+                                    :class="{'genel-bakis-gorev-divi-yapildi':gorev.yapildiMi,'genel-bakis-gorev-divi-gec-kalindi':gorev.gecKalinma}">
                                     <div class="content">
                                         <strong>Görev: </strong> {{gorev.gorevAdi}} <br>
                                         <strong>Yapıldı mı?:</strong> {{gorev.yapildiMi == true ?
@@ -452,16 +453,17 @@
                 </div>
             </div>
         </section>
+
         <footer class="footer">
             <div class="content has-text-centered">
                 <p>
                     <strong>Gününü Planla Uygulaması</strong> by <a
-                        href="https://www.instagram.com/serhatkanat99/">Serhat Kanat</a>.
+                        href="https://www.instagram.com/serhatkanat99/">Serhat Kanat</a>. <br>
                     &copy; Bütün Telif Hakları Saklıdır. All Rights Reserved.
                 </p>
                 <nav class="breadcrumb is-centered has-bullet-separator " aria-label="breadcrumbs">
                     <ul>
-                        <li style="margin-top: .25em;"><a href="#">Hata Bildir</a></li>
+                        <li @click="kayitSil" style="margin-top: .25em;"><a href="#">Kayıt Sil</a></li>
                         <li><a href="#">Öneride Bulun</a></li>
                         <li><a href="#">İletişime Geç</a></li>
                         <li><a href="#">Geliştiriciler İçin Bilgiler</a></li>

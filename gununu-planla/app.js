@@ -144,6 +144,7 @@ new Vue({
             this.istatistiklerModalDurumu = false;
             this.favoriModalDurumu = false;
             this.modalDurumu = false;
+            this.kayitSilModalDurumu = false;
             this.yeniGorevAdi = '';
         },
         favorilereKaydet: function (event) {
@@ -508,6 +509,13 @@ new Vue({
                     gorev.gecKalinma = true;
                 }
             })
+        },
+        kayitSil : function(){
+            let onay = confirm("Bütün görevler silinecek emin misiniz?");
+            if (onay) {
+                localStorage.clear()
+                this.compNumber++
+            }
         },
         butunFonksiyonlar: function () {
             this.oAyaAitGorevleriGetir
