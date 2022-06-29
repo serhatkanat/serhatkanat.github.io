@@ -19,17 +19,25 @@ new Vue({
         yanEtkileri: '',
         imageUrl: '',
         kontrendike: '',
+        kullanimSekli: '',
+        gebelikEmzirme: '',
+        esdegerIlaclar: '',
         hemsireyeNotlar: '',
         birlikteKullanilmaz: '',
         editilacAdi: '',
         editetkenMadde: '',
         editendikasyonlari: '',
+        editkullanimSekli: '',
         editsiniflandirma: '',
         edityanEtkileri: '',
         editimageUrl: '',
         editkontrendike: '',
+        editgebelikEmzirme: '',
+        editesdegerIlaclar: '',
         edithemsireyeNotlar: '',
         editbirlikteKullanilmaz: '',
+        eMail: '',
+        password: '',
     },
     computed: {
         ilacAdinaGore() {
@@ -47,13 +55,13 @@ new Vue({
     },
     methods: {
         ilacEkleFonk: function () {
-          this.ilacEkleSection = true;
-          this.ilacDuzenleSection = false;
+            this.ilacEkleSection = true;
+            this.ilacDuzenleSection = false;
         },
         ilacDuzenleFonk: function () {
             this.ilacEkleSection = false;
             this.ilacDuzenleSection = true;
-          },
+        },
         veriEkle: function () {
             this.$http.post('.json', {
                 "BirlikteKullanilmaz": this.birlikteKullanilmaz,
@@ -64,7 +72,10 @@ new Vue({
                 "ImageUrl": this.imageUrl,
                 "Kontrendike": this.kontrendike,
                 "Siniflandirma": this.siniflandirma,
-                "YanEtkileri": this.yanEtkileri
+                "YanEtkileri": this.yanEtkileri,
+                "GebelikEmzirme": this.gebelikEmzirme,
+                "EsdegerIlaclar": this.esdegerIlaclar,
+                "KullanimSekli": this.kullanimSekli
             }).then(response => {
                 console.log(response.url);
             })
@@ -99,6 +110,9 @@ new Vue({
                     this.editkontrendike = element[1].Kontrendike
                     this.editsiniflandirma = element[1].Siniflandirma
                     this.edityanEtkileri = element[1].YanEtkileri
+                    this.editgebelikEmzirme = element[1].GebelikEmzirme
+                    this.editesdegerIlaclar = element[1].EsdegerIlaclar
+                    this.editkullanimSekli = element[1].KullanimSekli
                 }
 
             }
@@ -120,10 +134,13 @@ new Vue({
                 "ImageUrl": this.editimageUrl,
                 "Kontrendike": this.editkontrendike,
                 "Siniflandirma": this.editsiniflandirma,
-                "YanEtkileri": this.edityanEtkileri
+                "YanEtkileri": this.edityanEtkileri,
+                "GebelikEmzirme": this.editgebelikEmzirme,
+                "EsdegerIlaclar": this.editesdegerIlaclar,
+                "KullanimSekli": this.editkullanimSekli
             }).then(response => {
                 console.log(response.status);
             })
-        }
+        },
     }
 })
