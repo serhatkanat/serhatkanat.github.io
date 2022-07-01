@@ -160,18 +160,10 @@
 
         <section class="hero">
             <div class="hero-body">
-                <h3 style="margin-bottom:0" class="title is-3">Kelimelerim</h3>
+                <h3 class="title is-3">Kelimelerim</h3>
                 <p style="margin-bottom: 1rem;">Toplam {{kelimeler.length}} Kelime</p>
-                <div class="field">
-                    <p class="control has-icons-left has-icons-right">
-                      <input v-model="search" class="input" type="text" placeholder="Kelime arayın...">
-                      <span class="icon is-small is-left">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                      </span>
-                    </p>
-                  </div>
                 <div class="columns is-multiline">
-                    <div v-for="(kelime,index) in kelimeyeGore" :key="kelimeyeGore.inglizceKelime" class="column is-3">
+                    <div v-for="(kelime,index) in kelimeler" :key="kelime.inglizceKelime" class="column is-3">
                         <div class="card">
                             <div class="card-image">
                                 <figure class="image is-4by3">
@@ -181,9 +173,6 @@
                             <div class="card-content">
                                 <div class="content">
                                     <span style="display: none;">{{index}}</span>
-                                    <!-- <p style="margin-bottom: -2px !important;"><strong><span
-                                                style="color:hsl(217, 71%, 53%)">Word</span>/<span
-                                                style="color:hsl(171, 100%, 41%);">Kelime:</span></strong></p> -->
                                     <p><span
                                             style="color: hsl(217, 71%, 53%); font-weight: 700;">{{kelime.inglizceKelime}}</span>:
                                         <span
@@ -193,10 +182,10 @@
                                     <hr>
                                     <p v-if="kelime.inglizceCumle"><strong>Örnek Cümle: </strong>{{kelime.inglizceCumle}}</p>
                                     <p v-if="kelime.turkceCumle"><strong>Çeviri: </strong>{{kelime.turkceCumle}}</p>
-                                    <hr v-if="kelime.inglizceCumle || kelime.turkceCumle ">
+                                    <hr v-if="kelime.inglizceCumle || kelime.turkceCumle">
                                     <p v-if="kelime.not" style="margin-bottom: -2px;"><strong>Notunuz:</strong></p>
                                     <p>{{kelime.not}}</p>
-                                    <hr v-if="kelime.not" >
+                                    <hr v-if="kelime.not">
                                     <p style="margin-bottom: 10px;"><strong>İşlemler:</strong></p>
                                     <div class="buttons">
                                         <button @click="resimYenileFun" class="button is-info"><i

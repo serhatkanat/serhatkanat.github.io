@@ -1,7 +1,6 @@
 new Vue({
     el: '#app',
     data: {
-        search: '',
         resimUrl: '',
         input: '',
         apiKey: '',
@@ -23,14 +22,7 @@ new Vue({
         vueIndexNo: '',
         kelimeDuzenleModalDurumu: false,
         tabloKelimelerModal: false,
-        kelimeler: localStorage.getItem('BenimKelimelerim') == null ? [] : JSON.parse(localStorage.getItem('BenimKelimelerim')).slice().reverse(),
-    },
-    computed: {
-        kelimeyeGore() {
-            return this.kelimeler.filter(post => {
-                return post.turkceKelime.toLowerCase().includes(this.search.toLowerCase()) || post.inglizceKelime.toLowerCase().includes(this.search.toLowerCase()) || post.inglizceCumle.toLowerCase().includes(this.search.toLowerCase())
-            })
-        },
+        kelimeler: localStorage.getItem('BenimKelimelerim') == null ? [] : JSON.parse(localStorage.getItem('BenimKelimelerim')),
     },
     methods: {
         gonder: async function () {
@@ -150,16 +142,13 @@ new Vue({
                 not: this.duzenleNot
             }
             this.kelimeler.splice(this.vueIndexNo, 1, kelime)
-            localStorage.setItem('BenimKelimelerim', JSON.stringify(this.kelimeler.slice().reverse()))
+            localStorage.setItem('BenimKelimelerim', JSON.stringify(this.kelimeler))
             this.kelimeDuzenleModalDurumu = false
         },
         kelimeSil: function (event) {
-            let onayla = confirm("Silmek istiyor musun?")
-            if (onayla) {
-                let indexNo = event.target.parentElement.parentElement.children[0].innerText;
-                this.kelimeler.splice(indexNo, 1)
-                localStorage.setItem('BenimKelimelerim', JSON.stringify(this.kelimeler))
-            }
+            let indexNo = event.target.parentElement.parentElement.children[0].innerText;
+            this.kelimeler.splice(indexNo, 1)
+            localStorage.setItem('BenimKelimelerim', JSON.stringify(this.kelimeler))
         },
         modalKapat: function () {
             this.kelimeDuzenleModalDurumu = false
