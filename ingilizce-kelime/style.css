@@ -15,40 +15,66 @@
 }
 
 
-.slide-enter-active{
+.slide-enter-active {
     animation: slide-in 1s ease-out forwards;
 }
-.slide-leave-active{
+
+.slide-leave-active {
     animation: slide-out 1s ease-in forwards;
 }
 
-.fa-solid{
+.fa-solid {
     pointer-events: none;
 }
-.content blockquote:not(:last-child), .content dl:not(:last-child), .content ol:not(:last-child), .content p:not(:last-child), .content pre:not(:last-child), .content table:not(:last-child), .content ul:not(:last-child){
+
+.content blockquote:not(:last-child),
+.content dl:not(:last-child),
+.content ol:not(:last-child),
+.content p:not(:last-child),
+.content pre:not(:last-child),
+.content table:not(:last-child),
+.content ul:not(:last-child) {
     margin-bottom: .4em !important;
 }
-.btn-islem{
-margin-bottom: 10px;
+
+.btn-islem {
+    margin-bottom: 10px;
 }
-@keyframes slide-in     {
-    from{
-       transform: scale(0);
+
+.page-down-button {
+    position: fixed !important;
+    right: 1%;
+    bottom: 10px;
+    z-index: 2;
+}
+
+.page-up-button {
+    position: fixed !important;
+    right: 1%;
+    bottom: 55px;
+    z-index: 2;
+}
+
+@keyframes slide-in {
+    from {
+        transform: scale(0);
     }
-    to{
+
+    to {
         transform: scale(1);
 
     }
-    
+
 }
 
-@keyframes slide-out     {
-    from{
-       transform: scale(1);
+@keyframes slide-out {
+    from {
+        transform: scale(1);
     }
-    to{
+
+    to {
         transform: scale(0);
 
     }
-    
+
 }

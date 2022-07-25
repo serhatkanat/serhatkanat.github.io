@@ -22,6 +22,10 @@ new Vue({
         vueIndexNo: '',
         kelimeDuzenleModalDurumu: false,
         tabloKelimelerModal: false,
+        kelimeYedekleKutusu: false,
+        scrolled: false,
+        sayfaninEnUstuneGitmeBtn: false,
+        sayfaninEnAltinaGitmeBtn: false,
         kelimeler: localStorage.getItem('BenimKelimelerim') == null ? [] : JSON.parse(localStorage.getItem('BenimKelimelerim')),
     },
     methods: {
@@ -81,10 +85,7 @@ new Vue({
 
         },
         kelimeleriYedekle: function () {
-            const number = parseInt(Math.random() * 100000);
-            var wb = XLSX.utils.table_to_book(document.getElementById("TableToExport"));
-            XLSX.writeFile(wb, `${this.kelimeler.length} tane kelime-${number}.xlsx`);
-
+            this.kelimeYedekleKutusu = !this.kelimeYedekleKutusu
         },
         kelimeleriYukle: function () {
             let yuklenilenKelimeler = prompt("Daha Önce İndirdiğiniz Kelimeleri Yapıştırın");
@@ -168,6 +169,25 @@ new Vue({
                 this.apiKey = localStorage.getItem('api key');
             }
             localStorage.setItem('api key', this.apiKey)
+        },
+        handleScroll() {
+            this.scrolled = window.scrollY > 0;
+            if (window.scrollY < 150) {
+                this.sayfaninEnUstuneGitmeBtn = false;
+                this.sayfaninEnAltinaGitmeBtn = false;
+            }else if(window.scrollY < 700){
+                this.sayfaninEnUstuneGitmeBtn = false;
+                this.sayfaninEnAltinaGitmeBtn = true;
+            }else{
+                this.sayfaninEnUstuneGitmeBtn = true;
+                this.sayfaninEnAltinaGitmeBtn = true;
+            }
         }
     },
+    created() {
+        window.addEventListener('scroll', this.handleScroll);
+    },
+    destroyed() {
+        window.removeEventListener('scroll', this.handleScroll);
+    }
 })
